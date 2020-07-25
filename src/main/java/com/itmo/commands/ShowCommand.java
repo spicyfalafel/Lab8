@@ -3,15 +3,8 @@ package com.itmo.commands;
 import com.itmo.app.Application;
 import com.itmo.client.User;
 
-/**
- * The type Show command.
- */
 public class ShowCommand extends Command {
 
-
-    /**
-     * Instantiates a new Command.
-     */
     public ShowCommand(String[] args) {
         super(args);
     }

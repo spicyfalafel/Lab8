@@ -8,11 +8,6 @@ import com.itmo.client.User;
  */
 public class ExecuteScriptCommand extends Command {
 
-    /**
-     * Instantiates a new Command.
-     *
-     * @param args
-     */
     public ExecuteScriptCommand(String[] args) {
         super(args);
     }

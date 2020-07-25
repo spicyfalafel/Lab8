@@ -4,16 +4,9 @@ import com.itmo.exceptions.NotYourPropertyException;
 import com.itmo.app.Application;
 import com.itmo.client.User;
 
-/**
- * The type Remove by id command.
- */
 public class RemoveByIdCommand extends Command {
 
 
-    /**
-     * Instantiates a new Command.
-     *
-     */
     public RemoveByIdCommand(String[] args) {
         super(args);
     }

@@ -7,16 +7,10 @@ import com.itmo.utils.FieldsScanner;
 
 import java.util.Date;
 
-/**
- * The type Add element command.
- */
 public class AddElementCommand extends Command {
 
     private Dragon dr=null;
 
-    /**
-     * Instantiates a new Command.
-     */
     public AddElementCommand(String[] args) {
     }
 

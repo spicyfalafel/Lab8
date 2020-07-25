@@ -1,7 +1,10 @@
 package com.itmo.collection;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
+@Data
 public class Location implements Serializable {
     private int x;
     private Long y; //Поле не может быть null
@@ -13,22 +16,6 @@ public class Location implements Serializable {
         this.y = y;
         this.z = z;
         this.name = name;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public Long getY() {
-        return y;
-    }
-
-    public Float getZ() {
-        return z;
-    }
-
-    public String getName() {
-        return name;
     }
 
     @Override

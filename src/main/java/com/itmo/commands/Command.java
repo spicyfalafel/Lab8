@@ -7,7 +7,7 @@ import lombok.Setter;
 import java.io.Serializable;
 
 /**
- * шаблон Команда
+ * Command pattern
  */
 public abstract class Command implements Executable, Serializable {
     @Getter @Setter
@@ -26,10 +26,6 @@ public abstract class Command implements Executable, Serializable {
     abstract public int getNumberOfRequiredArgs();
 
 
-    /**
-     * Instantiates a new Command.
-     *
-     */
     public Command(String[] args){
         this.args = args;
     }
@@ -42,7 +38,7 @@ public abstract class Command implements Executable, Serializable {
     /**
      * Get description string.
      *
-     * @return описание команды
+     * @return discription of the command
      */
     public String getDescription(){
         return "ленивый разработчик не написал описание команды";

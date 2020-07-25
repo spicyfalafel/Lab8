@@ -7,14 +7,9 @@ import com.itmo.collection.Dragon;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * The type Filter starts with name command.
- */
+
 public class FilterStartsWithNameCommand extends Command {
 
-    /**
-     * Instantiates a new Command.
-     */
     public FilterStartsWithNameCommand(String[] args) {
         super(args);
     }

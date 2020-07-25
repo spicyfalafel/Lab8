@@ -7,15 +7,8 @@ import com.itmo.server.ServerMain;
 
 import java.io.FileNotFoundException;
 
-/**
- * The type Save command.
- */
 public class SaveCommand extends Command {
 
-    /**
-     * Instantiates a new Command.
-     *
-     */
     public SaveCommand(String[] args) {
         super(args);
     }

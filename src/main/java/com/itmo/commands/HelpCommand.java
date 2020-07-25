@@ -3,14 +3,8 @@ package com.itmo.commands;
 import com.itmo.app.Application;
 import com.itmo.client.User;
 
-/**
- * The type Help command.
- */
 public class HelpCommand extends Command {
 
-    /**
-     * Instantiates a new Command.
-     */
     public HelpCommand(String[] args) {
         super(args);
     }

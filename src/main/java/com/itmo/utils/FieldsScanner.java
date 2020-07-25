@@ -14,11 +14,7 @@ import java.util.Scanner;
 public class FieldsScanner {
     private static Scanner sc;
     private static FieldsScanner fs;
-    /**
-     * Instantiates a new Input helper.
-     *
-     * @param scanner the scanner
-     */
+
 
     private FieldsScanner(Scanner scanner){
         sc = scanner;
@@ -36,11 +32,11 @@ public class FieldsScanner {
 
 
     /**
-     * @param cheVvodit че вводить?
+     * @param nameOfWhatYouWantToScan че вводить?
      * @return введённая пользователем строка (может быть пустой)
      */
-    public String scanLine(String cheVvodit){
-        System.out.println("Введите " + cheVvodit);
+    public String scanLine(String nameOfWhatYouWantToScan){
+        System.out.println("Введите " + nameOfWhatYouWantToScan);
         return sc.nextLine().trim();
     }
 
@@ -63,13 +59,7 @@ public class FieldsScanner {
         return res.trim();
     }
 
-    /**
-     * метод для ввода аргументов-строк. Все Стринговые аргументы в лабе не могут быть пустыми.
-     * Имена то есть.
-     *
-     * @param cheVvodit че вводить?
-     * @return введенное пользователем, скорее всего, имя
-     */
+
     public String scanStringNotEmpty(String cheVvodit){
         String str = scanLine(cheVvodit);
         while(str==null || str.equals("")){
@@ -218,12 +208,6 @@ public class FieldsScanner {
         }
     }
 
-    /**
-     * Scan location location.
-     *
-     * @param cheVvodit the che vvodit
-     * @return the location
-     */
     public Location scanLocation(String cheVvodit){
         System.out.println("введите " + cheVvodit);
         int x = scanInteger("координата Х места", false);

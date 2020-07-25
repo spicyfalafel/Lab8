@@ -3,16 +3,8 @@ package com.itmo.commands;
 import com.itmo.app.Application;
 import com.itmo.client.User;
 
-/**
- * The type Clear command.
- */
 public class ClearCommand extends Command {
 
-
-    /**
-     * Instantiates a new Command.
-     *
-     */
     public ClearCommand(String[] args) {
         super(args);
     }

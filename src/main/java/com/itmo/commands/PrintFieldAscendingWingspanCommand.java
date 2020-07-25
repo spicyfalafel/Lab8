@@ -3,15 +3,8 @@ package com.itmo.commands;
 import com.itmo.app.Application;
 import com.itmo.client.User;
 
-/**
- * The type Print field ascending wingspan command.
- */
 public class PrintFieldAscendingWingspanCommand extends Command {
 
-    /**
-     * Instantiates a new Command.
-     *
-     */
     public PrintFieldAscendingWingspanCommand(String[] args) {
         super(args);
     }

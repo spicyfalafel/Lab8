@@ -5,15 +5,8 @@ import com.itmo.client.User;
 import com.itmo.collection.Dragon;
 import com.itmo.utils.FieldsScanner;
 
-/**
- * The type Remove lower element command.
- */
 public class RemoveLowerThanElementCommand extends Command {
 
-    /**
-     * Instantiates a new Command.
-     *
-     */
     public RemoveLowerThanElementCommand(String[] args) {
         super(args);
     }

@@ -7,10 +7,7 @@ import com.itmo.utils.FieldsScanner;
 
 import java.util.Date;
 
-/**
- * The type Add if max command.
- */
-public class AddIfMaxCommand extends Command{
+public class AddIfMaxCommand extends Command {
     private Dragon dr;
 
     @Override
@@ -19,11 +16,6 @@ public class AddIfMaxCommand extends Command{
         dr = helper.scanDragon();
     }
 
-    /**
-     * Instantiates a new Command.
-     *
-     * @param args
-     */
 
     public AddIfMaxCommand(String[] args) {
         super(args);
@@ -36,13 +28,13 @@ public class AddIfMaxCommand extends Command{
 
     @Override
     public String execute(Application application, User user) {
-        if(application.getCollection().isMax(dr)){
+        if (application.getCollection().isMax(dr)) {
             dr.setCreationDate(new Date());
             dr.setOwnerName(user.getName());
             application.manager.insertDragon(dr);
             application.syncWithDB();
             return application.getCollection().addIfMax(dr);
-        }else return "не добавлен т.к. не больший";
+        } else return "не добавлен т.к. не больший";
     }
 
     @Override

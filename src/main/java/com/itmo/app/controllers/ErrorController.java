@@ -1,4 +1,4 @@
-package com.itmo.app;
+package com.itmo.app.controllers;
 
 public class ErrorController {
 
