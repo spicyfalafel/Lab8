@@ -52,11 +52,13 @@ public class AuthorizationController implements Initializable {
     private static Client client;
 
     public void initialize(URL location, ResourceBundle resources) {
+        client.connect();
         setImages();
         buttonLogin.setOnAction(loginButtonHandler);
         buttonRegister.setOnAction(registerButtonHandler);
         StackPane.setAlignment(languageSplitMenu, Pos.TOP_RIGHT);
         initializeLanguageMenuItems();
+        MainWindowController.setClient(client);
     }
 
 
@@ -88,8 +90,10 @@ public class AuthorizationController implements Initializable {
         LoginCommand loginCommand = new LoginCommand(login, password);
         client.sendCommandToServer(loginCommand);
         String ans = client.getAnswerFromServer();
+        labelMessage.setWrapText(true);
         labelMessage.setText(ans);
         if (ans.startsWith(LocaleClass.getString("hello.text"))) {
+            MainWindowController.setClient(client);
             UIApp.mainStage.show();
         }
         event.consume();

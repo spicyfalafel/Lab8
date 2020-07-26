@@ -1,11 +1,9 @@
 package com.itmo.app.controllers;
 
 import com.itmo.client.Client;
-import com.itmo.client.User;
 import com.itmo.collection.*;
-import com.itmo.collection.Color;
-import com.itmo.commands.AddElementCommand;
 import com.itmo.utils.Painter;
+import com.itmo.utils.WindowsCreator;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -17,9 +15,10 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import lombok.Setter;
 
-import java.awt.*;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -47,7 +46,7 @@ public class MainWindowController implements Initializable {
     private MenuItem languageRussianItem,languageEstonianItem,
             languageSwedishItem, languageEspanItem;
     @FXML
-    private Label currentUserLabel;
+    private Text currentUserText;
     @FXML
     private Rectangle colorOfUserRectangle;
     @FXML
@@ -87,37 +86,30 @@ public class MainWindowController implements Initializable {
     private TableColumn<DragonForTable, LocalDateTime> killerBirthDateColumn;
 
     @Setter
-    private static Client client;
+    public static Client client;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        handleCommandButtons();
         drawAxis();
+        System.out.println(client);
+        showUserName();
     }
+
+    public void showUserName(){
+        currentUserText.setText(client.getUser().getName());
+    }
+
 
     private void handleCommandButtons(){
         addButton.setOnAction(e -> {
-            Dragon dragonFromForm = null;
-            AddElementCommand addCommand = new AddElementCommand(dragonFromForm);
-            client.sendCommandToServer(addCommand);
+            try {
+                WindowsCreator.createAddForm().show();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         });
     }
-
-    /*
-
-    private final EventHandler<ActionEvent> loginButtonHandler = event -> {
-        login = loginTextField.getCharacters().toString();
-        password = passwordField.getText();
-        LoginCommand loginCommand = new LoginCommand(login, password);
-        client.sendCommandToServer(loginCommand);
-        String ans = client.getAnswerFromServer();
-        labelMessage.setText(ans);
-        if (ans.startsWith(LocaleClass.getString("hello.text"))) {
-            UIApp.mainStage.show();
-        }
-        event.consume();
-    };
-
-     */
 
     private void drawAxis() {
         GraphicsContext gc = xOyCanvas.getGraphicsContext2D();

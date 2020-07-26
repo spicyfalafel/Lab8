@@ -4,6 +4,8 @@ import com.itmo.commands.Command;
 import com.itmo.commands.ExitCommand;
 import com.itmo.server.Response;
 import com.itmo.utils.SerializationManager;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -21,7 +23,8 @@ public class Client {
     private static final Scanner scanner = new Scanner(System.in);
 
     public final int BUFFER_SIZE = 4096;
-    private final User user;
+    @Getter @Setter
+    private User user;
     private boolean notExit = true;
     private final int port;
     private boolean once = true;

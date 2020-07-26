@@ -1,6 +1,7 @@
 package com.itmo.client;
 
 import com.itmo.app.UIApp;
+import com.itmo.app.controllers.AuthorizationController;
 
 /*
     Класс для проверки аргументов программы и её запуска
@@ -10,7 +11,11 @@ public class ClientMainUI {
 
     public static void main(String[] args) {
         UIApp uiApp = new UIApp();
-        uiApp.run(checkArgs(args));
+        String[] hostAndPort = checkArgs(args);
+        String host = hostAndPort[0];
+        int port = Integer.parseInt(hostAndPort[1]);
+        AuthorizationController.setClient(new Client(host, port));
+        uiApp.run();
     }
 
     public static String[] checkArgs(String[] args){

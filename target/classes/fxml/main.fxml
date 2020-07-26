@@ -16,6 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
+<?import javafx.scene.text.Text?>
 <VBox prefHeight="800.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.itmo.app.controllers.MainWindowController">
     <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
         <Menu fx:id="helpMenu" mnemonicParsing="false" text="%help.text">
@@ -30,7 +31,8 @@
     </MenuBar>
     <AnchorPane VBox.vgrow="ALWAYS">
         <AnchorPane>
-            <Label fx:id="currentUserLabel" layoutX="14.0" layoutY="1.0" maxWidth="150.0" prefHeight="26.0" prefWidth="150.0" text="%current_user.text" />
+            <Label layoutX="14"  layoutY="4" text="%current_user.text"/>
+            <Text fx:id="currentUserText" layoutX="14.0" layoutY="37.0" />
             <Label layoutX="11.0" layoutY="47.0" text="Цвет:" />
             <Rectangle fx:id="colorOfUserRectangle" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="108.0" layoutY="43.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
             <VBox alignment="TOP_CENTER" prefHeight="650.0" prefWidth="226.0" spacing="10.0" AnchorPane.topAnchor="70.0">
@@ -64,18 +66,18 @@
                                 <columns>
                                     <TableColumn fx:id="idColumn" minWidth="100.0" prefWidth="100.0" text="id" />
                                     <TableColumn fx:id="dragonNameColumn" minWidth="100.0" prefWidth="100.0" text="%dragon_name.text" />
-                                    <TableColumn fx:id="creationDateColumn" minWidth="100.0" prefWidth="100.0" text="%creation_date_column.text" />
-                                    <TableColumn fx:id="ageColumn" minWidth="100.0" prefWidth="100.0" text="%age_column.text" />
-                                    <TableColumn fx:id="wingspanColumn" minWidth="100.0" prefWidth="100.0" text="%wingspan_column.text" />
-                                    <TableColumn fx:id="typeColumn" minWidth="100.0" prefWidth="100.0" text="%type_column.text" />
-                                    <TableColumn fx:id="characterColumn" minWidth="100.0" prefWidth="100.0" text="%character_column.text" />
+                                    <TableColumn fx:id="creationDateColumn" minWidth="100.0" prefWidth="100.0" text="%creation_date.text" />
+                                    <TableColumn fx:id="ageColumn" minWidth="100.0" prefWidth="100.0" text="%age.text" />
+                                    <TableColumn fx:id="wingspanColumn" minWidth="100.0" prefWidth="100.0" text="%wingspan.text" />
+                                    <TableColumn fx:id="typeColumn" minWidth="100.0" prefWidth="100.0" text="%type.text" />
+                                    <TableColumn fx:id="characterColumn" minWidth="100.0" prefWidth="100.0" text="%character.text" />
                                     <TableColumn text="%dragon_killer.text">
                                         <columns>
-                                            <TableColumn fx:id="killerNameColumn" minWidth="100.0" prefWidth="100.0" text="%killer_name_column.text" />
-                                            <TableColumn fx:id="killerBirthDateColumn" minWidth="100.0" prefWidth="100.0" text="%birth_date_column.text" />
-                                            <TableColumn fx:id="killerHairColorColumn" minWidth="100.0" prefWidth="100.0" text="%hair_color_column.text" />
+                                            <TableColumn fx:id="killerNameColumn" minWidth="100.0" prefWidth="100.0" text="%killer_name.text" />
+                                            <TableColumn fx:id="killerBirthDateColumn" minWidth="100.0" prefWidth="100.0" text="%birth_date.text" />
+                                            <TableColumn fx:id="killerHairColorColumn" minWidth="100.0" prefWidth="100.0" text="%hair_color.text" />
                                             <TableColumn fx:id="killerNationalityColumn" minWidth="100.0" prefWidth="100.0" text="%nationality.text" />
-                                            <TableColumn fx:id="locationColumn" minWidth="100.0" prefWidth="100.0" text="%location_column.text" />
+                                            <TableColumn fx:id="locationColumn" minWidth="100.0" prefWidth="100.0" text="%location.text" />
                                         </columns>
                                     </TableColumn>
                                     <TableColumn fx:id="creatorColumn" minWidth="100.0" prefWidth="100.0" text="%creator.text" />
