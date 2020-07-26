@@ -10,30 +10,34 @@ import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.Date;
 
+/*
+    the purpose of this class is storing collection
+    and handling active users
+ */
+
 public class Application implements Serializable {
     @Setter
     @Getter
     private MyDragonsCollection collection;
     private Date date;
-    public DatabaseManager manager;
-
+    public DatabaseManager db;
     public ActiveUsersHandler activeUsers;
 
     public Application() throws SQLException {
-        manager = new DatabaseManager();
-        collection = new MyDragonsCollection(manager.getCollectionFromDatabase());
+        db = new DatabaseManager();
+        collection = new MyDragonsCollection(db.getCollectionFromDatabase());
         date = new Date();
         activeUsers = ActiveUsersHandler.getInstance();
     }
 
-    public void syncWithDB(){
-        try{
-            this.collection = new MyDragonsCollection(manager.getCollectionFromDatabase());
-
-        }catch (SQLException e){
+    public void syncWithDB() {
+        try {
+            this.collection = new MyDragonsCollection(db.getCollectionFromDatabase());
+        } catch (SQLException e) {
             System.out.println("ошибка в db");
         }
     }
+
     public Application(MyDragonsCollection collection) {
         this.collection = collection;
     }

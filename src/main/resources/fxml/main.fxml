@@ -38,8 +38,8 @@
                     <Insets top="10.0" />
                 </padding>
                 <Button fx:id="addButton" mnemonicParsing="false" text="%add.text" />
-                <Button fx:id="addIfMaxButton" mnemonicParsing="false" text="%remove_if_biggest.text" textAlignment="CENTER" />
-                <Button fx:id="addIfMin" mnemonicParsing="false" text="%remove_if_lowest.text" textAlignment="CENTER" />
+                <Button fx:id="addIfMaxButton" mnemonicParsing="false" text="%add_if_biggest.text" textAlignment="CENTER" />
+                <Button fx:id="addIfMinButton" mnemonicParsing="false" text="%add_if_lowest.text" textAlignment="CENTER" />
                 <Button fx:id="clearButton" mnemonicParsing="false" text="%clear.text" />
                 <Button fx:id="filterNameButton" mnemonicParsing="false" text="%filter_starts_with.text" />
                 <Button fx:id="infoButton" mnemonicParsing="false" text="%info.text" />
@@ -60,22 +60,22 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="734.0" prefWidth="1167.0">
                     <ScrollPane layoutX="-3.0" prefHeight="738.0" prefWidth="1372.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="742.0" prefWidth="1378.0">
-                            <TableView AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <TableView fx:id="dragonsTable" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
                                     <TableColumn fx:id="idColumn" minWidth="100.0" prefWidth="100.0" text="id" />
                                     <TableColumn fx:id="dragonNameColumn" minWidth="100.0" prefWidth="100.0" text="%dragon_name.text" />
                                     <TableColumn fx:id="creationDateColumn" minWidth="100.0" prefWidth="100.0" text="%creation_date_column.text" />
                                     <TableColumn fx:id="ageColumn" minWidth="100.0" prefWidth="100.0" text="%age_column.text" />
-                                    <TableColumn fx:id="wingspanColumn" minWidth="100.0" prefWidth="100.0" text="%wingspan_column.text" />
-                                    <TableColumn fx:id="typeColumn" minWidth="100.0" prefWidth="100.0" text="%type_column.text" />
-                                    <TableColumn fx:id="characterColumn" minWidth="100.0" prefWidth="100.0" text="%character_column.text" />
-                                    <TableColumn fx:id="dragonKillerBigColumn" text="%dragon_killer.text">
+                                    <TableColumn fx:id="wingspanColumn" minWidth="100.0" prefWidth="100.0" text="%wingspan.text" />
+                                    <TableColumn fx:id="typeColumn" minWidth="100.0" prefWidth="100.0" text="%type.text" />
+                                    <TableColumn fx:id="characterColumn" minWidth="100.0" prefWidth="100.0" text="%character.text" />
+                                    <TableColumn text="%dragon_killer.text">
                                         <columns>
-                                            <TableColumn fx:id="killerNameColumn" minWidth="100.0" prefWidth="100.0" text="%killer_name_column.text" />
-                                            <TableColumn fx:id="killerBirthDateColumn" minWidth="100.0" prefWidth="100.0" text="%birth_date_column.text" />
-                                            <TableColumn fx:id="killerHairColorColumn" minWidth="100.0" prefWidth="100.0" text="%hair_color_column.text" />
+                                            <TableColumn fx:id="killerNameColumn" minWidth="100.0" prefWidth="100.0" text="%killer_name.text" />
+                                            <TableColumn fx:id="killerBirthDateColumn" minWidth="100.0" prefWidth="100.0" text="%birth_date.text" />
+                                            <TableColumn fx:id="killerHairColorColumn" minWidth="100.0" prefWidth="100.0" text="%hair_color.text" />
                                             <TableColumn fx:id="killerNationalityColumn" minWidth="100.0" prefWidth="100.0" text="%nationality.text" />
-                                            <TableColumn fx:id="locationColumn" minWidth="100.0" prefWidth="100.0" text="%location_column.text" />
+                                            <TableColumn fx:id="locationColumn" minWidth="100.0" prefWidth="100.0" text="%location.text" />
                                         </columns>
                                     </TableColumn>
                                     <TableColumn fx:id="creatorColumn" minWidth="100.0" prefWidth="100.0" text="%creator.text" />

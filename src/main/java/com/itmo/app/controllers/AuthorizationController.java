@@ -27,13 +27,9 @@ import java.util.ResourceBundle;
 
 public class AuthorizationController implements Initializable {
     @FXML
-    private ImageView dragon_good;
+    private ImageView dragon_good, dragon_bad;
     @FXML
-    private ImageView dragon_bad;
-    @FXML
-    private Button buttonLogin;
-    @FXML
-    private Button buttonRegister;
+    private Button buttonLogin, buttonRegister;
     @FXML
     private TextField loginTextField;
     @FXML
@@ -42,13 +38,9 @@ public class AuthorizationController implements Initializable {
     @FXML
     private SplitMenuButton languageSplitMenu;
     @FXML
-    private MenuItem russianLanguageMenuItem;
-    @FXML
-    private MenuItem estonianLanguageMenuItem;
-    @FXML
-    private MenuItem swedenLanguageMenuItem;
-    @FXML
-    private MenuItem spanishLanguageMenuItem;
+    private MenuItem russianLanguageMenuItem,
+            spanishLanguageMenuItem, swedenLanguageMenuItem,
+            estonianLanguageMenuItem;
     @FXML
     private StackPane stackPane;
     @FXML
@@ -59,6 +51,37 @@ public class AuthorizationController implements Initializable {
     @Setter
     private static Client client;
 
+    public void initialize(URL location, ResourceBundle resources) {
+        setImages();
+        buttonLogin.setOnAction(loginButtonHandler);
+        buttonRegister.setOnAction(registerButtonHandler);
+        StackPane.setAlignment(languageSplitMenu, Pos.TOP_RIGHT);
+        initializeLanguageMenuItems();
+    }
+
+
+    private void initializeLanguageMenuItems() {
+        russianLanguageMenuItem.setOnAction(changeLangToRussian);
+        estonianLanguageMenuItem.setOnAction(changeLangToEstonian);
+        swedenLanguageMenuItem.setOnAction(changeLangToSweden);
+        spanishLanguageMenuItem.setOnAction(changeLangToSpanish);
+    }
+
+
+    private void changeLanguageInUI(String TAG) {
+        UIApp.resourceBundle = ResourceBundle
+                .getBundle("locals", Locale.forLanguageTag(TAG), new UTF8Control());
+        Scene scene = UIApp.authorizationStage.getScene();
+        // TODO changeDateFormat();
+        try {
+            scene.setRoot(FXMLLoader.load(getClass().getResource("/fxml/authorization.fxml"),
+                    UIApp.resourceBundle));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     private final EventHandler<ActionEvent> loginButtonHandler = event -> {
         login = loginTextField.getCharacters().toString();
         password = passwordField.getText();
@@ -66,7 +89,7 @@ public class AuthorizationController implements Initializable {
         client.sendCommandToServer(loginCommand);
         String ans = client.getAnswerFromServer();
         labelMessage.setText(ans);
-        if(ans.startsWith(LocaleClass.getString("hello.text"))){
+        if (ans.startsWith(LocaleClass.getString("hello.text"))) {
             UIApp.mainStage.show();
         }
         event.consume();
@@ -97,34 +120,8 @@ public class AuthorizationController implements Initializable {
         changeLanguageInUI("SPA");
     };
 
-    public void initialize(URL location, ResourceBundle resources) {
-        setImages();
-        buttonLogin.setOnAction(loginButtonHandler);
-        buttonRegister.setOnAction(registerButtonHandler);
-        StackPane.setAlignment(languageSplitMenu, Pos.TOP_RIGHT);
-        initializeLanguageMenuItems();
-    }
 
-    private void changeLanguageInUI(String TAG){
-        UIApp.resourceBundle = ResourceBundle
-                .getBundle("locals", Locale.forLanguageTag(TAG), new UTF8Control());
-        Scene scene = UIApp.authorizationStage.getScene();
-        // TODO changeDateFormat();
-        try {
-            scene.setRoot(FXMLLoader.load(getClass().getResource("/fxml/authorization.fxml"),
-                    UIApp.resourceBundle));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void initializeLanguageMenuItems(){
-        russianLanguageMenuItem.setOnAction(changeLangToRussian);
-        estonianLanguageMenuItem.setOnAction(changeLangToEstonian);
-        swedenLanguageMenuItem.setOnAction(changeLangToSweden);
-        spanishLanguageMenuItem.setOnAction(changeLangToSpanish);
-    }
-    private void setImages(){
+    private void setImages() {
         Image good = UIHelper.getImage("/images/dragon_good.png", getClass());
         dragon_good.setImage(good);
         Image bad = UIHelper.getImage("/images/dragon_bad11.png", getClass());

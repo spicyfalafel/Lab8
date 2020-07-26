@@ -29,11 +29,11 @@ public class RegisterCommand extends Command {
 
     @Override
     public String execute(Application application, User user) {
-        if(!application.manager.containsUserName(login)){
+        if(!application.db.containsUserName(login)){
             pass = new PassEncoder().getHash(pass, null);
             user.setName(login);
             user.setHashPass(pass);
-            application.manager.insertUser(user);
+            application.db.insertUser(user);
             return "Регистрация успешна. Ваш логин: " + user.getName();
         }else return "Пользователь с таким логином уже зарегистрирован.";
     }

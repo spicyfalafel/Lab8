@@ -29,7 +29,7 @@ public class LoginCommand extends Command{
         if(!application.activeUsers.containsUserName(login)){
             String hashPassword = new PassEncoder().getHash(pass, null);
             u = new User(login, hashPassword);
-            if(application.manager.containsUser(u)){
+            if(application.db.containsUser(u)){
                 application.activeUsers.removeUser(user);
                 user.setName(login);
                 user.setHashPass(hashPassword);

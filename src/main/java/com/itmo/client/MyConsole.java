@@ -63,9 +63,8 @@ public class MyConsole {
         invoker.register("exit", new ExitCommand(null));
         invoker.register("clear", new ClearCommand(null));
         invoker.register("remove_by_id", new RemoveByIdCommand(null));
-        invoker.register("add", new AddElementCommand(null));
+        invoker.register("add", new AddElementCommand());
         invoker.register("show", new ShowCommand(null));
-        invoker.register("add", new AddElementCommand(null));
         invoker.register("update", new UpdateByIdCommand(null));
         invoker.register("filter_starts_with_name", new FilterStartsWithNameCommand(null));
         invoker.register("add_if_max", new AddIfMaxCommand(null));

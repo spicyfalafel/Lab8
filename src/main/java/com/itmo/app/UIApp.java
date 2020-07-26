@@ -1,5 +1,6 @@
 package com.itmo.app;
 
+import com.itmo.app.controllers.MainWindowController;
 import com.itmo.client.Client;
 import com.itmo.utils.LocaleClass;
 import com.itmo.utils.UIHelper;
@@ -17,9 +18,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /*
-это класс для создания окна авторизации
-и главного окна
-может что-то еще
+    this class starts UI (auth window and main window)
 */
 
 public class UIApp extends Application {
@@ -52,6 +51,7 @@ public class UIApp extends Application {
         authorizationStage = windowsCreator.createAuthorization(client);
         authorizationStage.show();
         initPrimaryStage(primaryStage);
+        MainWindowController.setClient(client);
     }
 
     private void initPrimaryStage(Stage primaryStage) throws IOException {

@@ -4,14 +4,18 @@ import com.itmo.app.Application;
 import com.itmo.client.User;
 import com.itmo.collection.Dragon;
 import com.itmo.utils.FieldsScanner;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
-
+@NoArgsConstructor
 public class AddElementCommand extends Command {
 
     private Dragon dr=null;
 
     public AddElementCommand(String[] args) {
+    }
+    public AddElementCommand(Dragon d){
+        dr = d;
     }
 
     @Override
@@ -30,7 +34,7 @@ public class AddElementCommand extends Command {
     public String execute(Application application, User user){
         dr.setCreationDate(new Date());
         dr.setOwnerName(user.getName());
-        application.manager.insertDragon(dr);
+        application.db.insertDragon(dr);
         application.syncWithDB();
         return "Дракон добавлен успешно!";
     }

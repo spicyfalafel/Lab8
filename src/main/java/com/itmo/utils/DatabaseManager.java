@@ -113,7 +113,7 @@ public class DatabaseManager {
                                 "    left outer join killers_locations kl\n" +
                                 "    on kl.dragon_id=ds.id");
         ResultSet resultSet = statement.executeQuery();
-        HashSet<Dragon> hs = new HashSet<>();
+        HashSet<Dragon> dragons = new HashSet<>();
         while (resultSet.next()) {
             long id = resultSet.getLong("id");
             String name = resultSet.getString("dragon_name");
@@ -144,9 +144,9 @@ public class DatabaseManager {
             Dragon dragon = new Dragon(name, coordinates, date, age, wingspan, type, character, person);
             dragon.setOwnerName(ownerName);
             dragon.setId(id);
-            hs.add(dragon);
+            dragons.add(dragon);
         }
-        return (Collections.synchronizedSet(hs));
+        return (Collections.synchronizedSet(dragons));
     }
 
     public boolean containsUser(User user) {

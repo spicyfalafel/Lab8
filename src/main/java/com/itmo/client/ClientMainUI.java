@@ -14,6 +14,9 @@ public class ClientMainUI {
     }
 
     public static String[] checkArgs(String[] args){
+        if(args.length==0){
+            return new String[]{"localhost", "8080"};
+        }
         if(args.length!=2){
             System.out.println("Требуются 2 аргумента: хост и порт");
             System.exit(1);

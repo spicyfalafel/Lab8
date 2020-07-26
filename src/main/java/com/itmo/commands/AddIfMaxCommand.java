@@ -31,7 +31,7 @@ public class AddIfMaxCommand extends Command {
         if (application.getCollection().isMax(dr)) {
             dr.setCreationDate(new Date());
             dr.setOwnerName(user.getName());
-            application.manager.insertDragon(dr);
+            application.db.insertDragon(dr);
             application.syncWithDB();
             return application.getCollection().addIfMax(dr);
         } else return "не добавлен т.к. не больший";
