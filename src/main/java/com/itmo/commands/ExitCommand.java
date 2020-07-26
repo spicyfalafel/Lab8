@@ -2,6 +2,7 @@ package com.itmo.commands;
 
 import com.itmo.app.Application;
 import com.itmo.client.User;
+import com.itmo.utils.LocaleClass;
 
 public class ExitCommand extends Command {
 
@@ -16,7 +17,7 @@ public class ExitCommand extends Command {
 
     @Override
     public String getDescription() {
-        return "завершить программу";
+        return LocaleClass.getString("exit_program.text");
     }
 
     @Override

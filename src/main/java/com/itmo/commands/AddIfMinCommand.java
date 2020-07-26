@@ -32,8 +32,8 @@ public class AddIfMinCommand extends Command {
         if (application.getCollection().isMin(dr)) {
             application.db.insertDragon(dr);
             application.syncWithDB();
-            return application.getCollection().addIfMin(dr);
-        } else return "не добавлен т.к. не меньший";
+        }
+        return application.getCollection().addIfMin(dr);
     }
 
     @Override

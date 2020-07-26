@@ -69,7 +69,7 @@ public class ServerWithThreads {
             InetSocketAddress inetSocketAddress = new InetSocketAddress(port);
             ssc.socket().bind(inetSocketAddress);
         } catch (IOException e) {
-            System.out.println("Скорее всего, сервер уже запущен...");
+            System.out.println("Most likely the server is already running");
         }
     }
 

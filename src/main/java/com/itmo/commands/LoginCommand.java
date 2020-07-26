@@ -19,8 +19,13 @@ public class LoginCommand extends Command{
 
     @Override
     public void clientInsertionFromConsole() {
-        login = FieldsScanner.getInstance().scanStringNotEmpty("логин").trim();
-        pass = FieldsScanner.getInstance().scanLine("пароль (нет пароля - Enter)").trim();
+        login = FieldsScanner.getInstance().scanStringNotEmpty(
+                LocaleClass.getString("login.text")
+        ).trim();
+        pass = FieldsScanner.getInstance().scanLine(
+                LocaleClass.getString("password.text")
+                + ", " + LocaleClass.getString("enter_else.text")
+        ).trim();
     }
 
     @Override
@@ -45,7 +50,7 @@ public class LoginCommand extends Command{
 
     @Override
     public String getDescription() {
-        return "аутенфикация пользователя, требуется для доступа к командам";
+        return LocaleClass.getString("login_description.text");
     }
 
     @Override

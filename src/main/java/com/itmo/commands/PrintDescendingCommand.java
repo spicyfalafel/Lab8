@@ -2,6 +2,7 @@ package com.itmo.commands;
 
 import com.itmo.app.Application;
 import com.itmo.client.User;
+import com.itmo.utils.LocaleClass;
 
 public class PrintDescendingCommand extends Command {
 
@@ -21,6 +22,6 @@ public class PrintDescendingCommand extends Command {
 
     @Override
     public String getDescription() {
-        return "вывести элементы коллекции в порядке убывания";
+        return LocaleClass.getString("print_in_descending_order.text");
     }
 }

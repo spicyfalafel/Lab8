@@ -6,6 +6,7 @@ import com.itmo.commands.Command;
 import com.itmo.commands.ExitCommand;
 import com.itmo.commands.LoginCommand;
 import com.itmo.commands.RegisterCommand;
+import com.itmo.utils.LocaleClass;
 import lombok.AllArgsConstructor;
 import java.nio.channels.SocketChannel;
 @AllArgsConstructor
@@ -18,7 +19,7 @@ public class RequestExecutorThread extends Thread {
     @Override
     public void run() {
         if (command != null) {
-            String res = "Вы не авторизованы. Команды недоступны";
+            String res = LocaleClass.getString("not_registered.text");
             if(command instanceof RegisterCommand
                     || command instanceof LoginCommand){
                 res = command.execute(application, client);

@@ -2,6 +2,7 @@ package com.itmo.commands;
 
 import com.itmo.app.Application;
 import com.itmo.client.User;
+import com.itmo.utils.LocaleClass;
 
 /**
  * The type Execute script command.
@@ -53,11 +54,11 @@ public class ExecuteScriptCommand extends Command {
 
     @Override
     public String execute(Application application, User user) {
-        return "script done";
+        return LocaleClass.getString("script_done.text");
     }
 
     @Override
     public String getDescription() {
-        return "считать и исполнить скрипт из указанного файла. В скрипте содержатся команды в таком же виде, в котором их вводит пользователь в интерактивном режиме.";
+        return LocaleClass.getString("execute_script_description.text");
     }
 }

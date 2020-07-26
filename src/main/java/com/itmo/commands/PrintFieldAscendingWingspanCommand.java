@@ -2,6 +2,7 @@ package com.itmo.commands;
 
 import com.itmo.app.Application;
 import com.itmo.client.User;
+import com.itmo.utils.LocaleClass;
 
 public class PrintFieldAscendingWingspanCommand extends Command {
 
@@ -21,6 +22,7 @@ public class PrintFieldAscendingWingspanCommand extends Command {
 
     @Override
     public String getDescription() {
-        return "вывести значения поля wingspan в порядке возрастания";
+        return
+                LocaleClass.getString("print_wingspan_ordered_by.text");
     }
 }

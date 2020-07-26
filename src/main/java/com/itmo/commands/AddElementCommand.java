@@ -4,9 +4,11 @@ import com.itmo.app.Application;
 import com.itmo.client.User;
 import com.itmo.collection.Dragon;
 import com.itmo.utils.FieldsScanner;
+import com.itmo.utils.LocaleClass;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+
 @NoArgsConstructor
 public class AddElementCommand extends Command {
 
@@ -36,7 +38,7 @@ public class AddElementCommand extends Command {
         dr.setOwnerName(user.getName());
         application.db.insertDragon(dr);
         application.syncWithDB();
-        return "Дракон добавлен успешно!";
+        return LocaleClass.getString("dragon_was_added.text");
     }
 
     /**
@@ -45,6 +47,6 @@ public class AddElementCommand extends Command {
      */
     @Override
     public String getDescription() {
-        return "добавить новый элемент в коллекцию";
+        return LocaleClass.getString("add_new_element_into_collection.text");
     }
 }

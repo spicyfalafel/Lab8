@@ -2,6 +2,7 @@ package com.itmo.commands;
 
 import com.itmo.app.Application;
 import com.itmo.client.User;
+import com.itmo.utils.LocaleClass;
 
 public class HelpCommand extends Command {
 
@@ -26,6 +27,6 @@ public class HelpCommand extends Command {
 
     @Override
     public String getDescription() {
-        return "вывести справку по доступным командам";
+        return LocaleClass.getString("print_help_with_commands.text");
     }
 }

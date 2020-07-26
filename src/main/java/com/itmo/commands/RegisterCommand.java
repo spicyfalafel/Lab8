@@ -3,6 +3,7 @@ package com.itmo.commands;
 import com.itmo.app.Application;
 import com.itmo.client.User;
 import com.itmo.utils.FieldsScanner;
+import com.itmo.utils.LocaleClass;
 import com.itmo.utils.PassEncoder;
 import com.itmo.utils.SimplePasswordGenerator;
 import lombok.AllArgsConstructor;
@@ -22,8 +23,12 @@ public class RegisterCommand extends Command {
 
     @Override
     public void clientInsertionFromConsole() {
-        login = FieldsScanner.getInstance().scanStringNotEmpty("логин для регистрации");
-        System.out.println("Ваш будущий логин: " + login + ". Нужен ли вам пароль?");
+        login = FieldsScanner.getInstance().scanStringNotEmpty(
+                LocaleClass.getString("login_for_registration.text")
+        );
+        System.out.println(
+                LocaleClass.getString("your_login.text") + login + ". " +
+                LocaleClass.getString("do_you_need_password.text"));
         pass = registerPassword();
     }
 
@@ -34,8 +39,10 @@ public class RegisterCommand extends Command {
             user.setName(login);
             user.setHashPass(pass);
             application.db.insertUser(user);
-            return "Регистрация успешна. Ваш логин: " + user.getName();
-        }else return "Пользователь с таким логином уже зарегистрирован.";
+            return
+                    LocaleClass.getString("registration_is_completed.text")
+            + LocaleClass.getString("your_login.text") + ": " + user.getName();
+        }else return LocaleClass.getString("this_user_already_exists.text");
     }
 
 
@@ -43,11 +50,15 @@ public class RegisterCommand extends Command {
         FieldsScanner fs = FieldsScanner.getInstance();
         boolean yes = fs.scanYN();
         if(yes){
-            String passw = fs.scanStringNotEmpty("пароль или введите generate для его авто-генерации");
+            String passw = fs.scanStringNotEmpty(
+                    LocaleClass.getString("password.text") + " " +
+                            LocaleClass.getString("or_write_generate_for_autogeneration.text")
+            );
             passw = passw.trim().equals("generate") ?
                     new SimplePasswordGenerator(true, true, true, false ).generate(10,10)
                     : passw;
-            System.out.println("Ваш будущий пароль: " + passw);
+            System.out.println(LocaleClass.getString("your_password.text")
+                    +": "+ passw);
             return passw;
         }else{
             return "";

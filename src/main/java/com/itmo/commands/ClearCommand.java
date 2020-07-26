@@ -2,6 +2,7 @@ package com.itmo.commands;
 
 import com.itmo.app.Application;
 import com.itmo.client.User;
+import com.itmo.utils.LocaleClass;
 
 public class ClearCommand extends Command {
 
@@ -21,6 +22,6 @@ public class ClearCommand extends Command {
 
     @Override
     public String getDescription() {
-        return "очистить коллекцию";
+        return LocaleClass.getString("clear_collection.text");
     }
 }

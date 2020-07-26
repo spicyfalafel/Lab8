@@ -3,6 +3,7 @@ package com.itmo.commands;
 
 import com.itmo.app.Application;
 import com.itmo.client.User;
+import com.itmo.utils.LocaleClass;
 
 /**
  * The type Info command.
@@ -26,8 +27,7 @@ public class InfoCommand extends Command {
 
     @Override
     public String getDescription() {
-        return "вывести в стандартный поток вывода информацию о коллекции " +
-                "(тип, дата инициализации, количество элементов и т.д.)";
+        return LocaleClass.getString("print_info_description.text");
     }
 
     @Override

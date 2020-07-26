@@ -4,6 +4,7 @@ import com.itmo.app.Application;
 import com.itmo.client.User;
 import com.itmo.collection.Dragon;
 import com.itmo.utils.FieldsScanner;
+import com.itmo.utils.LocaleClass;
 
 public class RemoveLowerThanElementCommand extends Command {
 
@@ -30,6 +31,6 @@ public class RemoveLowerThanElementCommand extends Command {
 
     @Override
     public String getDescription() {
-        return "удалить из коллекции все элементы, меньшие, чем заданный";
+        return LocaleClass.getString("remove_all_elements_less_than.text");
     }
 }

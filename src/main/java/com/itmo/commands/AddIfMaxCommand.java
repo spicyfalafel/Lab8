@@ -4,6 +4,7 @@ import com.itmo.app.Application;
 import com.itmo.client.User;
 import com.itmo.collection.Dragon;
 import com.itmo.utils.FieldsScanner;
+import com.itmo.utils.LocaleClass;
 
 import java.util.Date;
 
@@ -28,17 +29,17 @@ public class AddIfMaxCommand extends Command {
 
     @Override
     public String execute(Application application, User user) {
-        if (application.getCollection().isMax(dr)) {
-            dr.setCreationDate(new Date());
-            dr.setOwnerName(user.getName());
+        dr.setCreationDate(new Date());
+        dr.setOwnerName(user.getName());
+        if(application.getCollection().isMax(dr)){
             application.db.insertDragon(dr);
             application.syncWithDB();
-            return application.getCollection().addIfMax(dr);
-        } else return "не добавлен т.к. не больший";
+        }
+        return application.getCollection().addIfMax(dr);
     }
 
     @Override
     public String getDescription() {
-        return "добавить новый элемент в коллекцию, если его значение превышает значение наибольшего элемента этой коллекции";
+        return LocaleClass.getString("add_if_max_description.text");
     }
 }

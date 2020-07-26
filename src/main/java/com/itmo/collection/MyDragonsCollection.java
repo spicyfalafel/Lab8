@@ -2,6 +2,7 @@ package com.itmo.collection;
 
 import com.itmo.exceptions.NotYourPropertyException;
 import com.itmo.client.User;
+import com.itmo.utils.LocaleClass;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -24,7 +25,7 @@ public class MyDragonsCollection implements Serializable {
 
     public String show(){
         StringBuilder builder = new StringBuilder();
-        if(dragons.size() == 0) return "Коллекция пуста. Добавьте дракончиков.";
+        if(dragons.size() == 0) return LocaleClass.getString("your_collection_is_empty.text");
         TreeSet<Dragon> treeSet = new TreeSet<>(dragons);
         treeSet.forEach(d ->{
                 builder.append("----------\n").append(d.toString()).append("\n");
@@ -39,7 +40,7 @@ public class MyDragonsCollection implements Serializable {
             } catch (NotYourPropertyException ignore) {
             }
         }
-        return "Принадлежащие вам драконы очищены";
+        return LocaleClass.getString("your_collection_is_cleared.text");
     }
 
     private Set<Dragon> filterOwnDragon(User user) {
@@ -54,16 +55,19 @@ public class MyDragonsCollection implements Serializable {
             if(!setIds.contains(i)){
                 dragon.setId(i);
                 this.dragons.add(dragon);
-                return "Дракон добавлен";
+                return LocaleClass.getString("dragon_has_been_added.text");
             }
         }
-        return "Дракон не добавлен потому что не удалось сгенерировать для него id.";
+        return LocaleClass.getString("dragon_was_not_added.text");
     }
     public String addIfMax(Dragon dragon){
         if(isMax(dragon)){
             return add(dragon);
         }
-        return "Не добавлен, т.к. не больший";
+        return LocaleClass.getString("dragon_was_not_added.text")
+                + " ("
+                + LocaleClass.getString("its_not_the_strongest.text")
+                + ")";
     }
     public boolean isMax(Dragon dragon){
         return (findMaxValue()<dragon.getValue());
@@ -74,9 +78,12 @@ public class MyDragonsCollection implements Serializable {
     }
     public String addIfMin(Dragon dragon){
         if(isMin(dragon)){
-            return "Не добавлен, т.к. не меньший";
-        }else{
             return add(dragon);
+        }else{
+            return LocaleClass.getString("dragon_was_not_added.text")
+                    + " ("
+                    + LocaleClass.getString("its_not_the_weakest.text")
+                    + ")";
         }
     }
 
@@ -94,14 +101,15 @@ public class MyDragonsCollection implements Serializable {
         StringBuilder builder = new StringBuilder();
         filterOwnDragon(user).stream().filter(d -> d.getValue() < dragon.getValue())
                 .forEach(dr -> {
-                    builder.append("Удален дракон с id ").append(dr.getId()).append("\n");
+                    builder.append(LocaleClass.getString("deleted_dragon_with_id.text"))
+                            .append(dr.getId()).append("\n");
                     try {
                         remove(dr, user);
                     } catch (NotYourPropertyException e) {
                         e.printStackTrace();
                     }
                 });
-        if(builder.length()==0) return "Нет драконов меньше чем заданный";
+        if(builder.length()==0) return LocaleClass.getString("no_dragons_less_than_that.text");
         return builder.toString();
     }
     /**
@@ -160,8 +168,11 @@ public class MyDragonsCollection implements Serializable {
     }
 
     public String getCollectionInfo(){
-        return "Тип коллекции: com.itmo.Dragon\nДата инициализации: " + creationDate +
-        "\nКоличество элементов: " + dragons.size();
+        return LocaleClass.getString("collection_type.text")
+                +": com.itmo.Dragon\n " +
+                LocaleClass.getString("initialization_date.text")+
+                ": " + creationDate +
+        "\n" + LocaleClass.getString("number_of_elements.text")+ ":" +  dragons.size();
     }
 
     public Set<Dragon> getDragons() {

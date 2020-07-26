@@ -2,6 +2,7 @@ package com.itmo.commands;
 
 import com.itmo.app.Application;
 import com.itmo.client.User;
+import com.itmo.utils.LocaleClass;
 
 public class ShowCommand extends Command {
 
@@ -15,7 +16,7 @@ public class ShowCommand extends Command {
     }
 
     public String getDescription() {
-        return "вывести в стандартный поток вывода все элементы коллекции в строковом представлении";
+        return LocaleClass.getString("print_all_elements.text");
     }
 
     @Override

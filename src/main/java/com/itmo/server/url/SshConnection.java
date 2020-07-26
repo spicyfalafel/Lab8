@@ -1,5 +1,6 @@
 package com.itmo.server.url;
 
+import com.itmo.utils.FileUtil;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
@@ -10,9 +11,9 @@ public class SshConnection implements UrlGetter {
     public String getUrl(){
         String host = "se.ifmo.ru";
         int port = 2222;
-
-        String user = "s285574";
-        String pass = "oix411";
+        String[] acc = FileUtil.getFromFile("account");
+        String user = acc[0];
+        String pass = acc[1];
 
         String listenerHost = "localhost";
         int listenerPort = 8777;
