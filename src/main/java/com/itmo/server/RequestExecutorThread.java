@@ -1,6 +1,7 @@
 package com.itmo.server;
 
 import com.itmo.app.Application;
+import com.itmo.app.UIApp;
 import com.itmo.client.User;
 import com.itmo.commands.Command;
 import com.itmo.commands.ExitCommand;
@@ -19,7 +20,7 @@ public class RequestExecutorThread extends Thread {
     @Override
     public void run() {
         if (command != null) {
-            String res = LocaleClass.getString("not_registered.text");
+            String res = UIApp.localeClass.getString("not_registered.text");
             if(command instanceof RegisterCommand
                     || command instanceof LoginCommand){
                 res = command.execute(application, client);

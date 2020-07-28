@@ -78,8 +78,12 @@ public class AuthorizationController implements Initializable {
         Scene scene = UIApp.authorizationStage.getScene();
         // TODO changeDateFormat();
         try {
-            scene.setRoot(FXMLLoader.load(getClass().getResource("/fxml/authorization.fxml"),
-                    UIApp.resourceBundle));
+            scene.setRoot(UIHelper.loadFxmlWithController(
+                    "/fxml/authorization.fxml",
+                    UIApp.authorizationController,
+                    getClass()));
+            //FXMLLoader.load(getClass().getResource("/fxml/authorization.fxml"),
+            //                    UIApp.resourceBundle)
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -94,7 +98,7 @@ public class AuthorizationController implements Initializable {
         String ans = UIApp.getClient().getAnswerFromServer();
         labelMessage.setWrapText(true);
         labelMessage.setText(ans);
-        if (ans.startsWith(LocaleClass.getString("hello.text"))) {
+        if (ans.startsWith(UIApp.localeClass.getString("hello.text"))) {
             UIApp.mainStage.show();
         }
         event.consume();

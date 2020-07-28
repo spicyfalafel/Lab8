@@ -1,6 +1,7 @@
 package com.itmo.commands;
 
 import com.itmo.app.Application;
+import com.itmo.app.UIApp;
 import com.itmo.client.User;
 import com.itmo.utils.LocaleClass;
 
@@ -22,6 +23,6 @@ public class ClearCommand extends Command {
 
     @Override
     public String getDescription() {
-        return LocaleClass.getString("clear_collection.text");
+        return UIApp.localeClass.getString("clear_collection.text");
     }
 }

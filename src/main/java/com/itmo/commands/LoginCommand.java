@@ -7,7 +7,6 @@ import com.itmo.app.controllers.MainWindowController;
 import com.itmo.client.Client;
 import com.itmo.client.User;
 import com.itmo.utils.FieldsScanner;
-import com.itmo.utils.LocaleClass;
 import com.itmo.utils.PassEncoder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,11 +23,11 @@ public class LoginCommand extends Command{
     @Override
     public void clientInsertionFromConsole() {
         login = FieldsScanner.getInstance().scanStringNotEmpty(
-                LocaleClass.getString("login.text")
+                UIApp.localeClass.getString("login.text")
         ).trim();
         pass = FieldsScanner.getInstance().scanLine(
-                LocaleClass.getString("password.text")
-                + ", " + LocaleClass.getString("enter_else.text")
+                UIApp.localeClass.getString("password.text")
+                + ", " + UIApp.localeClass.getString("enter_else.text")
         ).trim();
     }
 
@@ -40,12 +39,12 @@ public class LoginCommand extends Command{
             u = new User(login, hashPassword);
             if(application.db.containsUser(u)){
                 logUser(application, user, hashPassword);
-                return  LocaleClass.getString("hello.text") + ", " + user.getName();
+                return  UIApp.localeClass.getString("hello.text") + ", " + user.getName();
             }else{
-                return LocaleClass.getString("already_registered.text");
+                return UIApp.localeClass.getString("already_registered.text");
             }
         }else{
-            return LocaleClass.getString("already_on_server.text");
+            return UIApp.localeClass.getString("already_on_server.text");
         }
     }
 
@@ -58,7 +57,7 @@ public class LoginCommand extends Command{
 
     @Override
     public String getDescription() {
-        return LocaleClass.getString("login_description.text");
+        return UIApp.localeClass.getString("login_description.text");
     }
 
     @Override

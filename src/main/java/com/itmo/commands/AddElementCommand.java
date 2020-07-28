@@ -1,10 +1,10 @@
 package com.itmo.commands;
 
 import com.itmo.app.Application;
+import com.itmo.app.UIApp;
 import com.itmo.client.User;
 import com.itmo.collection.Dragon;
 import com.itmo.utils.FieldsScanner;
-import com.itmo.utils.LocaleClass;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
@@ -38,7 +38,7 @@ public class AddElementCommand extends Command {
         dr.setOwnerName(user.getName());
         application.db.insertDragon(dr);
         application.syncWithDB();
-        return LocaleClass.getString("dragon_was_added.text");
+        return UIApp.localeClass.getString("dragon_was_added.text");
     }
 
     /**
@@ -47,6 +47,6 @@ public class AddElementCommand extends Command {
      */
     @Override
     public String getDescription() {
-        return LocaleClass.getString("add_new_element_into_collection.text");
+        return UIApp.localeClass.getString("add_new_element_into_collection.text");
     }
 }

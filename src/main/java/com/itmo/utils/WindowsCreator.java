@@ -18,24 +18,36 @@ import java.io.IOException;
 public class WindowsCreator {
 
     public static Stage createAuthorization() throws IOException {
-        StackPane root = (StackPane) UIHelper.loadFxml("/fxml/authorization.fxml", WindowsCreator.class);
-        Stage stage = createBlankStage(root, LocaleClass.getString("auth_title.text"), 745, 380);
+        StackPane root = (StackPane) UIHelper
+                .loadFxmlWithController(
+                        "/fxml/authorization.fxml",
+                        UIApp.authorizationController,
+                        WindowsCreator.class
+                );
+        Stage stage = createBlankStage(root, UIApp.localeClass.getString("auth_title.text"), 745, 380);
         setIconToStage(stage);
         stage.setResizable(false);
         return stage;
     }
 
     public static Stage createAddForm() throws IOException {
-        AnchorPane root = (AnchorPane) UIHelper.loadFxml("/fxml/add.fxml", WindowsCreator.class);
-        Stage stage = createBlankStage(root, LocaleClass.getString("add_title.text"));
+        AnchorPane root = (AnchorPane) UIHelper.loadFxmlWithController(
+                "/fxml/add.fxml",
+                UIApp.authorizationController,
+                WindowsCreator.class
+        );
+        Stage stage = createBlankStage(root, UIApp.localeClass.getString("add_title.text"));
         stage.setResizable(false);
         setIconToStage(stage);
         return stage;
     }
 
     public static Stage createError() throws IOException {
-        VBox root = (VBox) UIHelper.loadFxml("/fxml/error.fxml", UIApp.class);
-        Stage stage = createBlankStage(root, LocaleClass.getString("error.text"));
+        VBox root = (VBox) UIHelper.loadFxmlWithController(
+                "/fxml/error.fxml",
+                UIApp.errorController,
+                UIApp.class);
+        Stage stage = createBlankStage(root, UIApp.localeClass.getString("error.text"));
         setIconToStage(stage);
         stage.setResizable(false);
         return stage;
@@ -43,8 +55,11 @@ public class WindowsCreator {
 
     public static Stage createInfo(String information) throws  IOException{
         InformationController.setText(information);
-        VBox root = (VBox) UIHelper.loadFxml("/fxml/info.fxml", UIApp.class);
-        Stage stage = createBlankStage(root, LocaleClass.getString("information.text"));
+        VBox root = (VBox) UIHelper.loadFxmlWithController(
+                "/fxml/info.fxml",
+                UIApp.informationController,
+                UIApp.class);
+        Stage stage = createBlankStage(root, UIApp.localeClass.getString("information.text"));
         setIconToStage(stage);
         stage.setResizable(false);
         return stage;

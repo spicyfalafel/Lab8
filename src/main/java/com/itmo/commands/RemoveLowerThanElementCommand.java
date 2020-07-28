@@ -1,6 +1,7 @@
 package com.itmo.commands;
 
 import com.itmo.app.Application;
+import com.itmo.app.UIApp;
 import com.itmo.client.User;
 import com.itmo.collection.Dragon;
 import com.itmo.utils.FieldsScanner;
@@ -31,6 +32,6 @@ public class RemoveLowerThanElementCommand extends Command {
 
     @Override
     public String getDescription() {
-        return LocaleClass.getString("remove_all_elements_less_than.text");
+        return UIApp.localeClass.getString("remove_all_elements_less_than.text");
     }
 }

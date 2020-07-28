@@ -1,9 +1,8 @@
 package com.itmo.commands;
 
 import com.itmo.app.Application;
+import com.itmo.app.UIApp;
 import com.itmo.client.User;
-import com.itmo.utils.LocaleClass;
-
 public class ShowCommand extends Command {
 
     public ShowCommand(String[] args) {
@@ -16,7 +15,7 @@ public class ShowCommand extends Command {
     }
 
     public String getDescription() {
-        return LocaleClass.getString("print_all_elements.text");
+        return UIApp.localeClass.getString("print_all_elements.text");
     }
 
     @Override

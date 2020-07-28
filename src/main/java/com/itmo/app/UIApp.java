@@ -1,9 +1,6 @@
 package com.itmo.app;
 
-import com.itmo.app.controllers.AuthorizationController;
-import com.itmo.app.controllers.ErrorController;
-import com.itmo.app.controllers.InformationController;
-import com.itmo.app.controllers.MainWindowController;
+import com.itmo.app.controllers.*;
 import com.itmo.client.Client;
 import com.itmo.client.User;
 import com.itmo.utils.LocaleClass;
@@ -12,6 +9,7 @@ import com.itmo.utils.UTF8Control;
 import com.itmo.utils.WindowsCreator;
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
@@ -38,7 +36,9 @@ public class UIApp extends Application {
     public static AuthorizationController authorizationController;
     public static ErrorController errorController;
     public static InformationController informationController;
+    public static AddController addController;
 
+    public static LocaleClass localeClass;
     public static ResourceBundle resourceBundle;
 
     public static Stage mainStage;
@@ -53,8 +53,10 @@ public class UIApp extends Application {
     public void init() throws Exception {
         authorizationController = new AuthorizationController();
         mainWindowController = new MainWindowController();
+        addController = new AddController();
         errorController = new ErrorController();
         informationController = new InformationController();
+        localeClass = new LocaleClass();
     }
 
     @Override
@@ -62,14 +64,18 @@ public class UIApp extends Application {
         resourceBundle = ResourceBundle.getBundle("locals", Locale.forLanguageTag("SE"), new UTF8Control());
         mainStage = primaryStage;
         authorizationStage = WindowsCreator.createAuthorization();
+
         authorizationStage.show();
         initPrimaryStage(primaryStage);
     }
 
+
     private void initPrimaryStage(Stage primaryStage) throws IOException {
-        VBox root = (VBox) UIHelper.loadFxml("/fxml/main.fxml", getClass());
+        VBox root = (VBox) UIHelper
+                .loadFxmlWithController("/fxml/main.fxml", mainWindowController, getClass());
+        //(VBox) UIHelper.loadFxml("/fxml/main.fxml", getClass());
         primaryStage.setScene(new Scene(root));
-        primaryStage.setTitle(LocaleClass.getString("lab8.text"));
+        primaryStage.setTitle(localeClass.getString("lab8.text"));
         WindowsCreator.setIconToStage(primaryStage);
     }
 

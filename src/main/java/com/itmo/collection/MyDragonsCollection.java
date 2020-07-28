@@ -1,9 +1,8 @@
 package com.itmo.collection;
 
+import com.itmo.app.UIApp;
 import com.itmo.exceptions.NotYourPropertyException;
 import com.itmo.client.User;
-import com.itmo.utils.LocaleClass;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -25,7 +24,7 @@ public class MyDragonsCollection implements Serializable {
 
     public String show(){
         StringBuilder builder = new StringBuilder();
-        if(dragons.size() == 0) return LocaleClass.getString("your_collection_is_empty.text");
+        if(dragons.size() == 0) return UIApp.localeClass.getString("your_collection_is_empty.text");
         TreeSet<Dragon> treeSet = new TreeSet<>(dragons);
         treeSet.forEach(d ->{
                 builder.append("----------\n").append(d.toString()).append("\n");
@@ -40,7 +39,7 @@ public class MyDragonsCollection implements Serializable {
             } catch (NotYourPropertyException ignore) {
             }
         }
-        return LocaleClass.getString("your_collection_is_cleared.text");
+        return UIApp.localeClass.getString("your_collection_is_cleared.text");
     }
 
     private Set<Dragon> filterOwnDragon(User user) {
@@ -55,18 +54,18 @@ public class MyDragonsCollection implements Serializable {
             if(!setIds.contains(i)){
                 dragon.setId(i);
                 this.dragons.add(dragon);
-                return LocaleClass.getString("dragon_has_been_added.text");
+                return UIApp.localeClass.getString("dragon_has_been_added.text");
             }
         }
-        return LocaleClass.getString("dragon_was_not_added.text");
+        return UIApp.localeClass.getString("dragon_was_not_added.text");
     }
     public String addIfMax(Dragon dragon){
         if(isMax(dragon)){
             return add(dragon);
         }
-        return LocaleClass.getString("dragon_was_not_added.text")
+        return UIApp.localeClass.getString("dragon_was_not_added.text")
                 + " ("
-                + LocaleClass.getString("its_not_the_strongest.text")
+                + UIApp.localeClass.getString("its_not_the_strongest.text")
                 + ")";
     }
     public boolean isMax(Dragon dragon){
@@ -80,9 +79,9 @@ public class MyDragonsCollection implements Serializable {
         if(isMin(dragon)){
             return add(dragon);
         }else{
-            return LocaleClass.getString("dragon_was_not_added.text")
+            return UIApp.localeClass.getString("dragon_was_not_added.text")
                     + " ("
-                    + LocaleClass.getString("its_not_the_weakest.text")
+                    + UIApp.localeClass.getString("its_not_the_weakest.text")
                     + ")";
         }
     }
@@ -101,7 +100,7 @@ public class MyDragonsCollection implements Serializable {
         StringBuilder builder = new StringBuilder();
         filterOwnDragon(user).stream().filter(d -> d.getValue() < dragon.getValue())
                 .forEach(dr -> {
-                    builder.append(LocaleClass.getString("deleted_dragon_with_id.text"))
+                    builder.append(UIApp.localeClass.getString("deleted_dragon_with_id.text"))
                             .append(dr.getId()).append("\n");
                     try {
                         remove(dr, user);
@@ -109,7 +108,7 @@ public class MyDragonsCollection implements Serializable {
                         e.printStackTrace();
                     }
                 });
-        if(builder.length()==0) return LocaleClass.getString("no_dragons_less_than_that.text");
+        if(builder.length()==0) return UIApp.localeClass.getString("no_dragons_less_than_that.text");
         return builder.toString();
     }
     /**
@@ -168,11 +167,11 @@ public class MyDragonsCollection implements Serializable {
     }
 
     public String getCollectionInfo(){
-        return LocaleClass.getString("collection_type.text")
+        return UIApp.localeClass.getString("collection_type.text")
                 +": com.itmo.Dragon\n " +
-                LocaleClass.getString("initialization_date.text")+
+                UIApp.localeClass.getString("initialization_date.text")+
                 ": " + creationDate +
-        "\n" + LocaleClass.getString("number_of_elements.text")+ ":" +  dragons.size();
+        "\n" + UIApp.localeClass.getString("number_of_elements.text")+ ":" +  dragons.size();
     }
 
     public Set<Dragon> getDragons() {
