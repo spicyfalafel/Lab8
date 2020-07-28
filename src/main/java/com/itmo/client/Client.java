@@ -132,7 +132,7 @@ public class Client {
         return null;
     }
 
-    private void closeEverything(){
+    public void closeEverything(){
         scanner.close();
         try {
             socket.close();

@@ -1,5 +1,8 @@
 package com.itmo.app;
 
+import com.itmo.app.controllers.AuthorizationController;
+import com.itmo.app.controllers.ErrorController;
+import com.itmo.app.controllers.InformationController;
 import com.itmo.app.controllers.MainWindowController;
 import com.itmo.client.Client;
 import com.itmo.client.User;
@@ -27,12 +30,17 @@ import java.util.ResourceBundle;
 */
 
 public class UIApp extends Application {
-    private static int port; // non-static not working :)
-    private static String host; //
+    @Setter @Getter
+    private static Client client;
+    @Getter
+    public static MainWindowController mainWindowController;
+    @Getter
+    public static AuthorizationController authorizationController;
+    public static ErrorController errorController;
+    public static InformationController informationController;
+
     public static ResourceBundle resourceBundle;
 
-    @Setter
-    private static boolean userLogged = false;
     public static Stage mainStage;
     public static Stage authorizationStage;
 
@@ -43,7 +51,10 @@ public class UIApp extends Application {
 
     @Override
     public void init() throws Exception {
-
+        authorizationController = new AuthorizationController();
+        mainWindowController = new MainWindowController();
+        errorController = new ErrorController();
+        informationController = new InformationController();
     }
 
     @Override
@@ -60,9 +71,10 @@ public class UIApp extends Application {
         primaryStage.setScene(new Scene(root));
         primaryStage.setTitle(LocaleClass.getString("lab8.text"));
         WindowsCreator.setIconToStage(primaryStage);
+    }
 
-        /*primaryStage.setOnShown((e) -> {
-            MainWindowController.showUserName();
-        });*/
+    @Override
+    public void stop() throws Exception {
+        client.closeEverything();
     }
 }

@@ -1,6 +1,6 @@
 package com.itmo.client;
 
-public class ClientMainConsole {
+public class MainConsole {
     public static void main(String[] args) {
         if(args.length!=1){
             System.out.println("Укажите в аргументах порт (8080)");

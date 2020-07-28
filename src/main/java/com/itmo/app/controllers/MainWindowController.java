@@ -1,5 +1,6 @@
 package com.itmo.app.controllers;
 
+import com.itmo.app.UIApp;
 import com.itmo.client.Client;
 import com.itmo.collection.*;
 import com.itmo.utils.Painter;
@@ -16,6 +17,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import lombok.Getter;
 import lombok.Setter;
 
 import java.io.IOException;
@@ -85,19 +87,16 @@ public class MainWindowController implements Initializable {
     @FXML
     private TableColumn<DragonForTable, LocalDateTime> killerBirthDateColumn;
 
-    @Setter
-    public static Client client;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         handleCommandButtons();
         drawAxis();
-        System.out.println(client);
-        showUserName();
     }
 
     public void showUserName(){
-        currentUserText.setText(client.getUser().getName());
+        currentUserText.setText(UIApp.getClient().getUser().getName());
     }
 
 

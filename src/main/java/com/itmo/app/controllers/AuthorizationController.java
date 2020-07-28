@@ -18,6 +18,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import lombok.Getter;
 import lombok.Setter;
 
 import java.io.IOException;
@@ -48,17 +49,18 @@ public class AuthorizationController implements Initializable {
 
     private String login;
     private String password;
-    @Setter
-    private static Client client;
+
+
+
+    public AuthorizationController(){}
+
 
     public void initialize(URL location, ResourceBundle resources) {
-        client.connect();
         setImages();
         buttonLogin.setOnAction(loginButtonHandler);
         buttonRegister.setOnAction(registerButtonHandler);
         StackPane.setAlignment(languageSplitMenu, Pos.TOP_RIGHT);
         initializeLanguageMenuItems();
-        MainWindowController.setClient(client);
     }
 
 
@@ -88,12 +90,11 @@ public class AuthorizationController implements Initializable {
         login = loginTextField.getCharacters().toString();
         password = passwordField.getText();
         LoginCommand loginCommand = new LoginCommand(login, password);
-        client.sendCommandToServer(loginCommand);
-        String ans = client.getAnswerFromServer();
+        UIApp.getClient().sendCommandToServer(loginCommand);
+        String ans = UIApp.getClient().getAnswerFromServer();
         labelMessage.setWrapText(true);
         labelMessage.setText(ans);
         if (ans.startsWith(LocaleClass.getString("hello.text"))) {
-            MainWindowController.setClient(client);
             UIApp.mainStage.show();
         }
         event.consume();
@@ -103,8 +104,8 @@ public class AuthorizationController implements Initializable {
         login = loginTextField.getCharacters().toString();
         password = passwordField.getText();
         RegisterCommand registerCommand = new RegisterCommand(login, password);
-        client.sendCommandToServer(registerCommand);
-        String ans = client.getAnswerFromServer();
+        UIApp.getClient().sendCommandToServer(registerCommand);
+        String ans = UIApp.getClient().getAnswerFromServer();
         labelMessage.setText(ans);
     };
 

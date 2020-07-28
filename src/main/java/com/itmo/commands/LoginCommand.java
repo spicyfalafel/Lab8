@@ -1,6 +1,10 @@
 package com.itmo.commands;
 
 import com.itmo.app.Application;
+import com.itmo.app.UIApp;
+import com.itmo.app.controllers.AuthorizationController;
+import com.itmo.app.controllers.MainWindowController;
+import com.itmo.client.Client;
 import com.itmo.client.User;
 import com.itmo.utils.FieldsScanner;
 import com.itmo.utils.LocaleClass;
@@ -35,17 +39,21 @@ public class LoginCommand extends Command{
             String hashPassword = new PassEncoder().getHash(pass, null);
             u = new User(login, hashPassword);
             if(application.db.containsUser(u)){
-                application.activeUsers.removeUser(user);
-                user.setName(login);
-                user.setHashPass(hashPassword);
-                application.activeUsers.addUser(user);
-                return  LocaleClass.getString("hello.text") + user.getName();
+                logUser(application, user, hashPassword);
+                return  LocaleClass.getString("hello.text") + ", " + user.getName();
             }else{
                 return LocaleClass.getString("already_registered.text");
             }
         }else{
             return LocaleClass.getString("already_on_server.text");
         }
+    }
+
+    private void logUser(Application application, User user, String hashPassword){
+        application.activeUsers.removeUser(user);
+        user.setName(login);
+        user.setHashPass(hashPassword);
+        application.activeUsers.addUser(user);
     }
 
     @Override

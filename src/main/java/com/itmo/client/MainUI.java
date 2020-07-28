@@ -7,15 +7,17 @@ import com.itmo.app.controllers.AuthorizationController;
     Класс для проверки аргументов программы и её запуска
     в графическом режиме
  */
-public class ClientMainUI {
+public class MainUI {
 
     public static void main(String[] args) {
-        UIApp uiApp = new UIApp();
         String[] hostAndPort = checkArgs(args);
         String host = hostAndPort[0];
         int port = Integer.parseInt(hostAndPort[1]);
-        AuthorizationController.setClient(new Client(host, port));
-        uiApp.run();
+        Client client = new Client(host, port);
+        client.connect();
+        UIApp.setClient(client);
+        UIApp ui = new UIApp();
+        ui.run();
     }
 
     public static String[] checkArgs(String[] args){

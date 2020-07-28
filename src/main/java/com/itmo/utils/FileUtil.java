@@ -1,19 +1,24 @@
 package com.itmo.utils;
 
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 public class FileUtil {
-    public static String[] getFromFile(String fileName){
-        try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
-            return (String[]) stream.toArray();
+    public static String[] getFromFile(String fileName) {
+        try {
+            File file = new File(fileName);
+            List<String> lines = FileUtils.readLines(file, StandardCharsets.UTF_8);
+            String[] res = new String[lines.size()];
+            lines.toArray(res);
+            return res;
         } catch (IOException e) {
             e.printStackTrace();
         }
         return new String[]{};
     }
+
 }

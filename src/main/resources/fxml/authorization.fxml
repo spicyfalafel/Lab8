@@ -10,22 +10,24 @@
 
     <ImageView fx:id="dragon_bad">
         <StackPane.margin>
-            <Insets right="400" />
+            <Insets right="400"/>
         </StackPane.margin>
     </ImageView>
     <ImageView fx:id="dragon_good">
         <StackPane.margin>
-            <Insets left="400" />
+            <Insets left="400"/>
         </StackPane.margin>
     </ImageView>
-    <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="100" minWidth="300" prefHeight="200.0" prefWidth="339.0" spacing="5">
-        <Label text="%login.text" />
-        <TextField fx:id="loginTextField" maxHeight="10" maxWidth="150" promptText="Your login" />
-        <Label text="%password.text" />
-        <PasswordField fx:id="passwordField" maxHeight="10" maxWidth="150" promptText="Your password" />
-        <Button fx:id="buttonLogin" text="%login.text" />
-        <Button fx:id="buttonRegister" text="%register.text" />
-        <Label fx:id="labelMessage" alignment="CENTER" maxWidth="300" prefHeight="126.0" prefWidth="240.0" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" />
+    <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="100" minWidth="300"
+          prefHeight="200.0" prefWidth="339.0" spacing="5">
+        <Label text="%login.text"/>
+        <TextField fx:id="loginTextField" maxHeight="10" maxWidth="150" promptText="Your login"/>
+        <Label text="%password.text"/>
+        <PasswordField fx:id="passwordField" maxHeight="10" maxWidth="150" promptText="Your password"/>
+        <Button fx:id="buttonLogin" text="%login.text"/>
+        <Button fx:id="buttonRegister" text="%register.text"/>
+        <Label fx:id="labelMessage" alignment="CENTER" maxWidth="300" prefHeight="126.0" prefWidth="240.0"
+               textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS"/>
     </VBox>
     <SplitMenuButton fx:id="languageSplitMenu" text="%language.text">
         <graphic>
@@ -34,10 +36,10 @@
             </ImageView>
         </graphic>
         <items>
-            <MenuItem fx:id="russianLanguageMenuItem" text="%russian.text" />
-            <MenuItem fx:id="estonianLanguageMenuItem" text="%estonian.text" />
-            <MenuItem fx:id="swedenLanguageMenuItem" text="%swede.text" />
-            <MenuItem fx:id="spanishLanguageMenuItem" text="%spain.text" />
+            <MenuItem fx:id="russianLanguageMenuItem" text="%russian.text"/>
+            <MenuItem fx:id="estonianLanguageMenuItem" text="%estonian.text"/>
+            <MenuItem fx:id="swedenLanguageMenuItem" text="%swede.text"/>
+            <MenuItem fx:id="spanishLanguageMenuItem" text="%spain.text"/>
         </items>
     </SplitMenuButton>
 </StackPane>

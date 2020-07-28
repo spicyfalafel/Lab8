@@ -1,5 +1,6 @@
 package com.itmo.app.controllers;
 
+import com.itmo.app.UIApp;
 import com.itmo.client.Client;
 import com.itmo.collection.*;
 import com.itmo.commands.AddElementCommand;
@@ -45,8 +46,8 @@ public class AddController implements Initializable {
     void initializeButtons() {
         addElementButton.setOnAction(e -> {
             Dragon dragonFromForm = getDragonFromForm();
-            MainWindowController.client.sendCommandToServer(new AddElementCommand(dragonFromForm));
-            String ans = MainWindowController.client.getAnswerFromServer();
+            UIApp.getClient().sendCommandToServer(new AddElementCommand(dragonFromForm));
+            String ans = UIApp.getClient().getAnswerFromServer();
             stateText.setText(ans);
         });
     }
@@ -63,7 +64,6 @@ public class AddController implements Initializable {
     }
 
     private Dragon getDragonFromForm() {
-
         String name = dragonNameField.getText();
         int x = Integer.parseInt(xField.getText());
         long y = Long.parseLong(yField.getText());
