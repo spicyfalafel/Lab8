@@ -25,7 +25,7 @@ public class InfoCommand extends Command {
 
     @Override
     public String getDescription() {
-        return ServerMain.localeClass.getString("print_info_description.text");
+        return UIApp.localeClass.getString("print_info_description.text");
     }
 
     @Override

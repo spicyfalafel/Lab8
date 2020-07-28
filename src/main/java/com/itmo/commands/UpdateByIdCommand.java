@@ -52,6 +52,6 @@ public class UpdateByIdCommand extends Command{
 
     @Override
     public String getDescription() {
-        return ServerMain.localeClass.getString("update_element_by_its_id.text");
+        return UIApp.localeClass.getString("update_element_by_its_id.text");
     }
 }

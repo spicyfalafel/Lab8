@@ -47,10 +47,12 @@
                 <Button fx:id="infoButton" mnemonicParsing="false" text="%info.text" />
                 <Button fx:id="descendingWingspanButton" mnemonicParsing="false" text="%in_order_of_descending.text" />
                 <Button fx:id="sortValueButton" mnemonicParsing="false" text="%in_order_of_increasing_wingspan.text" textAlignment="CENTER" />
+                <Button fx:id="removeButton" mnemonicParsing="false" text="%remove.text" textAlignment="CENTER" />
                 <Button fx:id="removeByIdButton" mnemonicParsing="false" text="%remove_by_id.text" textAlignment="CENTER" />
                 <Button fx:id="removeLowerThanButton" mnemonicParsing="false" text="%remove_lower_than.text" textAlignment="CENTER" />
                 <Button fx:id="updateByIdButton" mnemonicParsing="false" text="%update_by_id.text" textAlignment="CENTER" />
                 <Button fx:id="executeScriptButton" mnemonicParsing="false" text="%execute.text" textAlignment="CENTER" />
+                <Label fx:id="commandOutput" textAlignment="CENTER"/>
             </VBox>
             <Button fx:id="loginButton" layoutX="26.0" layoutY="735.0" mnemonicParsing="false" text="%exit.text" />
         </AnchorPane>

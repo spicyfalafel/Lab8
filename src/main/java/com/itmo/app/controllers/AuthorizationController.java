@@ -106,6 +106,7 @@ public class AuthorizationController implements Initializable {
         labelMessage.setText(ans);
         if (ans.startsWith(UIApp.localeClass.getString("hello.text"))) {
             UIApp.mainStage.show();
+            UIApp.authorizationStage.close();
         }
         event.consume();
     };

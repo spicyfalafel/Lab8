@@ -33,6 +33,6 @@ public class RemoveLowerThanElementCommand extends Command {
 
     @Override
     public String getDescription() {
-        return ServerMain.localeClass.getString("remove_all_elements_less_than.text");
+        return UIApp.localeClass.getString("remove_all_elements_less_than.text");
     }
 }

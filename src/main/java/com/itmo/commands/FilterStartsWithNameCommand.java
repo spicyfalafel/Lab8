@@ -39,6 +39,6 @@ public class FilterStartsWithNameCommand extends Command {
     }
     @Override
     public String getDescription() {
-        return ServerMain.localeClass.getString("print_elements_which_name_starts_with.text");
+        return UIApp.localeClass.getString("print_elements_which_name_starts_with.text");
     }
 }

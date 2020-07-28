@@ -5,7 +5,9 @@ import com.itmo.app.UIApp;
 import com.itmo.client.User;
 import com.itmo.server.ServerMain;
 import com.itmo.utils.LocaleClass;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 public class ExitCommand extends Command {
 
     public ExitCommand(String[] args) {
@@ -19,7 +21,7 @@ public class ExitCommand extends Command {
 
     @Override
     public String getDescription() {
-        return ServerMain.localeClass.getString("exit_program.text");
+        return UIApp.localeClass.getString("exit_program.text");
     }
 
     @Override

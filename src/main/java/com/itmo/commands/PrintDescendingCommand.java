@@ -24,6 +24,6 @@ public class PrintDescendingCommand extends Command {
 
     @Override
     public String getDescription() {
-        return ServerMain.localeClass.getString("print_in_descending_order.text");
+        return UIApp.localeClass.getString("print_in_descending_order.text");
     }
 }

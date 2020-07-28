@@ -58,7 +58,7 @@ public class LoginCommand extends Command{
 
     @Override
     public String getDescription() {
-        return ServerMain.localeClass.getString("login_description.text");
+        return UIApp.localeClass.getString("login_description.text");
     }
 
     @Override

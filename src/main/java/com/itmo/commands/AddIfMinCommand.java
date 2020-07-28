@@ -1,6 +1,7 @@
 package com.itmo.commands;
 
 import com.itmo.app.Application;
+import com.itmo.app.UIApp;
 import com.itmo.client.User;
 import com.itmo.collection.Dragon;
 import com.itmo.server.ServerMain;
@@ -44,6 +45,6 @@ public class AddIfMinCommand extends Command {
 
     @Override
     public String getDescription() {
-        return ServerMain.localeClass.getString("add_if_min_description.text");
+        return UIApp.localeClass.getString("add_if_min_description.text");
     }
 }

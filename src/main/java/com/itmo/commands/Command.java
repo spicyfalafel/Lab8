@@ -1,5 +1,6 @@
 package com.itmo.commands;
 
+import com.itmo.app.UIApp;
 import com.itmo.client.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,6 +42,6 @@ public abstract class Command implements Executable, Serializable {
      * @return discription of the command
      */
     public String getDescription(){
-        return "ленивый разработчик не написал описание команды";
+        return UIApp.localeClass.getString("lazy_developer_didnt_write_command_description.text");
     }
 }

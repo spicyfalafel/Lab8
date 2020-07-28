@@ -26,6 +26,6 @@ public class ClearCommand extends Command {
 
     @Override
     public String getDescription() {
-        return ServerMain.localeClass.getString("clear_collection.text");
+        return UIApp.localeClass.getString("clear_collection.text");
     }
 }

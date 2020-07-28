@@ -1,16 +1,11 @@
 package com.itmo.app.controllers;
 
 import com.itmo.app.UIApp;
-import com.itmo.client.Client;
-import com.itmo.client.MainUI;
+import com.itmo.client.MyConsole;
 import com.itmo.collection.*;
-import com.itmo.commands.ChangeLanguageCommand;
-import com.itmo.commands.ClearCommand;
-import com.itmo.commands.InfoCommand;
-import com.itmo.commands.RemoveByIdCommand;
+import com.itmo.commands.*;
 import com.itmo.utils.Painter;
 import com.itmo.utils.UIHelper;
-import com.itmo.utils.UTF8Control;
 import com.itmo.utils.WindowsCreator;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,14 +20,11 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 
@@ -104,6 +96,8 @@ public class MainWindowController implements Initializable {
         handleCommandButtons();
         handleLanguageMenuItems();
         drawAxis();
+        handleHelpItem();
+        if (!UIApp.getClient().getUser().getName().equals("unregistered")) showUserName();
     }
 
     public void showUserName(){
@@ -111,6 +105,18 @@ public class MainWindowController implements Initializable {
     }
 
 
+    private void handleHelpItem(){
+        helpMenu.getItems().get(0).setOnAction(e ->{
+            try {
+                //initialization of commands...
+                MyConsole console = new MyConsole();
+                String help = CommandsInvoker.getInstance().getHelp();
+                WindowsCreator.createInfo(help).show();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+    }
     private void handleLanguageMenuItems(){
         languageRussianItem.setOnAction(e -> changeLanguageInUI("RU"));
         languageEstonianItem.setOnAction(e -> changeLanguageInUI("EE"));
@@ -174,6 +180,13 @@ public class MainWindowController implements Initializable {
             commandOutput.setText(answer);
         });
 
+        loginButton.setOnAction(e -> {
+            UIApp.getClient().sendCommandToServer(new ExitCommand());
+            String answer = UIApp.getClient().getAnswerFromServer();
+            UIApp.authorizationStage.show();
+            UIApp.mainStage.close();
+        });
+
 
 
     }
@@ -194,16 +207,9 @@ public class MainWindowController implements Initializable {
 
     private void changeLanguageInUI(String TAG) {
         UIApp.localeClass.changeLocaleByTag(TAG);
-        Scene scene = UIApp.mainStage.getScene();
         // TODO changeDateFormat();
         try {
-            scene.setRoot(UIHelper.loadFxmlWithController(
-                    "/fxml/main.fxml",
-                    UIApp.mainWindowController,
-                    getClass()));
-            //FXMLLoader.load(getClass().getResource("/fxml/authorization.fxml"),
-            //                    UIApp.resourceBundle)
-
+            reloadMainStage();
             UIApp.getClient().sendCommandToServer(
                     new ChangeLanguageCommand(new String[]{TAG})
             );
@@ -213,5 +219,13 @@ public class MainWindowController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void reloadMainStage() throws IOException {
+        Scene scene = UIApp.mainStage.getScene();
+        scene.setRoot(UIHelper.loadFxmlWithController(
+                "/fxml/main.fxml",
+                UIApp.mainWindowController,
+                getClass()));
     }
 }

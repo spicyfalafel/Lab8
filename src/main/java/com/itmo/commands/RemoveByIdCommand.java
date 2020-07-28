@@ -40,6 +40,6 @@ public class RemoveByIdCommand extends Command {
 
     @Override
     public String getDescription() {
-        return ServerMain.localeClass.getString("remove_by_id.text");
+        return UIApp.localeClass.getString("remove_by_id.text");
     }
 }

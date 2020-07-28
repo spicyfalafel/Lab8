@@ -14,7 +14,7 @@ public class MyConsole {
     private static final BufferedReader systemIn
             = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
 
-    MyConsole(){
+    public MyConsole(){
         registerCommands();
     }
 
@@ -56,10 +56,10 @@ public class MyConsole {
         }
     }
 
-    private void registerCommands(){
+    public void registerCommands(){
         invoker = CommandsInvoker.getInstance();
-        invoker.register("info", new InfoCommand( null));
-        invoker.register("help", new HelpCommand(null));
+        invoker.register("info", new InfoCommand());
+        invoker.register("help", new HelpCommand());
         invoker.register("exit", new ExitCommand(null));
         invoker.register("clear", new ClearCommand(null));
         invoker.register("remove_by_id", new RemoveByIdCommand(null));

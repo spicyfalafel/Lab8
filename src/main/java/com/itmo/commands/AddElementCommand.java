@@ -48,6 +48,6 @@ public class AddElementCommand extends Command {
      */
     @Override
     public String getDescription() {
-        return ServerMain.localeClass.getString("add_new_element_into_collection.text");
+        return UIApp.localeClass.getString("add_new_element_into_collection.text");
     }
 }

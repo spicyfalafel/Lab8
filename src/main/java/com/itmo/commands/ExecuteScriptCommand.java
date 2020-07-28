@@ -60,6 +60,6 @@ public class ExecuteScriptCommand extends Command {
 
     @Override
     public String getDescription() {
-        return ServerMain.localeClass.getString("execute_script_description.text");
+        return UIApp.localeClass.getString("execute_script_description.text");
     }
 }

@@ -17,7 +17,7 @@ public class ShowCommand extends Command {
     }
 
     public String getDescription() {
-        return ServerMain.localeClass.getString("print_all_elements.text");
+        return UIApp.localeClass.getString("print_all_elements.text");
     }
 
     @Override

@@ -66,11 +66,11 @@ public class WindowsCreator {
     }
 
     public static Stage createInfo(String information) throws  IOException{
-        InformationController.setText(information);
         VBox root = (VBox) UIHelper.loadFxmlWithController(
                 "/fxml/info.fxml",
                 UIApp.informationController,
                 UIApp.class);
+        UIApp.informationController.infoLabel.setText(information);
         Stage stage = createBlankStage(root, UIApp.localeClass.getString("information.text"));
         setIconToStage(stage);
         stage.setResizable(false);
@@ -81,7 +81,7 @@ public class WindowsCreator {
         Scene scene = new Scene(layout);
         Stage newWindow = new Stage();
         newWindow.setTitle(title);
-        scene.getStylesheets().add("css/Auth.css");
+        scene.getStylesheets().add("css/every.css");
         newWindow.setScene(scene);
         return newWindow;
     }

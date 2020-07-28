@@ -48,6 +48,6 @@ public class AddIfMaxCommand extends Command {
 
     @Override
     public String getDescription() {
-        return ServerMain.localeClass.getString("add_if_max_description.text");
+        return UIApp.localeClass.getString("add_if_max_description.text");
     }
 }

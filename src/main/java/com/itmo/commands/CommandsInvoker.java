@@ -27,7 +27,7 @@ public class CommandsInvoker {
     private CommandsInvoker(){
     }
 
-    public String printHelp(){
+    public String getHelp(){
         //для сортировки по ключу (алфавиту)
         Map<String, Command> treeMap = new TreeMap<>(registeredCommands);
         StringBuilder builder = new StringBuilder();

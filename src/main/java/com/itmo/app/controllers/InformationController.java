@@ -9,13 +9,12 @@ import java.util.ResourceBundle;
 
 public class InformationController implements Initializable {
     @FXML
-    private Label infoLabel;
+    public Label infoLabel;
 
     @Setter
-    private static String text="aaaaaaaa";
+    private  String text="aaaaaaaa";
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        infoLabel.setText(text);
     }
 }

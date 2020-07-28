@@ -4,8 +4,9 @@ import com.itmo.app.Application;
 import com.itmo.app.UIApp;
 import com.itmo.client.User;
 import com.itmo.server.ServerMain;
-import com.itmo.utils.LocaleClass;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 public class HelpCommand extends Command {
 
     public HelpCommand(String[] args) {
@@ -19,7 +20,7 @@ public class HelpCommand extends Command {
 
     @Override
     public void clientInsertionFromConsole() {
-        System.out.println(CommandsInvoker.getInstance().printHelp());
+        System.out.println(CommandsInvoker.getInstance().getHelp());
     }
 
     @Override
@@ -29,6 +30,6 @@ public class HelpCommand extends Command {
 
     @Override
     public String getDescription() {
-        return ServerMain.localeClass.getString("print_help_with_commands.text");
+        return UIApp.localeClass.getString("print_help_with_commands.text");
     }
 }

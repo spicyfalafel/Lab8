@@ -23,7 +23,6 @@ public class PrintFieldAscendingWingspanCommand extends Command {
 
     @Override
     public String getDescription() {
-        return
-                ServerMain.localeClass.getString("print_wingspan_ordered_by.text");
+        return UIApp.localeClass.getString("print_wingspan_ordered_by.text");
     }
 }
