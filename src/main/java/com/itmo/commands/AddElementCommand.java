@@ -4,6 +4,7 @@ import com.itmo.app.Application;
 import com.itmo.app.UIApp;
 import com.itmo.client.User;
 import com.itmo.collection.Dragon;
+import com.itmo.server.ServerMain;
 import com.itmo.utils.FieldsScanner;
 import lombok.NoArgsConstructor;
 
@@ -38,7 +39,7 @@ public class AddElementCommand extends Command {
         dr.setOwnerName(user.getName());
         application.db.insertDragon(dr);
         application.syncWithDB();
-        return UIApp.localeClass.getString("dragon_was_added.text");
+        return ServerMain.localeClass.getString("dragon_was_added.text");
     }
 
     /**
@@ -47,6 +48,6 @@ public class AddElementCommand extends Command {
      */
     @Override
     public String getDescription() {
-        return UIApp.localeClass.getString("add_new_element_into_collection.text");
+        return ServerMain.localeClass.getString("add_new_element_into_collection.text");
     }
 }

@@ -41,6 +41,7 @@ public class UIApp extends Application {
     public static LocaleClass localeClass;
     public static ResourceBundle resourceBundle;
 
+
     public static Stage mainStage;
     public static Stage authorizationStage;
 
@@ -64,7 +65,6 @@ public class UIApp extends Application {
         resourceBundle = ResourceBundle.getBundle("locals", Locale.forLanguageTag("SE"), new UTF8Control());
         mainStage = primaryStage;
         authorizationStage = WindowsCreator.createAuthorization();
-
         authorizationStage.show();
         initPrimaryStage(primaryStage);
     }
@@ -73,7 +73,6 @@ public class UIApp extends Application {
     private void initPrimaryStage(Stage primaryStage) throws IOException {
         VBox root = (VBox) UIHelper
                 .loadFxmlWithController("/fxml/main.fxml", mainWindowController, getClass());
-        //(VBox) UIHelper.loadFxml("/fxml/main.fxml", getClass());
         primaryStage.setScene(new Scene(root));
         primaryStage.setTitle(localeClass.getString("lab8.text"));
         WindowsCreator.setIconToStage(primaryStage);

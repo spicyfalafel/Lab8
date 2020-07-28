@@ -3,10 +3,14 @@ package com.itmo.app.controllers;
 import com.itmo.app.UIApp;
 import com.itmo.client.Client;
 import com.itmo.collection.*;
+import com.itmo.commands.ChangeLanguageCommand;
 import com.itmo.utils.Painter;
+import com.itmo.utils.UIHelper;
+import com.itmo.utils.UTF8Control;
 import com.itmo.utils.WindowsCreator;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
@@ -24,6 +28,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 
@@ -92,6 +97,7 @@ public class MainWindowController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         handleCommandButtons();
+        handleLanguageMenuItems();
         drawAxis();
     }
 
@@ -100,6 +106,12 @@ public class MainWindowController implements Initializable {
     }
 
 
+    private void handleLanguageMenuItems(){
+        languageRussianItem.setOnAction(e -> changeLanguageInUI("RU"));
+        languageEstonianItem.setOnAction(e -> changeLanguageInUI("EE"));
+        languageSwedishItem.setOnAction(e -> changeLanguageInUI("SE"));
+        languageEspanItem.setOnAction(e -> changeLanguageInUI("SPA"));
+    }
     private void handleCommandButtons(){
         addButton.setOnAction(e -> {
             try {
@@ -122,5 +134,27 @@ public class MainWindowController implements Initializable {
         painter.setColor(javafx.scene.paint.Color.RED);
         painter.drawDragonOnCanvas(new MyDragonsCollection().generateSimpleDragon());
         painter.drawDragonOnCanvas(200, 200, 40);
+    }
+
+    private void changeLanguageInUI(String TAG) {
+        UIApp.localeClass.changeLocaleByTag(TAG);
+        Scene scene = UIApp.mainStage.getScene();
+        // TODO changeDateFormat();
+        try {
+            scene.setRoot(UIHelper.loadFxmlWithController(
+                    "/fxml/main.fxml",
+                    UIApp.mainWindowController,
+                    getClass()));
+            //FXMLLoader.load(getClass().getResource("/fxml/authorization.fxml"),
+            //                    UIApp.resourceBundle)
+
+            UIApp.getClient().sendCommandToServer(
+                    new ChangeLanguageCommand(new String[]{TAG})
+            );
+            String ans = UIApp.getClient().getAnswerFromServer();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

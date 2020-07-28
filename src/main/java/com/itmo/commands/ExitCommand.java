@@ -3,6 +3,7 @@ package com.itmo.commands;
 import com.itmo.app.Application;
 import com.itmo.app.UIApp;
 import com.itmo.client.User;
+import com.itmo.server.ServerMain;
 import com.itmo.utils.LocaleClass;
 
 public class ExitCommand extends Command {
@@ -18,7 +19,7 @@ public class ExitCommand extends Command {
 
     @Override
     public String getDescription() {
-        return UIApp.localeClass.getString("exit_program.text");
+        return ServerMain.localeClass.getString("exit_program.text");
     }
 
     @Override

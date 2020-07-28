@@ -5,6 +5,7 @@ import com.itmo.exceptions.NotYourPropertyException;
 import com.itmo.app.Application;
 import com.itmo.client.User;
 import com.itmo.collection.Dragon;
+import com.itmo.server.ServerMain;
 import com.itmo.utils.FieldsScanner;
 
 public class UpdateByIdCommand extends Command{
@@ -37,20 +38,20 @@ public class UpdateByIdCommand extends Command{
                 application.getCollection().remove(prev, user);
                 dr.setId(id);
                 application.getCollection().add(dr);
-                return UIApp.localeClass.getString("dragon_was_added.text");
+                return ServerMain.localeClass.getString("dragon_was_added.text");
             }else{
-                return UIApp.localeClass.getString("dragon_with_id.text")
-                        +" " + id + UIApp.localeClass.getString("not_found.text");
+                return ServerMain.localeClass.getString("dragon_with_id.text")
+                        +" " + id + ServerMain.localeClass.getString("not_found.text");
             }
         }catch (NumberFormatException e){
-            return UIApp.localeClass.getString("id_is_a_number.text");
+            return ServerMain.localeClass.getString("id_is_a_number.text");
         }catch (NotYourPropertyException e){
-            return UIApp.localeClass.getString("propriety.text") + e.getMessage();
+            return ServerMain.localeClass.getString("propriety.text") + e.getMessage();
         }
     }
 
     @Override
     public String getDescription() {
-        return UIApp.localeClass.getString("update_element_by_its_id.text");
+        return ServerMain.localeClass.getString("update_element_by_its_id.text");
     }
 }

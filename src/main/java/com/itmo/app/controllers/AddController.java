@@ -39,8 +39,8 @@ public class AddController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        initializeButtons();
         initializeChoiceBoxes();
+        initializeButtons();
     }
 
     void initializeButtons() {

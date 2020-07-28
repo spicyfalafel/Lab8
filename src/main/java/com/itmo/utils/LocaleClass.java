@@ -24,12 +24,19 @@ public class LocaleClass {
         System.out.println(resourceBundle.getLocale().toString() + "!!!!!!!");
     }
 
-    //RU
-    // EE = ЭСТОНСКИЙ
-    // SE = ШВЕДСКИЙ
-    // ES = ИСПАНСКИЙ
+    public enum SupportedLanguages{
+        RU,
+        EE,
+        SE,
+        SPA
+    }
+
+
     public void changeLocaleByTag(String TAG){
         changeLocale(Locale.forLanguageTag(TAG));
+    }
+    public void changeLocaleByTag(SupportedLanguages TAG){
+        changeLocale(Locale.forLanguageTag(TAG.toString()));
     }
 
     public String getString(String text){

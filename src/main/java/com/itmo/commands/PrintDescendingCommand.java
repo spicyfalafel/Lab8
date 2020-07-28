@@ -3,6 +3,7 @@ package com.itmo.commands;
 import com.itmo.app.Application;
 import com.itmo.app.UIApp;
 import com.itmo.client.User;
+import com.itmo.server.ServerMain;
 import com.itmo.utils.LocaleClass;
 
 public class PrintDescendingCommand extends Command {
@@ -23,6 +24,6 @@ public class PrintDescendingCommand extends Command {
 
     @Override
     public String getDescription() {
-        return UIApp.localeClass.getString("print_in_descending_order.text");
+        return ServerMain.localeClass.getString("print_in_descending_order.text");
     }
 }

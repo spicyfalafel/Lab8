@@ -2,6 +2,7 @@ package com.itmo.app.controllers;
 
 import com.itmo.app.UIApp;
 import com.itmo.client.Client;
+import com.itmo.commands.ChangeLanguageCommand;
 import com.itmo.commands.LoginCommand;
 import com.itmo.commands.RegisterCommand;
 import com.itmo.utils.LocaleClass;
@@ -73,8 +74,7 @@ public class AuthorizationController implements Initializable {
 
 
     private void changeLanguageInUI(String TAG) {
-        UIApp.resourceBundle = ResourceBundle
-                .getBundle("locals", Locale.forLanguageTag(TAG), new UTF8Control());
+        UIApp.localeClass.changeLocaleByTag(TAG);
         Scene scene = UIApp.authorizationStage.getScene();
         // TODO changeDateFormat();
         try {
@@ -84,6 +84,12 @@ public class AuthorizationController implements Initializable {
                     getClass()));
             //FXMLLoader.load(getClass().getResource("/fxml/authorization.fxml"),
             //                    UIApp.resourceBundle)
+
+            UIApp.getClient().sendCommandToServer(
+                    new ChangeLanguageCommand(new String[]{TAG})
+            );
+            String ans = UIApp.getClient().getAnswerFromServer();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

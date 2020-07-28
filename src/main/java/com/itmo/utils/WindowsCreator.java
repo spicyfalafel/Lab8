@@ -33,7 +33,7 @@ public class WindowsCreator {
     public static Stage createAddForm() throws IOException {
         AnchorPane root = (AnchorPane) UIHelper.loadFxmlWithController(
                 "/fxml/add.fxml",
-                UIApp.authorizationController,
+                UIApp.addController,
                 WindowsCreator.class
         );
         Stage stage = createBlankStage(root, UIApp.localeClass.getString("add_title.text"));

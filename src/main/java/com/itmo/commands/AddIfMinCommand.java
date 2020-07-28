@@ -3,6 +3,7 @@ package com.itmo.commands;
 import com.itmo.app.Application;
 import com.itmo.client.User;
 import com.itmo.collection.Dragon;
+import com.itmo.server.ServerMain;
 import com.itmo.utils.FieldsScanner;
 
 import java.util.Date;
@@ -38,6 +39,6 @@ public class AddIfMinCommand extends Command {
 
     @Override
     public String getDescription() {
-        return "добавить новый элемент в коллекцию, если его значение меньше, чем у наименьшего элемента этой коллекции";
+        return ServerMain.localeClass.getString("add_if_min_description.text");
     }
 }

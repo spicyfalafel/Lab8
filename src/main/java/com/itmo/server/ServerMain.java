@@ -2,12 +2,14 @@ package com.itmo.server;
 
 import ch.qos.logback.classic.Logger;
 import com.itmo.app.Application;
+import com.itmo.utils.LocaleClass;
 import org.slf4j.LoggerFactory;
 
 import java.sql.SQLException;
 
 public class ServerMain {
     public static Logger logger = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(ServerWithThreads.class);
+    public static LocaleClass localeClass = new LocaleClass();
     public static void main(String[] args) throws SQLException {
 
         if(args.length!=1){
