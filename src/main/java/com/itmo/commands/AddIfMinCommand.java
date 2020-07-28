@@ -5,14 +5,19 @@ import com.itmo.client.User;
 import com.itmo.collection.Dragon;
 import com.itmo.server.ServerMain;
 import com.itmo.utils.FieldsScanner;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+@NoArgsConstructor
 public class AddIfMinCommand extends Command {
     private Dragon dr;
 
     public AddIfMinCommand(String[] args) {
         super(args);
+    }
+    public AddIfMinCommand(Dragon d){
+        dr = d;
     }
 
     @Override

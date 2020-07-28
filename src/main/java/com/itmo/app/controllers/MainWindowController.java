@@ -2,8 +2,12 @@ package com.itmo.app.controllers;
 
 import com.itmo.app.UIApp;
 import com.itmo.client.Client;
+import com.itmo.client.MainUI;
 import com.itmo.collection.*;
 import com.itmo.commands.ChangeLanguageCommand;
+import com.itmo.commands.ClearCommand;
+import com.itmo.commands.InfoCommand;
+import com.itmo.commands.RemoveByIdCommand;
 import com.itmo.utils.Painter;
 import com.itmo.utils.UIHelper;
 import com.itmo.utils.UTF8Control;
@@ -63,7 +67,7 @@ public class MainWindowController implements Initializable {
             addIfMaxButton, addIfMinButton, clearButton, filterNameButton,
             infoButton, descendingWingspanButton, sortValueButton,
             removeByIdButton, removeLowerThanButton, updateByIdButton,
-            executeScriptButton, loginButton;
+            executeScriptButton, loginButton, removeButton;
     @FXML
     private TableView<DragonForTable> dragonsTable;
     @FXML
@@ -91,7 +95,8 @@ public class MainWindowController implements Initializable {
     private TableColumn<DragonForTable, String> killerNameColumn;
     @FXML
     private TableColumn<DragonForTable, LocalDateTime> killerBirthDateColumn;
-
+    @FXML
+    private Label commandOutput;
 
 
     @Override
@@ -115,11 +120,62 @@ public class MainWindowController implements Initializable {
     private void handleCommandButtons(){
         addButton.setOnAction(e -> {
             try {
+                UIApp.addController.setType(AddController.TypeOfAdd.ADD);
                 WindowsCreator.createAddForm().show();
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
         });
+
+        addIfMaxButton.setOnAction(e -> {
+            try {
+                UIApp.addController.setType(AddController.TypeOfAdd.ADD_IF_MAX);
+                WindowsCreator.createAddForm().show();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+
+        addIfMinButton.setOnAction(e -> {
+            try {
+                UIApp.addController.setType(AddController.TypeOfAdd.ADD_IF_MIN);
+                WindowsCreator.createAddForm().show();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+
+        updateByIdButton.setOnAction(e -> {
+            try {
+                UIApp.addController.setType(AddController.TypeOfAdd.UPDATE);
+                WindowsCreator.createAddForm().show();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+
+        infoButton.setOnAction(e -> {
+            UIApp.getClient().sendCommandToServer(new InfoCommand());
+            String answer = UIApp.getClient().getAnswerFromServer();
+            commandOutput.setText(answer);
+        });
+
+        removeByIdButton.setOnAction(e -> {
+            try{
+                WindowsCreator.createRemoveById().show();
+            }catch (IOException ex){
+                ex.printStackTrace();
+            }
+        });
+
+        clearButton.setOnAction(e -> {
+            UIApp.getClient().sendCommandToServer(new ClearCommand());
+            String answer = UIApp.getClient().getAnswerFromServer();
+            commandOutput.setText(answer);
+        });
+
+
+
     }
 
     private void drawAxis() {
@@ -152,6 +208,7 @@ public class MainWindowController implements Initializable {
                     new ChangeLanguageCommand(new String[]{TAG})
             );
             String ans = UIApp.getClient().getAnswerFromServer();
+            commandOutput.setText(ans);
 
         } catch (IOException e) {
             e.printStackTrace();

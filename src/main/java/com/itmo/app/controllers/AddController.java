@@ -4,6 +4,9 @@ import com.itmo.app.UIApp;
 import com.itmo.client.Client;
 import com.itmo.collection.*;
 import com.itmo.commands.AddElementCommand;
+import com.itmo.commands.AddIfMaxCommand;
+import com.itmo.commands.AddIfMinCommand;
+import com.itmo.commands.Command;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,6 +16,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -36,6 +41,14 @@ public class AddController implements Initializable {
     private Button addElementButton;
     @FXML
     private Text stateText;
+    @Setter
+    private TypeOfAdd type;
+    public enum TypeOfAdd{
+        ADD,
+        ADD_IF_MIN,
+        ADD_IF_MAX,
+        UPDATE
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -46,7 +59,24 @@ public class AddController implements Initializable {
     void initializeButtons() {
         addElementButton.setOnAction(e -> {
             Dragon dragonFromForm = getDragonFromForm();
-            UIApp.getClient().sendCommandToServer(new AddElementCommand(dragonFromForm));
+            Command command;
+            switch (type){
+                case ADD_IF_MAX:
+                    command = new AddIfMaxCommand(dragonFromForm);
+                    break;
+                case ADD_IF_MIN:
+                    command = new AddIfMinCommand(dragonFromForm);
+                    break;
+                default:
+                case ADD:
+                    command = new AddElementCommand(dragonFromForm);
+                    break;
+                case UPDATE:
+                    //TODO
+                    command = new AddElementCommand(dragonFromForm);
+                    break;
+            }
+            UIApp.getClient().sendCommandToServer(command);
             String ans = UIApp.getClient().getAnswerFromServer();
             stateText.setText(ans);
         });

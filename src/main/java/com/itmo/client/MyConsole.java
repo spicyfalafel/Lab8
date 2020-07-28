@@ -67,8 +67,8 @@ public class MyConsole {
         invoker.register("show", new ShowCommand(null));
         invoker.register("update", new UpdateByIdCommand(null));
         invoker.register("filter_starts_with_name", new FilterStartsWithNameCommand(null));
-        invoker.register("add_if_max", new AddIfMaxCommand(null));
-        invoker.register("add_if_min", new AddIfMinCommand(null));
+        invoker.register("add_if_max", new AddIfMaxCommand());
+        invoker.register("add_if_min", new AddIfMinCommand());
         invoker.register("remove_lower", new RemoveLowerThanElementCommand(null));
         invoker.register("print_field_ascending_wingspan", new PrintFieldAscendingWingspanCommand(null));
         invoker.register("print_descending", new PrintDescendingCommand(null));

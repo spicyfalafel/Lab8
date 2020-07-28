@@ -7,9 +7,11 @@ import com.itmo.collection.Dragon;
 import com.itmo.server.ServerMain;
 import com.itmo.utils.FieldsScanner;
 import com.itmo.utils.LocaleClass;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+@NoArgsConstructor
 public class AddIfMaxCommand extends Command {
     private Dragon dr;
 
@@ -17,6 +19,10 @@ public class AddIfMaxCommand extends Command {
     public void clientInsertionFromConsole() {
         FieldsScanner helper = FieldsScanner.getInstance();
         dr = helper.scanDragon();
+    }
+
+    public AddIfMaxCommand(Dragon d){
+        dr = d;
     }
 
 

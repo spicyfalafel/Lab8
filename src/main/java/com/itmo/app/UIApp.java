@@ -37,7 +37,7 @@ public class UIApp extends Application {
     public static ErrorController errorController;
     public static InformationController informationController;
     public static AddController addController;
-
+    public static RemoveByIdController removeByIdController;
     public static LocaleClass localeClass;
     public static ResourceBundle resourceBundle;
 
@@ -57,6 +57,7 @@ public class UIApp extends Application {
         addController = new AddController();
         errorController = new ErrorController();
         informationController = new InformationController();
+        removeByIdController = new RemoveByIdController();
         localeClass = new LocaleClass();
     }
 

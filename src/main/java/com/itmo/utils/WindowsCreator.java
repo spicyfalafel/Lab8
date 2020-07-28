@@ -42,6 +42,18 @@ public class WindowsCreator {
         return stage;
     }
 
+    public static Stage createRemoveById() throws IOException{
+
+        VBox root = (VBox) UIHelper.loadFxmlWithController(
+                "/fxml/remove_by_id.fxml",
+                UIApp.removeByIdController,
+                UIApp.class);
+        Stage stage = createBlankStage(root, UIApp.localeClass.getString("remove_by_id.text"));
+        setIconToStage(stage);
+        stage.setResizable(false);
+        return stage;
+    }
+
     public static Stage createError() throws IOException {
         VBox root = (VBox) UIHelper.loadFxmlWithController(
                 "/fxml/error.fxml",
