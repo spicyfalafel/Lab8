@@ -65,10 +65,10 @@
    <Button fx:id="addElementButton" layoutX="114.0" layoutY="460.0" mnemonicParsing="false"
            text="%add.text"/>
    <HBox alignment="CENTER" layoutY="490.0" prefHeight="26.0" prefWidth="301.0">
-      <Text fx:id="stateText" strokeType="OUTSIDE" strokeWidth="0.0">
+      <Label fx:id="stateText">
          <font>
             <Font size="14.0"/>
          </font>
-      </Text>
+      </Label>
    </HBox>
 </AnchorPane>

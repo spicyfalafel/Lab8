@@ -26,8 +26,8 @@
         <PasswordField fx:id="passwordField" maxHeight="10" maxWidth="150" promptText="Your password"/>
         <Button fx:id="buttonLogin" text="%login.text"/>
         <Button fx:id="buttonRegister" text="%register.text"/>
-        <Label fx:id="labelMessage" alignment="CENTER" maxWidth="300" prefHeight="126.0" prefWidth="240.0"
-               textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS"/>
+        <Label fx:id="labelMessage" alignment="CENTER" maxWidth="600.0" prefHeight="126.0" prefWidth="240.0"
+               textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true"/>
     </VBox>
     <SplitMenuButton fx:id="languageSplitMenu" text="%language.text">
         <graphic>
