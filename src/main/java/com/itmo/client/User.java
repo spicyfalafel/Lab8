@@ -11,8 +11,11 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Data
 public class User implements Serializable {
+    private long id;
+
     private String name;
     private String hashPass;
+
 
     private double red, green, blue;
 

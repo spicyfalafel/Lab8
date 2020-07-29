@@ -2,7 +2,7 @@ package com.itmo.app;
 
 import com.itmo.collection.MyDragonsCollection;
 import com.itmo.server.ActiveUsersHandler;
-import com.itmo.utils.DatabaseManager;
+import com.itmo.database.DatabaseManager;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -40,8 +40,8 @@ public class RegisterCommand extends Command {
             user.setName(login);
             user.setHashPass(pass);
             application.db.insertUser(user);
-            return
-                    ServerMain.localeClass.getString("registration_is_completed.text")
+
+            return ServerMain.localeClass.getString("registration_is_completed.text")
             + ServerMain.localeClass.getString("your_login.text") + ": " + user.getName();
         }else return ServerMain.localeClass.getString("this_user_already_exists.text");
     }

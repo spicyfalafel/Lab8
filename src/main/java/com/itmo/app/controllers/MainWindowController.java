@@ -189,6 +189,7 @@ public class MainWindowController implements Initializable {
 
 
 
+
     }
 
     private void drawAxis() {

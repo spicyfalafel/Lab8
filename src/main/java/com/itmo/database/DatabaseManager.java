@@ -1,9 +1,13 @@
-package com.itmo.utils;
+package com.itmo.database;
 
 import com.itmo.client.User;
 import com.itmo.collection.*;
+import com.itmo.database.MyCRUD;
 import com.itmo.server.url.SshConnection;
 import com.itmo.server.url.UrlGetterDirectly;
+import com.itmo.utils.DateTimeAdapter;
+import com.itmo.utils.PassEncoder;
+import com.itmo.utils.SimplePasswordGenerator;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -13,7 +17,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-public class DatabaseManager {
+public class DatabaseManager implements MyCRUD {
 
     private static final String DB_URL = (System.getProperty("os.name").contains("dow")) ?
         new SshConnection().getUrl() :  new UrlGetterDirectly().getUrl();
@@ -67,51 +71,85 @@ public class DatabaseManager {
         this(DB_URL, USER, PASS);
     }
 
-    public void insertDragon(Dragon d)  {
+    public boolean insertDragon(Dragon d)  {
         try {
             String drtype = "NULL";
-            if (d.getType() != null) drtype = "'" + d.getType() + "'";
-            String state = "INSERT INTO "
-                    + COLLECTION_TABLE + "(dragon_name, reg_date, age, wingspan, dragon_type, dragon_character, owner)\n" +
-                    "VALUES ('" + d.getName() + "', '" + d.getCreatinoDateInFormat() + "', " + d.getAge() + ", "
-                    + d.getWingspan() + ", " + drtype + ", '" + d.getCharacter() + "', '" + d.getOwnerName() + "')";
+
+            if (d.getType() != null) drtype = d.getType().name();
+            String date =d.getCreationDateInFormat();
+            String state = "INSERT INTO " + COLLECTION_TABLE +
+                    "(dragon_name," +
+                    " reg_date," +
+                    " age," +
+                    " wingspan," +
+                    " dragon_type," +
+                    " dragon_character, " +
+                    "owner)\n" +
+                    "VALUES (?, '" + date + "', ?, ?, ?::dragon_type, ?::dragon_character, ?)";
             PreparedStatement dragonItself = connection.prepareStatement(state);
+
+            dragonItself.setString(1, d.getName());
+            dragonItself.setInt(2, d.getAge());
+            dragonItself.setFloat(3, d.getWingspan());
+            dragonItself.setString(4, drtype);
+            dragonItself.setString(5, d.getCharacter().name());
+            dragonItself.setString(6, d.getOwnerName());
             dragonItself.executeUpdate();
-            PreparedStatement dragonCoords = connection.prepareStatement("INSERT INTO dragon_coordinates(dragon_id,x,y)" +
-                    "VALUES (currval('generate_id'), " + d.getCoordinates().getX() + ", " + d.getCoordinates().getY() + ")");
+
+            PreparedStatement dragonCoords = connection.prepareStatement(
+                    "INSERT INTO dragon_coordinates(dragon_id,x,y)" +
+                    "VALUES (currval('generate_id'), ?, ?)");
+            dragonCoords.setInt(1, d.getCoordinates().getX());
+            dragonCoords.setLong(2, d.getCoordinates().getY());
             dragonCoords.executeUpdate();
 
             Person killer = d.getKiller();
             if (killer != null) {
-                String hair = killer.getHairColor() == null ? "NULL" : "'" + killer.getHairColor() + "'";
-                String nati = killer.getNationality() == null ? "NULL" : "'" + killer.getNationality() + "'";
+                String hair = killer.getHairColor() == null ?
+                        "NULL" : killer.getHairColor().name();
+                String nati = killer.getNationality() == null ?
+                        "NULL" : killer.getNationality().name();
                 PreparedStatement dragonKiller =
-                        connection.prepareStatement("INSERT INTO dragon_killers(dragon_id, killer_name, birthday, color,country)" +
-                                "VALUES (currval('generate_id'), '" + killer.getName() + "', '" + killer.getBirthdayInFormat() + "', " + hair +
-                                ", " + nati + ")");
+                        connection.prepareStatement(
+                                "INSERT INTO dragon_killers(dragon_id, killer_name, birthday, color, country)" +
+                                "VALUES (currval('generate_id'), ?,'"
+                                +killer.getBirthdayInFormat() + "', ?::color, ?::country)"
+                        );
+                dragonKiller.setString(1, killer.getName());
+                dragonKiller.setString(2, hair);
+                dragonKiller.setString(3, nati);
                 dragonKiller.executeUpdate();
+
                 Location loc = killer.getLocation();
                 PreparedStatement killerLoc =
-                        connection.prepareStatement("INSERT INTO killers_locations(dragon_id, x,y,z,loc_name)\n" +
-                                "VALUES (currval('generate_id'), " + loc.getX() + ", " + loc.getY() + ", " + loc.getZ() +
-                                ", '" + loc.getName() + "')");
+                        connection.prepareStatement("INSERT INTO killers_locations( dragon_id, x,y,z,loc_name)\n" +
+                                "VALUES (currval('generate_id'), ?, ?, ?, ?)");
+                killerLoc.setInt(1, loc.getX());
+                killerLoc.setLong(2, loc.getY());
+                killerLoc.setFloat(3, loc.getZ());
+                killerLoc.setString(4, loc.getName());
                 killerLoc.executeUpdate();
             }
+            return true;
         }catch (SQLException e){
             System.out.println("Ошибка при добавлении элемента в БД.");
+            e.printStackTrace();
+            return false;
         }
     }
 
 
     public Set<Dragon> getCollectionFromDatabase() throws SQLException {
         PreparedStatement statement =
-                connection.prepareStatement("SELECT * FROM "+ COLLECTION_TABLE + " ds\n" +
+                connection.prepareStatement(
+                        "SELECT * FROM "+ COLLECTION_TABLE + " ds\n" +
                                 "    inner join dragon_coordinates dc\n" +
                                 "on ds.id = dc.dragon_id\n" +
                                 "    left outer join dragon_killers dk\n" +
                                 "    on dk.dragon_id = ds.id\n" +
                                 "    left outer join killers_locations kl\n" +
-                                "    on kl.dragon_id=ds.id");
+                                "    on kl.dragon_id=ds.id"
+                );
         ResultSet resultSet = statement.executeQuery();
         HashSet<Dragon> dragons = new HashSet<>();
         while (resultSet.next()) {
@@ -147,6 +185,50 @@ public class DatabaseManager {
             dragons.add(dragon);
         }
         return (Collections.synchronizedSet(dragons));
+    }
+
+    @Override
+    public boolean deleteDragonById(long id) {
+        String sqlRequest =
+                "DELETE FROM " + COLLECTION_TABLE + " WHERE id=" + id;
+        try {
+            PreparedStatement statement = connection.prepareStatement(sqlRequest);
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return false;
+        }
+    }
+
+    public long getIdOfDragon(Dragon d){
+        String sqlRequest =
+                "select * FROM " + COLLECTION_TABLE +
+                        " WHERE owner=? " +
+                        "and dragon_name=?" +
+                        " and wingspan=?" +
+                        " and dragon_type=?::dragon_type" +
+                        " and dragon_character=?::dragon_character" +
+                        " and age=?" +
+                        " and reg_date='" + d.getCreationDateInFormat() + "'";
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(sqlRequest);
+            statement.setString(1, d.getOwnerName());
+            statement.setString(2, d.getName());
+            statement.setFloat(3, d.getWingspan());
+            statement.setString(4, d.getType().name());
+            statement.setString(5, d.getCharacter().name());
+            statement.setInt(6, d.getAge());
+            ResultSet set = statement.executeQuery();
+            if (set.next()){
+                return set.getLong("id");
+            }
+            return 0;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return 0;
+        }
     }
 
     public boolean containsUser(User user) {

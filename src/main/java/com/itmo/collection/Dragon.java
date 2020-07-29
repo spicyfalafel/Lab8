@@ -87,7 +87,7 @@ public class Dragon implements Comparable<Dragon>, Serializable {
         creationDate = new Date();
     }
 
-    public String getCreatinoDateInFormat(){
+    public String getCreationDateInFormat(){
         String pattern = "yyyy-MM-dd";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         return simpleDateFormat.format(creationDate);
