@@ -7,11 +7,15 @@ import com.itmo.server.ServerMain;
 import com.itmo.utils.LocaleClass;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 public class ExitCommand extends Command {
 
     public ExitCommand(String[] args) {
         super(args);
+        setNoRightsToExecute(true);
+    }
+
+    public ExitCommand() {
+        setNoRightsToExecute(true);
     }
 
     @Override

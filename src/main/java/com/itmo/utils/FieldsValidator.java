@@ -2,11 +2,24 @@ package com.itmo.utils;
 
 import com.itmo.collection.Dragon;
 import com.itmo.collection.DragonWithStringFields;
+import lombok.Getter;
 
 import java.sql.Date;
 import java.util.Arrays;
 
 public class FieldsValidator {
+
+    @Getter
+    private final boolean mainFieldsOK;
+    @Getter
+    private final boolean killerFieldsEmpty;
+    @Getter
+    private final boolean killerFieldsRequredNotEmpty;
+    public FieldsValidator(DragonWithStringFields d) {
+        mainFieldsOK = dragonHasMainFieldsInitializated(d);
+        killerFieldsEmpty = dragonKillerFieldsAreAllEmpty(d);
+        killerFieldsRequredNotEmpty = dragonKillerRequaredFieldsAreNotEmpty(d);
+    }
 
     public boolean isPositive(Number n) {
         return (n.intValue() > 0);
@@ -78,30 +91,42 @@ public class FieldsValidator {
 
     // killer = null only if every field of killer and location is empty
     public boolean dragonFieldsAreAllFine(DragonWithStringFields d) {
+        return dragonHasMainFieldsInitializated(d) &&
+                (dragonKillerFieldsAreAllEmpty(d) || dragonKillerRequaredFieldsAreNotEmpty(d));
+    }
+
+    public boolean dragonHasMainFieldsInitializated(DragonWithStringFields d) {
         return stringIsNotNullOrEmpty(d.getName()) &&
                 isInt(d.getX()) &&
                 isLong(d.getY()) &&
                 isPositive(d.getWingspan()) &&
                 isInt(d.getAge()) &&
-                isPositive(d.getAge()) &&
-                ((
-                        stringsAreNullOrEmpty(
-                                d.getKillerName(),
-                                d.getBirthday(),
-                                d.getLocName(),
-                                d.getKillerX(),
-                                d.getKillerY(),
-                                d.getKilllerZ()
-                        ) &&
-                                d.getNationality() == null &&
-                                d.getHairColor() == null
-                ) ||
-                        (
-                                stringsAreNotNullOrEmpty(d.getName(), d.getLocName(),
-                                        d.getKillerX(), d.getKillerY(), d.getKilllerZ()) &&
-                                        isDate(d.getCreationDate()) &&
-                                        isInt(d.getKillerX()) && isLong(d.getKillerY()) && isFloat(d.getKilllerZ())
+                isPositive(d.getAge());
+    }
 
-                        ));
+    public boolean dragonKillerFieldsAreAllEmpty(DragonWithStringFields d) {
+        return
+                stringsAreNullOrEmpty(
+                    d.getKillerName(),
+                    d.getBirthday(),
+                    d.getLocName(),
+                    d.getKillerX(),
+                    d.getKillerY(),
+                    d.getKilllerZ()
+                ) &&
+                d.getNationality() == null &&
+                d.getHairColor() == null;
+    }
+
+    public boolean dragonKillerRequaredFieldsAreNotEmpty(DragonWithStringFields d){
+        return
+                stringsAreNotNullOrEmpty(d.getName(),
+                        d.getKillerName(),
+                        d.getLocName(),
+                        d.getKillerX(),
+                        d.getKillerY(),
+                        d.getKilllerZ()) &&
+                        isDate(d.getCreationDate()) &&
+                        isInt(d.getKillerX()) && isLong(d.getKillerY()) && isFloat(d.getKilllerZ());
     }
 }

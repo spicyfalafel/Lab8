@@ -14,8 +14,14 @@ import java.util.Arrays;
  */
 public class ChangeLanguageCommand extends Command{
 
+
     public ChangeLanguageCommand(String[] args) {
         super(args);
+        setNoRightsToExecute(true);
+    }
+
+    public ChangeLanguageCommand() {
+        setNoRightsToExecute(true);
     }
 
     @Override

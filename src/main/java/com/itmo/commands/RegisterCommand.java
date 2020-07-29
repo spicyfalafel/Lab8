@@ -10,8 +10,12 @@ import com.itmo.utils.SimplePasswordGenerator;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-@NoArgsConstructor @AllArgsConstructor
+@AllArgsConstructor
 public class RegisterCommand extends Command {
+
+    public RegisterCommand() {
+        setNoRightsToExecute(true);
+    }
 
     @Setter
     private String login = null;

@@ -15,6 +15,9 @@ public abstract class Command implements Executable, Serializable {
     private User user;
     protected String[] args;
 
+    @Getter @Setter
+    protected boolean noRightsToExecute = false;
+
     public void clientInsertionFromConsole(){
     }
 

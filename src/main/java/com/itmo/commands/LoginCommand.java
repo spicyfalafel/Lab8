@@ -14,12 +14,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor @NoArgsConstructor
+
 public class LoginCommand extends Command{
     @Getter @Setter
     private String login = null;
     @Getter @Setter
     private String pass = null;
+
+    public LoginCommand(String login, String pass){
+        setNoRightsToExecute(true);
+        this.login = login;
+        this.pass = pass;
+    }
+    public LoginCommand() {
+        setNoRightsToExecute(true);
+    }
 
     @Override
     public void clientInsertionFromConsole() {

@@ -82,14 +82,11 @@ public class AuthorizationController implements Initializable {
                     "/fxml/authorization.fxml",
                     UIApp.authorizationController,
                     getClass()));
-            //FXMLLoader.load(getClass().getResource("/fxml/authorization.fxml"),
-            //                    UIApp.resourceBundle)
-
             UIApp.getClient().sendCommandToServer(
                     new ChangeLanguageCommand(new String[]{TAG})
             );
             String ans = UIApp.getClient().getAnswerFromServer();
-
+            labelMessage.setText(ans);
         } catch (IOException e) {
             e.printStackTrace();
         }

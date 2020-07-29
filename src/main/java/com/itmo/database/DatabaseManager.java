@@ -73,7 +73,7 @@ public class DatabaseManager implements MyCRUD {
 
     public boolean insertDragon(Dragon d)  {
         try {
-            String drtype = "NULL";
+            String drtype = null;
 
             if (d.getType() != null) drtype = d.getType().name();
             String date =d.getCreationDateInFormat();

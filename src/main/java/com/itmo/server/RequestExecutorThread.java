@@ -20,12 +20,9 @@ public class RequestExecutorThread extends Thread {
     public void run() {
         if (command != null) {
             String res = ServerMain.localeClass.getString("not_registered.text");
-            if(command instanceof RegisterCommand
-                    || command instanceof LoginCommand){
+            if(command.isNoRightsToExecute()){
                 res = command.execute(application, client);
-            }else if(command instanceof ExitCommand && client.getName().equals("unregistered")){
-                res = "Вообще у вас прав нет, но хорошо, выходите.\n" + command.execute(application, client);
-            }else{
+            } else{
                 if(!client.getName().equals("unregistered") && application.activeUsers.containsUserName(client.getName())){
                     res = command.execute(application, client);
                 }

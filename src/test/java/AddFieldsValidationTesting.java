@@ -10,7 +10,7 @@ public class AddFieldsValidationTesting {
     static DragonWithStringFields d;
     @BeforeAll
     static void start(){
-        validator = new FieldsValidator();
+
         d = new DragonWithStringFields();
         String name = "5";
         String x = "5";
@@ -43,10 +43,12 @@ public class AddFieldsValidationTesting {
         d.setCharacter(character);
         d.setHairColor(hairColor);
         d.setNationality(nationality);
+        validator = new FieldsValidator(d);
     }
 
     @Test
     void dIsFine(){
-        Assertions.assertTrue(validator.dragonFieldsAreAllFine(d));
+        Assertions.assertTrue(validator.isMainFieldsOK());
+        Assertions.assertTrue(validator.isKillerFieldsEmpty());
     }
 }

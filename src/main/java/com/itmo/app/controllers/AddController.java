@@ -104,35 +104,41 @@ public class AddController implements Initializable {
         nationalityBox.setItems(countries);
     }
 
-    private Dragon getDragonFromForm() {
 
-        FieldsValidator fieldsValidator = new FieldsValidator();
-        if(fieldsValidator.dragonFieldsAreAllFine(getDragonStringsFromForm())){
+
+    private Dragon getDragonFromForm() {
+        FieldsValidator fieldsValidator = new FieldsValidator(getDragonStringsFromForm());
+        if(fieldsValidator.isMainFieldsOK()){
             String name = dragonNameField.getText();
             int x = Integer.parseInt(xField.getText());
             long y = Long.parseLong(yField.getText());
             float wingspan = Float.parseFloat(wingspanField.getText());
             int age = Integer.parseInt(ageField.getText());
-            String killerName = killerNameField.getText();
-            String birthdate = birthdateField.getText();
-            String locationName = locationNameField.getText();
-            //todo can't parse "" 
-            int locationX = Integer.parseInt(locationXField.getText());
-            Long locationY = Long.parseLong(locationYField.getText());
-            Float locationZ = Float.parseFloat(locationZField.getText());
-
-
             DragonType type = typeBox.getValue();
             DragonCharacter character = characterBox.getValue();
-            Color hairColor = hairColorBox.getValue();
-            Country nationality = nationalityBox.getValue();
-
-            Person killer = new Person(killerName, hairColor, nationality,
-                    new Location(locationX, locationY, locationZ, locationName));
-            killer.setBirthdayInFormat(birthdate);
-            return new Dragon(name, new Coordinates(x, y),
-                    age, wingspan, type, character,
-                    killer);
+            Person killer = null;
+            if(fieldsValidator.isKillerFieldsEmpty()){
+                return new Dragon(name, new Coordinates(x, y),
+                        age, wingspan, type, character,
+                        killer);
+            }else if (fieldsValidator.isKillerFieldsRequredNotEmpty()){
+                String killerName = killerNameField.getText();
+                String birthdate = birthdateField.getText();
+                String locationName = locationNameField.getText();
+                Color hairColor = hairColorBox.getValue();
+                Country nationality = nationalityBox.getValue();
+                //todo can't parse ""
+                int locationX = Integer.parseInt(locationXField.getText());
+                Long locationY = Long.parseLong(locationYField.getText());
+                Float locationZ = Float.parseFloat(locationZField.getText());
+                killer = new Person(killerName, hairColor, nationality,
+                        new Location(locationX, locationY, locationZ, locationName));
+                killer.setBirthdayInFormat(birthdate);
+                return new Dragon(name, new Coordinates(x, y),
+                        age, wingspan, type, character,
+                        killer);
+            }
+            return null;
         }else return null;
     }
 
@@ -164,10 +170,8 @@ public class AddController implements Initializable {
         d.setKilllerZ(locationZ);
 
         DragonType type = typeBox.getValue();
-        System.out.println("type: " + type);
         d.setType(type);
         DragonCharacter character = characterBox.getValue();
-        System.out.println("character: " + character);
         d.setCharacter(character);
         Color hairColor = hairColorBox.getValue();
         d.setHairColor(hairColor);
