@@ -41,11 +41,10 @@ public class UIApp extends Application {
     public static UpdateByIdController updateByIdController;
 
     public static Stage mainStage;
-
+    public static Stage authorizationStage;
 
     public static LocaleClass localeClass;
     public static ResourceBundle resourceBundle;
-    public static Stage authorizationStage;
 
     public void run(){
         launch();
@@ -53,7 +52,7 @@ public class UIApp extends Application {
 
 
     @Override
-    public void init() throws Exception {
+    public void init()  {
         authorizationController = new AuthorizationController();
         mainWindowController = new MainWindowController();
         addController = new AddController();
@@ -83,7 +82,7 @@ public class UIApp extends Application {
     }
 
     @Override
-    public void stop() throws Exception {
+    public void stop()  {
         client.closeEverything();
     }
 }

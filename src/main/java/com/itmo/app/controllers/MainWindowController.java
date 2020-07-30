@@ -100,6 +100,7 @@ public class MainWindowController implements Initializable {
         handleLanguageMenuItems();
         drawAxis();
         handleHelpItem();
+        handleOnClose();
         if (!UIApp.getClient().getUser().getName().equals("unregistered")) showUserName();
     }
 
@@ -126,6 +127,14 @@ public class MainWindowController implements Initializable {
         languageSwedishItem.setOnAction(e -> changeLanguageInUI("SE"));
         languageEspanItem.setOnAction(e -> changeLanguageInUI("SPA"));
     }
+
+    private void handleOnClose(){
+        UIApp.mainStage.setOnCloseRequest(e ->{
+            UIApp.getClient().sendCommandToServer(new ExitCommand());
+            UIApp.getClient().getAnswerFromServer();
+        });
+    }
+
     private void handleCommandButtons(){
         addButton.setOnAction(e -> {
             try {
