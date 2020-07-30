@@ -47,6 +47,17 @@ public class AddFieldsValidationTesting {
     }
 
     @Test
+    void isDateTesting(){
+        Assertions.assertTrue(validator.isDate("2000-01-01"));
+
+        Assertions.assertTrue(validator.isDate("2001-11-11"));
+
+        Assertions.assertTrue(validator.isDate("0001-01-01"));
+
+        Assertions.assertTrue(validator.isDate("2020-01-01"));
+    }
+
+    @Test
     void dIsFine(){
         Assertions.assertTrue(validator.isMainFieldsOK());
         Assertions.assertTrue(validator.isKillerFieldsEmpty());

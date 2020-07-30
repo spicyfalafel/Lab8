@@ -119,14 +119,14 @@ public class FieldsValidator {
     }
 
     public boolean dragonKillerRequaredFieldsAreNotEmpty(DragonWithStringFields d){
-        return
-                stringsAreNotNullOrEmpty(d.getName(),
-                        d.getKillerName(),
-                        d.getLocName(),
-                        d.getKillerX(),
-                        d.getKillerY(),
-                        d.getKilllerZ()) &&
-                        isDate(d.getCreationDate()) &&
+        boolean someStringsAreNotEmpty = stringsAreNotNullOrEmpty(d.getName(),
+                d.getKillerName(),
+                d.getLocName(),
+                d.getKillerX(),
+                d.getKillerY(),
+                d.getKilllerZ());
+        boolean dateIsDate =  isDate(d.getBirthday());
+        return someStringsAreNotEmpty && dateIsDate &&
                         isInt(d.getKillerX()) && isLong(d.getKillerY()) && isFloat(d.getKilllerZ());
     }
 }
