@@ -3,9 +3,6 @@ package com.itmo.commands;
 import com.itmo.app.Application;
 import com.itmo.app.UIApp;
 import com.itmo.client.User;
-import com.itmo.server.ServerMain;
-import com.itmo.utils.LocaleClass;
-import lombok.NoArgsConstructor;
 
 public class ExitCommand extends Command {
 
@@ -30,7 +27,7 @@ public class ExitCommand extends Command {
 
     @Override
     public String execute(Application application, User user) {
-        application.activeUsers.removeUser(user);
+        application.activeUsers.removeUserByName(user.getName());
         return "byebye";
     }
 }

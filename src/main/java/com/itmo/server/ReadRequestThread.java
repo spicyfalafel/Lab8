@@ -17,8 +17,8 @@ import java.util.Arrays;
 
 
 public class ReadRequestThread extends Thread {
-    private SocketChannel channel;
-    private Application application;
+    private final SocketChannel channel;
+    private final Application application;
     private User user;
     ReadRequestThread(SocketChannel clientSocketChannel, Application application){
         this.channel = clientSocketChannel;
@@ -36,6 +36,7 @@ public class ReadRequestThread extends Thread {
             while(command==null) command = getCommandFromClient(channel);
             user = command.getUser();
             new Thread(new RequestExecutorThread(command, channel, application, command.getUser())).start();
+            // if user wanted to exit then stop thread.
             if(command instanceof ExitCommand) break;
         }
     }
@@ -66,7 +67,7 @@ public class ReadRequestThread extends Thread {
             System.out.println(e.getLocalizedMessage());
             return null;
         } catch(IOException e) {
-            application.activeUsers.removeUser(user);
+            application.activeUsers.removeUserByName(user.getName());
             return null;
         }
     }

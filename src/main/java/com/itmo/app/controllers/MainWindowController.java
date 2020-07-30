@@ -59,7 +59,7 @@ public class MainWindowController implements Initializable {
             addIfMaxButton, addIfMinButton, clearButton, filterNameButton,
             infoButton, descendingWingspanButton, sortValueButton,
             removeByIdButton, removeLowerThanButton, updateByIdButton,
-            executeScriptButton, loginButton, removeButton;
+            executeScriptButton, signOutButton, removeButton;
     @FXML
     private TableView<DragonForTable> dragonsTable;
     @FXML
@@ -180,8 +180,8 @@ public class MainWindowController implements Initializable {
             commandOutput.setText(answer);
         });
 
-        loginButton.setOnAction(e -> {
-            UIApp.getClient().sendCommandToServer(new ExitCommand());
+        signOutButton.setOnAction(e -> {
+            UIApp.getClient().sendCommandToServer(new SignOutCommand());
             String answer = UIApp.getClient().getAnswerFromServer();
             UIApp.authorizationStage.show();
             UIApp.mainStage.close();

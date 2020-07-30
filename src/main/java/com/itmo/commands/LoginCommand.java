@@ -2,16 +2,11 @@ package com.itmo.commands;
 
 import com.itmo.app.Application;
 import com.itmo.app.UIApp;
-import com.itmo.app.controllers.AuthorizationController;
-import com.itmo.app.controllers.MainWindowController;
-import com.itmo.client.Client;
 import com.itmo.client.User;
 import com.itmo.server.ServerMain;
 import com.itmo.utils.FieldsScanner;
 import com.itmo.utils.PassEncoder;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
@@ -43,26 +38,26 @@ public class LoginCommand extends Command{
 
     @Override
     public String execute(Application application, User user) {
-        User u;
-        if(!application.activeUsers.containsUserName(login)){
-            String hashPassword = new PassEncoder().getHash(pass, null);
-            u = new User(login, hashPassword);
-            if(application.db.containsUser(u)){
+
+        String hashPassword = new PassEncoder().getHash(pass, null);
+        User u = new User(login, hashPassword);
+        if(application.db.containsUser(u)){
+            if(!application.activeUsers.containsUserName(login) || user.getName().equals(login)){
                 logUser(application, user, hashPassword);
                 return  ServerMain.localeClass.getString("hello.text") + ", " + user.getName();
             }else{
-                return ServerMain.localeClass.getString("already_registered.text");
+                return ServerMain.localeClass.getString("already_on_server.text");
             }
         }else{
-            return ServerMain.localeClass.getString("already_on_server.text");
+            return ServerMain.localeClass.getString("not_registered.text");
         }
     }
 
     private void logUser(Application application, User user, String hashPassword){
-        application.activeUsers.removeUser(user);
+        application.activeUsers.removeUserByName(user.getName());
         user.setName(login);
         user.setHashPass(hashPassword);
-        application.activeUsers.addUser(user);
+        application.activeUsers.addUserName(user.getName());
     }
 
     @Override

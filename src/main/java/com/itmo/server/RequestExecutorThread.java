@@ -3,31 +3,26 @@ package com.itmo.server;
 import com.itmo.app.Application;
 import com.itmo.client.User;
 import com.itmo.commands.Command;
-import com.itmo.commands.ExitCommand;
-import com.itmo.commands.LoginCommand;
-import com.itmo.commands.RegisterCommand;
-import com.itmo.utils.LocaleClass;
 import lombok.AllArgsConstructor;
 import java.nio.channels.SocketChannel;
 @AllArgsConstructor
 public class RequestExecutorThread extends Thread {
-    private Command command;
-    private SocketChannel channel;
-    private Application application;
-    private User client;
+    private final Command command;
+    private final SocketChannel channel;
+    private final Application application;
+    private final User user;
 
     @Override
     public void run() {
         if (command != null) {
             String res = ServerMain.localeClass.getString("not_registered.text");
-            if(command.isNoRightsToExecute()){
-                res = command.execute(application, client);
-            } else{
-                if(!client.getName().equals("unregistered") && application.activeUsers.containsUserName(client.getName())){
-                    res = command.execute(application, client);
-                }
+            boolean userIsRegistered = (!user.getName().equals("unregistered") &&
+                    application.activeUsers.containsUserName(user.getName()));
+
+            if(command.isNoRightsToExecute() || userIsRegistered){
+                res = command.execute(application, user);
             }
-            ServerWithThreads.executorService.execute(new GiveResponseTask(channel, application, client, res));
+            ServerWithThreads.executorService.execute(new GiveResponseTask(channel, application, user, res));
         }
     }
 }

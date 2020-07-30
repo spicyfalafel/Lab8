@@ -54,7 +54,7 @@
                 <Button fx:id="executeScriptButton" mnemonicParsing="false" text="%execute.text" textAlignment="CENTER" />
                 <Label fx:id="commandOutput" textAlignment="CENTER"/>
             </VBox>
-            <Button fx:id="loginButton" layoutX="26.0" layoutY="735.0" mnemonicParsing="false" text="%exit.text" />
+            <Button fx:id="signOutButton" layoutX="26.0" layoutY="735.0" mnemonicParsing="false" text="%exit.text" />
         </AnchorPane>
         <TabPane layoutX="214.0" prefHeight="774.0" prefWidth="1387.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="214.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
             <padding>
