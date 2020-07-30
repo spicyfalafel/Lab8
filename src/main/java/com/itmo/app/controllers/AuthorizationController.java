@@ -19,6 +19,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -46,7 +47,7 @@ public class AuthorizationController implements Initializable {
     @FXML
     private StackPane stackPane;
     @FXML
-    private Label labelMessage;
+    private Text labelMessage;
 
     private String login;
     private String password;
@@ -62,6 +63,7 @@ public class AuthorizationController implements Initializable {
         buttonRegister.setOnAction(registerButtonHandler);
         StackPane.setAlignment(languageSplitMenu, Pos.TOP_RIGHT);
         initializeLanguageMenuItems();
+
     }
 
 
@@ -99,12 +101,14 @@ public class AuthorizationController implements Initializable {
         LoginCommand loginCommand = new LoginCommand(login, password);
         UIApp.getClient().sendCommandToServer(loginCommand);
         String ans = UIApp.getClient().getAnswerFromServer();
-        labelMessage.setWrapText(true);
+
         labelMessage.setText(ans);
+
         if (ans.startsWith(UIApp.localeClass.getString("hello.text"))) {
             UIApp.mainStage.show();
             UIApp.authorizationStage.close();
         }
+
         event.consume();
     };
 

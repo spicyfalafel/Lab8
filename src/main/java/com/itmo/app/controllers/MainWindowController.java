@@ -7,6 +7,8 @@ import com.itmo.commands.*;
 import com.itmo.utils.Painter;
 import com.itmo.utils.UIHelper;
 import com.itmo.utils.WindowsCreator;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -18,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
@@ -101,11 +104,28 @@ public class MainWindowController implements Initializable {
         drawAxis();
         handleHelpItem();
         handleOnClose();
-        if (!UIApp.getClient().getUser().getName().equals("unregistered")) showUserName();
+        showUserName();
     }
 
+
+    public void handleTableView(){
+        ObservableList<DragonForTable> dragons = FXCollections.observableArrayList();
+        setUpColumns();
+
+        //dragonsTable.setItems();
+    }
+
+    private void setUpColumns() {
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        dragonNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        //dragonNameColumn
+    }
+
+
     public void showUserName(){
-        currentUserText.setText(UIApp.getClient().getUser().getName());
+        if (!UIApp.getClient().getUser().getName().equals("unregistered")) {
+            currentUserText.setText(UIApp.getClient().getUser().getName());
+        }
     }
 
 
@@ -134,6 +154,7 @@ public class MainWindowController implements Initializable {
             UIApp.getClient().getAnswerFromServer();
         });
     }
+
 
     private void handleCommandButtons(){
         addButton.setOnAction(e -> {

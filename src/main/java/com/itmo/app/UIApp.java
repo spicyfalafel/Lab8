@@ -79,6 +79,7 @@ public class UIApp extends Application {
         primaryStage.setScene(new Scene(root));
         primaryStage.setTitle(localeClass.getString("lab8.text"));
         WindowsCreator.setIconToStage(primaryStage);
+        primaryStage.getScene().getStylesheets().add("css/main.css");
     }
 
     @Override
