@@ -38,11 +38,13 @@ public class UIApp extends Application {
     public static InformationController informationController;
     public static AddController addController;
     public static RemoveByIdController removeByIdController;
-    public static LocaleClass localeClass;
-    public static ResourceBundle resourceBundle;
-
+    public static UpdateByIdController updateByIdController;
 
     public static Stage mainStage;
+
+
+    public static LocaleClass localeClass;
+    public static ResourceBundle resourceBundle;
     public static Stage authorizationStage;
 
     public void run(){
@@ -58,6 +60,7 @@ public class UIApp extends Application {
         errorController = new ErrorController();
         informationController = new InformationController();
         removeByIdController = new RemoveByIdController();
+        updateByIdController = new UpdateByIdController();
         localeClass = new LocaleClass();
     }
 

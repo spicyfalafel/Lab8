@@ -3,10 +3,7 @@ package com.itmo.app.controllers;
 import com.itmo.app.UIApp;
 import com.itmo.client.Client;
 import com.itmo.collection.*;
-import com.itmo.commands.AddElementCommand;
-import com.itmo.commands.AddIfMaxCommand;
-import com.itmo.commands.AddIfMinCommand;
-import com.itmo.commands.Command;
+import com.itmo.commands.*;
 import com.itmo.utils.FieldsValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -46,6 +43,10 @@ public class AddController implements Initializable {
     private Label stateText;
     @Setter
     private TypeOfAdd type;
+
+    @Setter @Getter
+    private long idOfDragonToUpdate = 0;
+
     public enum TypeOfAdd{
         ADD,
         ADD_IF_MIN,
@@ -82,8 +83,9 @@ public class AddController implements Initializable {
                     command = new AddElementCommand(dragonFromForm);
                     break;
                 case UPDATE:
-                    //TODO
-                    command = new AddElementCommand(dragonFromForm);
+                    UpdateByIdCommand command1 = new UpdateByIdCommand(new String[]{Long.toString(idOfDragonToUpdate)});
+                    command1.setDr(dragonFromForm);
+                    command = command1;
                     break;
             }
             UIApp.getClient().sendCommandToServer(command);
@@ -127,7 +129,6 @@ public class AddController implements Initializable {
                 String locationName = locationNameField.getText();
                 Color hairColor = hairColorBox.getValue();
                 Country nationality = nationalityBox.getValue();
-                //todo can't parse ""
                 int locationX = Integer.parseInt(locationXField.getText());
                 Long locationY = Long.parseLong(locationYField.getText());
                 Float locationZ = Float.parseFloat(locationZField.getText());

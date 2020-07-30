@@ -18,8 +18,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -153,8 +156,7 @@ public class MainWindowController implements Initializable {
 
         updateByIdButton.setOnAction(e -> {
             try {
-                UIApp.addController.setType(AddController.TypeOfAdd.UPDATE);
-                WindowsCreator.createAddForm().show();
+                WindowsCreator.createUpdateById().show();
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -187,8 +189,9 @@ public class MainWindowController implements Initializable {
             UIApp.mainStage.close();
         });
 
-
-
+        removeButton.setOnAction( e -> {
+            //todo should remove chosen element in table
+        });
 
     }
 

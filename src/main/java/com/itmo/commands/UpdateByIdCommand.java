@@ -7,6 +7,7 @@ import com.itmo.client.User;
 import com.itmo.collection.Dragon;
 import com.itmo.server.ServerMain;
 import com.itmo.utils.FieldsScanner;
+import lombok.Setter;
 
 public class UpdateByIdCommand extends Command{
 
@@ -18,6 +19,7 @@ public class UpdateByIdCommand extends Command{
     public int getNumberOfRequiredArgs() {
         return 1;
     }
+    @Setter
     private Dragon dr;
 
     @Override
@@ -41,7 +43,7 @@ public class UpdateByIdCommand extends Command{
                 return ServerMain.localeClass.getString("dragon_was_added.text");
             }else{
                 return ServerMain.localeClass.getString("dragon_with_id.text")
-                        +" " + id + ServerMain.localeClass.getString("not_found.text");
+                        +" " + id + " " + ServerMain.localeClass.getString("not_found.text");
             }
         }catch (NumberFormatException e){
             return ServerMain.localeClass.getString("id_is_a_number.text");

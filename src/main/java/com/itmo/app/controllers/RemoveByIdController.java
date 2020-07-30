@@ -4,6 +4,7 @@ import com.itmo.app.UIApp;
 import com.itmo.commands.RemoveByIdCommand;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -11,16 +12,19 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class RemoveByIdController implements Initializable {
-
     @FXML
-    private Label commandOutput;
+    Label resultLabel;
     @FXML
-    private TextField idField;
+    TextField idField;
+    @FXML
+    Button confirmButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        UIApp.getClient().sendCommandToServer(new RemoveByIdCommand(new String[]{idField.getText()}));
-        String answer = UIApp.getClient().getAnswerFromServer();
-        commandOutput.setText(answer);
+        confirmButton.setOnAction(event -> {
+            UIApp.getClient().sendCommandToServer(new RemoveByIdCommand(new String[]{idField.getText()}));
+            String answer = UIApp.getClient().getAnswerFromServer();
+            resultLabel.setText(answer);
+        });
     }
 }
