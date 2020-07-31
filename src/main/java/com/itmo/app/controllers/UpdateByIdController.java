@@ -29,8 +29,6 @@ public class UpdateByIdController implements Initializable {
                 UIApp.addController.setIdOfDragonToUpdate(id);
                 UIApp.addController.setType(AddController.TypeOfAdd.UPDATE);
                 WindowsCreator.createAddForm().show();
-            } catch (IOException e) {
-                e.printStackTrace();
             } catch (NumberFormatException e){
                 resultLabel.setText(UIApp.localeClass.getString("couldnt_parse_fields_try_again.text"));
             }

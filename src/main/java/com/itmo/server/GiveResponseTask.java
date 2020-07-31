@@ -15,7 +15,7 @@ import java.nio.channels.SocketChannel;
 public class GiveResponseTask implements Runnable {
     private SocketChannel channel;
     private Application application;
-    private User client;
+    private User user;
     private String ans;
 
     public final Logger log = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(GiveResponseTask.class);

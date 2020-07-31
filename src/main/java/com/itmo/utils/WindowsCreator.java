@@ -17,25 +17,35 @@ import java.io.IOException;
 
 public class WindowsCreator {
 
-    public static Stage createAuthorization() throws IOException {
-        StackPane root = (StackPane) UIHelper
-                .loadFxmlWithController(
-                        "/fxml/authorization.fxml",
-                        UIApp.authorizationController,
-                        WindowsCreator.class
-                );
+    public static Stage createAuthorization() {
+        StackPane root = null;
+        try {
+            root = (StackPane) UIHelper
+                    .loadFxmlWithController(
+                            "/fxml/authorization.fxml",
+                            UIApp.authorizationController,
+                            WindowsCreator.class
+                    );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Stage stage = createBlankStage(root, UIApp.localeClass.getString("auth_title.text"), 745, 380);
         setIconToStage(stage);
         stage.setResizable(false);
         return stage;
     }
 
-    public static Stage createAddForm() throws IOException {
-        AnchorPane root = (AnchorPane) UIHelper.loadFxmlWithController(
-                "/fxml/add.fxml",
-                UIApp.addController,
-                WindowsCreator.class
-        );
+    public static Stage createAddForm() {
+        AnchorPane root = null;
+        try {
+            root = (AnchorPane) UIHelper.loadFxmlWithController(
+                    "/fxml/add.fxml",
+                    UIApp.addController,
+                    WindowsCreator.class
+            );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Stage stage = createBlankStage(root, UIApp.localeClass.getString("add_title.text"));
         stage.setResizable(false);
         setIconToStage(stage);
@@ -44,44 +54,64 @@ public class WindowsCreator {
 
 
 
-    public static Stage createRemoveById() throws IOException{
-        AnchorPane root = (AnchorPane) UIHelper.loadFxmlWithController(
-                "/fxml/id_input.fxml",
-                UIApp.removeByIdController,
-                UIApp.class);
+    public static Stage createRemoveById() {
+        AnchorPane root = null;
+        try {
+            root = (AnchorPane) UIHelper.loadFxmlWithController(
+                    "/fxml/id_input.fxml",
+                    UIApp.removeByIdController,
+                    UIApp.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Stage stage = createBlankStage(root, UIApp.localeClass.getString("remove_by_id.text"));
         setIconToStage(stage);
         stage.setResizable(false);
         return stage;
     }
 
-    public static Stage createUpdateById() throws IOException{
-        AnchorPane root = (AnchorPane) UIHelper.loadFxmlWithController(
-                "/fxml/id_input.fxml",
-                UIApp.updateByIdController,
-                UIApp.class);
+    public static Stage createUpdateById() {
+        AnchorPane root = null;
+        try {
+            root = (AnchorPane) UIHelper.loadFxmlWithController(
+                    "/fxml/id_input.fxml",
+                    UIApp.updateByIdController,
+                    UIApp.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Stage stage = createBlankStage(root, UIApp.localeClass.getString("update_by_id.text"));
         setIconToStage(stage);
         stage.setResizable(false);
         return stage;
     }
 
-    public static Stage createError() throws IOException {
-        VBox root = (VBox) UIHelper.loadFxmlWithController(
-                "/fxml/error.fxml",
-                UIApp.errorController,
-                UIApp.class);
+    public static Stage createError() {
+        VBox root = null;
+        try {
+            root = (VBox) UIHelper.loadFxmlWithController(
+                    "/fxml/error.fxml",
+                    UIApp.errorController,
+                    UIApp.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Stage stage = createBlankStage(root, UIApp.localeClass.getString("error.text"));
         setIconToStage(stage);
         stage.setResizable(false);
         return stage;
     }
 
-    public static Stage createInfo(String information) throws  IOException{
-        VBox root = (VBox) UIHelper.loadFxmlWithController(
-                "/fxml/info.fxml",
-                UIApp.informationController,
-                UIApp.class);
+    public static Stage createInfo(String information){
+        VBox root = null;
+        try {
+            root = (VBox) UIHelper.loadFxmlWithController(
+                    "/fxml/info.fxml",
+                    UIApp.informationController,
+                    UIApp.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         UIApp.informationController.infoLabel.setText(information);
         Stage stage = createBlankStage(root, UIApp.localeClass.getString("information.text"));
         setIconToStage(stage);

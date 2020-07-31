@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.nio.channels.SocketChannel;
 import java.sql.SQLException;
 import java.util.Date;
 
@@ -42,4 +43,7 @@ public class Application implements Serializable {
         this.collection = collection;
     }
 
+    public void sendCollectionToClient(SocketChannel channel) {
+        //todo
+    }
 }

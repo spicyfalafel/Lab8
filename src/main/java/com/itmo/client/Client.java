@@ -19,7 +19,8 @@ import java.util.Scanner;
     Также можно запустить клиента в консольном режиме прям отсюда.
  */
 public class Client {
-    private static Socket socket;
+    @Getter
+    private Socket socket;
     private static final Scanner scanner = new Scanner(System.in);
 
     public final int BUFFER_SIZE = 4096;
@@ -72,9 +73,10 @@ public class Client {
 
     public void connect()  {
         System.out.println("Пытаюсь установить соединение с сервером (" + host + ":" + port + ")");
+        InetAddress addr;
         while (true) {
             try {
-                InetAddress addr = InetAddress.getByName(host);
+                addr = InetAddress.getByName(host);
                 socket = new Socket(addr, port);
                 System.out.println("Подключено: " + socket);
                 once=true;
@@ -94,6 +96,7 @@ public class Client {
     }
 
     private void setUserNameAfterRegistering(String answer){
+        //todo
         if(answer.startsWith("Здравствуйте, ")) {
             user.setName(answer.trim().substring(14));
         }
@@ -140,7 +143,7 @@ public class Client {
         }
     }
 
-    private static void sendOneByte() throws IOException {
+    private void sendOneByte() throws IOException {
         byte[] b = new byte[1];
         b[0] = (byte) 127;
         socket.getOutputStream().write(b);
@@ -148,10 +151,16 @@ public class Client {
 
     private void sendComBySocket(Command command) throws IOException {
         byte[] serializedCommand = SerializationManager.writeObject(command);
-        socket.getOutputStream().write(serializedCommand);
+        sendBytes(serializedCommand);
     }
 
-    public static Socket getSocket() {
-        return socket;
+    public void sendBytes(byte[] bytes) throws IOException {
+        socket.getOutputStream().write(bytes);
+    }
+
+    public byte[] getBytes() throws IOException {
+        byte[] res = new byte[BUFFER_SIZE];
+        int got = socket.getInputStream().read(res);
+        return res;
     }
 }

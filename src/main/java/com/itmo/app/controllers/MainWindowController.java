@@ -52,7 +52,7 @@ public class MainWindowController implements Initializable {
     @FXML
     private Menu helpMenu;
     @FXML
-    private MenuItem languageRussianItem,languageEstonianItem,
+    private MenuItem languageRussianItem, languageEstonianItem,
             languageSwedishItem, languageEspanItem;
     @FXML
     private Text currentUserText;
@@ -108,7 +108,7 @@ public class MainWindowController implements Initializable {
     }
 
 
-    public void handleTableView(){
+    public void handleTableView() {
         ObservableList<DragonForTable> dragons = FXCollections.observableArrayList();
         setUpColumns();
 
@@ -122,74 +122,55 @@ public class MainWindowController implements Initializable {
     }
 
 
-    public void showUserName(){
+    public void showUserName() {
         if (!UIApp.getClient().getUser().getName().equals("unregistered")) {
             currentUserText.setText(UIApp.getClient().getUser().getName());
         }
     }
 
 
-    private void handleHelpItem(){
-        helpMenu.getItems().get(0).setOnAction(e ->{
-            try {
-                //initialization of commands...
-                MyConsole console = new MyConsole();
-                String help = CommandsInvoker.getInstance().getHelp();
-                WindowsCreator.createInfo(help).show();
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+    private void handleHelpItem() {
+        helpMenu.getItems().get(0).setOnAction(e -> {
+            //initialization of commands...
+            MyConsole console = new MyConsole();
+            String help = CommandsInvoker.getInstance().getHelp();
+            WindowsCreator.createInfo(help).show();
         });
     }
-    private void handleLanguageMenuItems(){
+
+    private void handleLanguageMenuItems() {
         languageRussianItem.setOnAction(e -> changeLanguageInUI("RU"));
         languageEstonianItem.setOnAction(e -> changeLanguageInUI("EE"));
         languageSwedishItem.setOnAction(e -> changeLanguageInUI("SE"));
         languageEspanItem.setOnAction(e -> changeLanguageInUI("SPA"));
     }
 
-    private void handleOnClose(){
-        UIApp.mainStage.setOnCloseRequest(e ->{
+    private void handleOnClose() {
+        UIApp.mainStage.setOnCloseRequest(e -> {
             UIApp.getClient().sendCommandToServer(new ExitCommand());
             UIApp.getClient().getAnswerFromServer();
         });
     }
 
 
-    private void handleCommandButtons(){
+    private void handleCommandButtons() {
         addButton.setOnAction(e -> {
-            try {
-                UIApp.addController.setType(AddController.TypeOfAdd.ADD);
-                WindowsCreator.createAddForm().show();
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+            UIApp.addController.setType(AddController.TypeOfAdd.ADD);
+            WindowsCreator.createAddForm().show();
         });
 
         addIfMaxButton.setOnAction(e -> {
-            try {
-                UIApp.addController.setType(AddController.TypeOfAdd.ADD_IF_MAX);
-                WindowsCreator.createAddForm().show();
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+            UIApp.addController.setType(AddController.TypeOfAdd.ADD_IF_MAX);
+            WindowsCreator.createAddForm().show();
         });
 
         addIfMinButton.setOnAction(e -> {
-            try {
-                UIApp.addController.setType(AddController.TypeOfAdd.ADD_IF_MIN);
-                WindowsCreator.createAddForm().show();
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+            UIApp.addController.setType(AddController.TypeOfAdd.ADD_IF_MIN);
+            WindowsCreator.createAddForm().show();
         });
 
         updateByIdButton.setOnAction(e -> {
-            try {
-                WindowsCreator.createUpdateById().show();
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+            WindowsCreator.createUpdateById().show();
         });
 
         infoButton.setOnAction(e -> {
@@ -199,11 +180,7 @@ public class MainWindowController implements Initializable {
         });
 
         removeByIdButton.setOnAction(e -> {
-            try{
-                WindowsCreator.createRemoveById().show();
-            }catch (IOException ex){
-                ex.printStackTrace();
-            }
+            WindowsCreator.createRemoveById().show();
         });
 
         clearButton.setOnAction(e -> {
@@ -219,7 +196,7 @@ public class MainWindowController implements Initializable {
             UIApp.mainStage.close();
         });
 
-        removeButton.setOnAction( e -> {
+        removeButton.setOnAction(e -> {
             //todo should remove chosen element in table
         });
 
@@ -249,7 +226,6 @@ public class MainWindowController implements Initializable {
             );
             String ans = UIApp.getClient().getAnswerFromServer();
             commandOutput.setText(ans);
-
         } catch (IOException e) {
             e.printStackTrace();
         }

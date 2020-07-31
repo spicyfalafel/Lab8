@@ -5,6 +5,7 @@ import com.itmo.app.Application;
 import com.itmo.client.User;
 import com.itmo.commands.Command;
 import com.itmo.commands.ExitCommand;
+import com.itmo.commands.SubscribeForNotificationsCommand;
 import com.itmo.utils.SerializationManager;
 import org.slf4j.LoggerFactory;
 import java.io.IOException;
@@ -35,9 +36,9 @@ public class ReadRequestThread extends Thread {
             Command command = null;
             while(command==null) command = getCommandFromClient(channel);
             user = command.getUser();
-            new Thread(new RequestExecutorThread(command, channel, application, command.getUser())).start();
-            // if user wanted to exit then stop thread.
-            if(command instanceof ExitCommand) break;
+            new Thread(new RequestExecutorThread(command, channel, application)).start();
+            // if user wanted to exit then stop thread. or if it was Subscribing command
+            if(command instanceof ExitCommand || command instanceof SubscribeForNotificationsCommand) break;
         }
     }
 
