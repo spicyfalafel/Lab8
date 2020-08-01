@@ -3,12 +3,13 @@ package com.itmo.server.notifications;
 import com.itmo.utils.SerializationManager;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.util.HashSet;
 import java.util.Set;
 
-public class NotificationProducer {
+public class NotificationProducer implements Serializable {
 
     public Set<SocketChannel> subscribers;
 

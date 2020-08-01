@@ -30,8 +30,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 
@@ -65,45 +67,45 @@ public class MainWindowController implements Initializable {
             addIfMaxButton, addIfMinButton, clearButton, filterNameButton,
             infoButton, descendingWingspanButton, sortValueButton,
             removeByIdButton, removeLowerThanButton, updateByIdButton,
-            executeScriptButton, signOutButton, removeButton;
+    executeScriptButton, signOutButton, removeButton;
+
     @FXML
     private TableView<DragonForTable> dragonsTable;
     @FXML
     private TableColumn<DragonForTable, Long> idColumn;
     @FXML
-    private TableColumn<DragonForTable, DragonCharacter> characterColumn;
+    private TableColumn<DragonForTable, String> dragonNameColumn, creatorColumn, locationNameColumn;
     @FXML
-    private TableColumn<DragonForTable, DragonType> typeColumn;
+    private TableColumn<DragonForTable, String> creationDateColumn;
     @FXML
-    private TableColumn<DragonForTable, Float> wingspanColumn;
+    private TableColumn<DragonForTable, Integer> locationXColumn, xColumn;
+    @FXML
+    private TableColumn<DragonForTable, Long> locationYColumn, yColumn;
     @FXML
     private TableColumn<DragonForTable, Integer> ageColumn;
     @FXML
-    private TableColumn<DragonForTable, String> dragonNameColumn, creatorColumn, locationNameColumn;
+    private TableColumn<DragonForTable, Float> wingspanColumn;
     @FXML
-    private TableColumn<DragonForTable, Date> creationDateColumn;
-
+    private TableColumn<DragonForTable, String> typeColumn;
     @FXML
-    private TableColumn<DragonForTable, Integer> killerXColumn, xColumn;
-
-    @FXML
-    private TableColumn<DragonForTable, Long> killerYColumn, yColumn;
-
-    @FXML
-    private TableColumn<DragonForTable, Float> killerZColumn;
+    private TableColumn<DragonForTable, String> characterColumn;
 
 
-    @FXML
-    private TableColumn<DragonForTable, Country> killerNationalityColumn;
-    @FXML
-    private TableColumn<DragonForTable, Color> killerHairColorColumn;
+
     @FXML
     private TableColumn<DragonForTable, String> killerNameColumn;
     @FXML
-    private TableColumn<DragonForTable, LocalDateTime> killerBirthDateColumn;
+    private TableColumn<DragonForTable, Float> locationZColumn;
+    @FXML
+    private TableColumn<DragonForTable, String> killerBirthDateColumn;
+    @FXML
+    private TableColumn<DragonForTable, String> killerHairColorColumn;
+    @FXML
+    private TableColumn<DragonForTable, String> killerNationalityColumn;
     @FXML
     private Label commandOutput;
 
+    private ObservableList<DragonForTable> dragonsForTable;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -113,13 +115,28 @@ public class MainWindowController implements Initializable {
         handleHelpItem();
         handleOnClose();
         showUserName();
+        addDragonToTable(MyDragonsCollection.generateSimpleDragon());
+        Set<Dragon> s = new HashSet<>();
+        s.add(MyDragonsCollection.generateSimpleDragon());
+        s.add(MyDragonsCollection.generateSimpleDragon());
+        setDragonsInTable(s);
     }
 
+
+    public void addDragonToTable(Dragon d){
+        dragonsTable.getItems().add(new DragonForTable(d));
+    }
+
+    public void setDragons(Set<Dragon> dragons){
+        dragonsForTable = FXCollections.observableList(
+                dragons.stream().map(DragonForTable::new).collect(Collectors.toList())
+        );
+    }
 
     public void setDragonsInTable(Set<Dragon> dragons){
-
+        setDragons(dragons);
+        dragonsTable.setItems(dragonsForTable);
     }
-
 
     public void handleTableView() {
         ObservableList<DragonForTable> dragons = FXCollections.observableArrayList();
@@ -130,24 +147,24 @@ public class MainWindowController implements Initializable {
     private void setUpColumns() {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         dragonNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        ageColumn.setCellValueFactory(new PropertyValueFactory<>("age"));
-        creationDateColumn.setCellValueFactory(new PropertyValueFactory<>("creationDate"));
-        wingspanColumn.setCellValueFactory(new PropertyValueFactory<>("wingspan"));
         xColumn.setCellValueFactory(new PropertyValueFactory<>("x"));
         yColumn.setCellValueFactory(new PropertyValueFactory<>("y"));
+        creationDateColumn.setCellValueFactory(new PropertyValueFactory<>("creationDate"));
+        ageColumn.setCellValueFactory(new PropertyValueFactory<>("age"));
+        wingspanColumn.setCellValueFactory(new PropertyValueFactory<>("wingspan"));
 
-        characterColumn.setCellValueFactory(new PropertyValueFactory<>("character"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        characterColumn.setCellValueFactory(new PropertyValueFactory<>("character"));
 
         killerNameColumn.setCellValueFactory(new PropertyValueFactory<>("killerName"));
         killerBirthDateColumn.setCellValueFactory(new PropertyValueFactory<>("birthdayInFormat"));
         killerHairColorColumn.setCellValueFactory(new PropertyValueFactory<>("hairColor"));
         killerNationalityColumn.setCellValueFactory(new PropertyValueFactory<>("nationality"));
 
+        locationXColumn.setCellValueFactory(new PropertyValueFactory<>("killerX"));
+        locationYColumn.setCellValueFactory(new PropertyValueFactory<>("killerY"));
+        locationZColumn.setCellValueFactory(new PropertyValueFactory<>("killerZ"));
         locationNameColumn.setCellValueFactory(new PropertyValueFactory<>("locationName"));
-        killerXColumn.setCellValueFactory(new PropertyValueFactory<>("killerX"));
-        killerYColumn.setCellValueFactory(new PropertyValueFactory<>("killerY"));
-        killerZColumn.setCellValueFactory(new PropertyValueFactory<>("killerZ"));
 
         creatorColumn.setCellValueFactory(new PropertyValueFactory<>("creator"));
     }

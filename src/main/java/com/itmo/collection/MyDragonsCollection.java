@@ -6,6 +6,7 @@ import com.itmo.client.User;
 import com.itmo.server.ServerMain;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.*;
@@ -89,10 +90,13 @@ public class MyDragonsCollection implements Serializable {
     }
 
     public static Dragon generateSimpleDragon(){
-        return new Dragon("Guy", new Coordinates(10,10), 20, 200,
+        Dragon d  = new Dragon("Guy", new Coordinates(10,10), 20, 200,
                 DragonType.AIR, DragonCharacter.CUNNING,
                 new Person("Killa", LocalDateTime.of(1999, Month.APRIL, 27,0,0),
-                        Color.BROWN, Country.RUSSIA, new Location(1,3L,5f, "Cave")));
+                Color.BROWN, Country.RUSSIA, new Location(1,3L,5f, "Cave")));
+        d.setCreationDate(Date.from(Instant.now()));
+        d.setOwnerName("test");
+        return d;
     }
     /**
      * удалить из коллекции все элементы, меньшие, чем заданный

@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import java.io.Serializable;
 
 @AllArgsConstructor
-public class RemoveNotification implements Notification, Serializable {
+public class RemoveNotification extends Notification {
     private Long id;
 
     @Override
