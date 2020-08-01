@@ -79,12 +79,20 @@ public class MainWindowController implements Initializable {
     @FXML
     private TableColumn<DragonForTable, Integer> ageColumn;
     @FXML
-    private TableColumn<DragonForTable, String> dragonNameColumn, creatorColumn;
+    private TableColumn<DragonForTable, String> dragonNameColumn, creatorColumn, locationNameColumn;
     @FXML
     private TableColumn<DragonForTable, Date> creationDateColumn;
 
     @FXML
-    private TableColumn<DragonForTable, String> locationColumn;
+    private TableColumn<DragonForTable, Integer> killerXColumn, xColumn;
+
+    @FXML
+    private TableColumn<DragonForTable, Long> killerYColumn, yColumn;
+
+    @FXML
+    private TableColumn<DragonForTable, Float> killerZColumn;
+
+
     @FXML
     private TableColumn<DragonForTable, Country> killerNationalityColumn;
     @FXML
@@ -123,6 +131,25 @@ public class MainWindowController implements Initializable {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         dragonNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         ageColumn.setCellValueFactory(new PropertyValueFactory<>("age"));
+        creationDateColumn.setCellValueFactory(new PropertyValueFactory<>("creationDate"));
+        wingspanColumn.setCellValueFactory(new PropertyValueFactory<>("wingspan"));
+        xColumn.setCellValueFactory(new PropertyValueFactory<>("x"));
+        yColumn.setCellValueFactory(new PropertyValueFactory<>("y"));
+
+        characterColumn.setCellValueFactory(new PropertyValueFactory<>("character"));
+        typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+
+        killerNameColumn.setCellValueFactory(new PropertyValueFactory<>("killerName"));
+        killerBirthDateColumn.setCellValueFactory(new PropertyValueFactory<>("birthdayInFormat"));
+        killerHairColorColumn.setCellValueFactory(new PropertyValueFactory<>("hairColor"));
+        killerNationalityColumn.setCellValueFactory(new PropertyValueFactory<>("nationality"));
+
+        locationNameColumn.setCellValueFactory(new PropertyValueFactory<>("locationName"));
+        killerXColumn.setCellValueFactory(new PropertyValueFactory<>("killerX"));
+        killerYColumn.setCellValueFactory(new PropertyValueFactory<>("killerY"));
+        killerZColumn.setCellValueFactory(new PropertyValueFactory<>("killerZ"));
+
+        creatorColumn.setCellValueFactory(new PropertyValueFactory<>("creator"));
     }
 
 
@@ -216,7 +243,7 @@ public class MainWindowController implements Initializable {
         gc.strokeLine(0, h / 2, w, h / 2);
         Painter painter = new Painter(xOyCanvas);
         painter.setColor(javafx.scene.paint.Color.RED);
-        painter.drawDragonOnCanvas(new MyDragonsCollection().generateSimpleDragon());
+        painter.drawDragonOnCanvas(MyDragonsCollection.generateSimpleDragon());
         painter.drawDragonOnCanvas(200, 200, 40);
     }
 

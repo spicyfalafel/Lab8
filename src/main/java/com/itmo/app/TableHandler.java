@@ -5,7 +5,8 @@ import javafx.scene.control.TableView;
 
 public class TableHandler {
 
-    public TableHandler(TableView<DragonForTable> tableView, ){
+    public TableHandler(TableView<DragonForTable> tableView){
+        //todo
 
     }
 }

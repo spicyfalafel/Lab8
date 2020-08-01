@@ -36,6 +36,7 @@ public class DragonForTable {
     private SimpleFloatProperty killerZ; //Поле не может быть null
     private SimpleStringProperty locationName; //Поле не может быть null
 
+    private SimpleStringProperty creator;
 
     public DragonForTable(Dragon dragon) {
         this.id = new SimpleLongProperty(dragon.getId());
@@ -59,5 +60,6 @@ public class DragonForTable {
         this.killerZ = new SimpleFloatProperty(dragon.getKiller().getLocation().getZ());
         this.locationName = new SimpleStringProperty(dragon.getKiller().getLocation().getName());
 
+        this.creator = new SimpleStringProperty(dragon.getOwnerName());
     }
 }
