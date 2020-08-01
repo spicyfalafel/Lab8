@@ -1,8 +1,7 @@
 package com.itmo.database;
 
 import com.itmo.client.User;
-import com.itmo.collection.*;
-import com.itmo.database.MyCRUD;
+import com.itmo.collection.dragon.classes.*;
 import com.itmo.server.url.SshConnection;
 import com.itmo.server.url.UrlGetterDirectly;
 import com.itmo.utils.DateTimeAdapter;

@@ -1,13 +1,12 @@
 package com.itmo.collection;
 
+import com.itmo.collection.dragon.classes.*;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import lombok.Data;
-import lombok.Getter;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 @Data
 public class DragonForTable {

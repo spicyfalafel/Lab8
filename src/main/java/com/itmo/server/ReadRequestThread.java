@@ -1,7 +1,6 @@
 package com.itmo.server;
 
 import ch.qos.logback.classic.Logger;
-import com.itmo.app.Application;
 import com.itmo.client.User;
 import com.itmo.commands.Command;
 import com.itmo.commands.ExitCommand;
@@ -37,7 +36,8 @@ public class ReadRequestThread extends Thread {
             while(command==null) command = getCommandFromClient(channel);
             user = command.getUser();
             new Thread(new RequestExecutorThread(command, channel, application)).start();
-            // if user wanted to exit then stop thread. or if it was Subscribing command
+            // if user wanted to exit or if it was Subscribing command
+            // then stop thread
             if(command instanceof ExitCommand || command instanceof SubscribeForNotificationsCommand) break;
         }
     }

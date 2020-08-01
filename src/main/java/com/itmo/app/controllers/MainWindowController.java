@@ -2,7 +2,9 @@ package com.itmo.app.controllers;
 
 import com.itmo.app.UIApp;
 import com.itmo.client.MyConsole;
-import com.itmo.collection.*;
+import com.itmo.collection.DragonForTable;
+import com.itmo.collection.MyDragonsCollection;
+import com.itmo.collection.dragon.classes.*;
 import com.itmo.commands.*;
 import com.itmo.utils.Painter;
 import com.itmo.utils.UIHelper;
@@ -21,17 +23,15 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 
 
@@ -88,7 +88,7 @@ public class MainWindowController implements Initializable {
     @FXML
     private TableColumn<DragonForTable, Country> killerNationalityColumn;
     @FXML
-    private TableColumn<DragonForTable, com.itmo.collection.Color> killerHairColorColumn;
+    private TableColumn<DragonForTable, Color> killerHairColorColumn;
     @FXML
     private TableColumn<DragonForTable, String> killerNameColumn;
     @FXML
@@ -108,17 +108,21 @@ public class MainWindowController implements Initializable {
     }
 
 
+    public void setDragonsInTable(Set<Dragon> dragons){
+
+    }
+
+
     public void handleTableView() {
         ObservableList<DragonForTable> dragons = FXCollections.observableArrayList();
         setUpColumns();
-
         //dragonsTable.setItems();
     }
 
     private void setUpColumns() {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         dragonNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        //dragonNameColumn
+        ageColumn.setCellValueFactory(new PropertyValueFactory<>("age"));
     }
 
 

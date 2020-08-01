@@ -1,6 +1,5 @@
 package com.itmo.utils;
 
-import com.itmo.collection.Dragon;
 import com.itmo.collection.DragonWithStringFields;
 import lombok.Getter;
 

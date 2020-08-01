@@ -1,7 +1,6 @@
-import com.itmo.collection.Color;
-import com.itmo.collection.Country;
-import com.itmo.collection.Location;
-import com.itmo.collection.Person;
+import com.itmo.collection.dragon.classes.Color;
+import com.itmo.collection.dragon.classes.Country;
+import com.itmo.collection.dragon.classes.Person;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

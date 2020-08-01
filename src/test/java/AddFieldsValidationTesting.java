@@ -1,4 +1,5 @@
-import com.itmo.collection.*;
+import com.itmo.collection.DragonWithStringFields;
+import com.itmo.collection.dragon.classes.*;
 import com.itmo.utils.FieldsValidator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;

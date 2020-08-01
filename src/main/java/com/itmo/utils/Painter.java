@@ -1,6 +1,6 @@
 package com.itmo.utils;
 
-import com.itmo.collection.Dragon;
+import com.itmo.collection.dragon.classes.Dragon;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;

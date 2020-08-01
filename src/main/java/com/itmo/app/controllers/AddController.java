@@ -1,13 +1,12 @@
 package com.itmo.app.controllers;
 
 import com.itmo.app.UIApp;
-import com.itmo.client.Client;
-import com.itmo.collection.*;
+import com.itmo.collection.DragonWithStringFields;
+import com.itmo.collection.dragon.classes.*;
 import com.itmo.commands.*;
 import com.itmo.utils.FieldsValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -15,7 +14,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Paint;
-import javafx.scene.text.Text;
 import lombok.Getter;
 import lombok.Setter;
 

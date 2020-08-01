@@ -1,9 +1,10 @@
 package com.itmo.collection;
 
+import com.itmo.collection.dragon.classes.Color;
+import com.itmo.collection.dragon.classes.Country;
+import com.itmo.collection.dragon.classes.DragonCharacter;
+import com.itmo.collection.dragon.classes.DragonType;
 import lombok.Data;
-
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 public class DragonWithStringFields {

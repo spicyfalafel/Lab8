@@ -1,6 +1,6 @@
 package com.itmo.database;
 
-import com.itmo.collection.Dragon;
+import com.itmo.collection.dragon.classes.Dragon;
 
 import java.sql.SQLException;
 import java.util.Set;

@@ -1,9 +1,8 @@
 package com.itmo.commands;
 
-import com.itmo.app.Application;
+import com.itmo.server.Application;
 import com.itmo.app.UIApp;
 import com.itmo.client.User;
-import com.itmo.server.ServerMain;
 
 public class PrintFieldAscendingWingspanCommand extends Command {
 

@@ -1,6 +1,6 @@
 package com.itmo.collection;
 
-import com.itmo.app.UIApp;
+import com.itmo.collection.dragon.classes.*;
 import com.itmo.exceptions.NotYourPropertyException;
 import com.itmo.client.User;
 import com.itmo.server.ServerMain;
@@ -88,7 +88,7 @@ public class MyDragonsCollection implements Serializable {
         }
     }
 
-    public Dragon generateSimpleDragon(){
+    public static Dragon generateSimpleDragon(){
         return new Dragon("Guy", new Coordinates(10,10), 20, 200,
                 DragonType.AIR, DragonCharacter.CUNNING,
                 new Person("Killa", LocalDateTime.of(1999, Month.APRIL, 27,0,0),

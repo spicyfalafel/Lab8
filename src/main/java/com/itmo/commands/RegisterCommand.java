@@ -1,14 +1,12 @@
 package com.itmo.commands;
 
-import com.itmo.app.Application;
-import com.itmo.app.UIApp;
+import com.itmo.server.Application;
 import com.itmo.client.User;
 import com.itmo.server.ServerMain;
 import com.itmo.utils.FieldsScanner;
 import com.itmo.utils.PassEncoder;
 import com.itmo.utils.SimplePasswordGenerator;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 @AllArgsConstructor
 public class RegisterCommand extends Command {

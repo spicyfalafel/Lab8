@@ -1,6 +1,6 @@
 package com.itmo.commands;
 
-import com.itmo.app.Application;
+import com.itmo.server.Application;
 import com.itmo.client.User;
 
 /*

@@ -1,6 +1,5 @@
 package com.itmo.server;
 
-import com.itmo.app.Application;
 import org.slf4j.Logger;
 
 import java.io.IOException;

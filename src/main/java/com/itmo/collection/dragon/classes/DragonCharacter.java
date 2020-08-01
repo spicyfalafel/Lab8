@@ -1,4 +1,4 @@
-package com.itmo.collection;
+package com.itmo.collection.dragon.classes;
 
 import java.io.Serializable;
 

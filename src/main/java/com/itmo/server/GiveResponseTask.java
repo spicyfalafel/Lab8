@@ -1,7 +1,6 @@
 package com.itmo.server;
 
 import ch.qos.logback.classic.Logger;
-import com.itmo.app.Application;
 import com.itmo.client.User;
 import com.itmo.utils.SerializationManager;
 import lombok.AllArgsConstructor;

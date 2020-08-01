@@ -1,6 +1,6 @@
 package com.itmo.utils;
 
-import com.itmo.collection.*;
+import com.itmo.collection.dragon.classes.*;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;

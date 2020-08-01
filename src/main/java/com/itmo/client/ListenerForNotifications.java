@@ -3,9 +3,10 @@ package com.itmo.client;
 import com.itmo.commands.SubscribeForNotificationsCommand;
 import com.itmo.server.notifications.Notification;
 import com.itmo.utils.SerializationManager;
+import lombok.AllArgsConstructor;
 
 import java.io.IOException;
-
+@AllArgsConstructor
 public class ListenerForNotifications extends Thread {
     String host;
     int port;

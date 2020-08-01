@@ -1,10 +1,10 @@
 package com.itmo.commands;
 
-import com.itmo.app.Application;
+import com.itmo.server.Application;
 import com.itmo.app.UIApp;
 import com.itmo.client.User;
-import com.itmo.collection.Dragon;
-import com.itmo.server.ServerMain;
+import com.itmo.collection.dragon.classes.Dragon;
+import com.itmo.server.notifications.AddNotification;
 import com.itmo.utils.FieldsScanner;
 import lombok.NoArgsConstructor;
 
@@ -39,6 +39,9 @@ public class AddIfMinCommand extends Command {
         if (application.getCollection().isMin(dr)) {
             application.db.insertDragon(dr);
             application.syncWithDB();
+            application.notificationProducer.sendAddNotificationToAll(
+                    new AddNotification(dr)
+            );
         }
         return application.getCollection().addIfMin(dr);
     }

@@ -1,12 +1,9 @@
 package com.itmo.server;
 
-import com.itmo.app.Application;
 import com.itmo.client.User;
 import com.itmo.commands.Command;
 import com.itmo.commands.SubscribeForNotificationsCommand;
-import lombok.AllArgsConstructor;
 
-import java.net.Socket;
 import java.nio.channels.SocketChannel;
 
 public class RequestExecutorThread extends Thread {
@@ -28,7 +25,7 @@ public class RequestExecutorThread extends Thread {
         if (command != null) {
             if(command instanceof SubscribeForNotificationsCommand){
                 application.sendCollectionToClient(channel);
-
+                application.notificationProducer.subscribeForNotifications(channel);
                 return;
             }
             String res = ServerMain.localeClass.getString("not_registered.text");

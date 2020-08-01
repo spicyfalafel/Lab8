@@ -16,8 +16,12 @@ public class MainUI {
         Client client = new Client(host, port);
         client.connect();
         UIApp.setClient(client);
+
         UIApp ui = new UIApp();
         ui.run();
+        ListenerForNotifications notificationListener = new ListenerForNotifications(host, port);
+        notificationListener.start();
+
     }
 
     public static String[] checkArgs(String[] args){

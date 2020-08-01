@@ -2,7 +2,6 @@ package com.itmo.app;
 
 import com.itmo.app.controllers.*;
 import com.itmo.client.Client;
-import com.itmo.client.User;
 import com.itmo.utils.LocaleClass;
 import com.itmo.utils.UIHelper;
 import com.itmo.utils.UTF8Control;

@@ -1,12 +1,10 @@
 package com.itmo.commands;
 
-import com.itmo.app.Application;
+import com.itmo.server.Application;
 import com.itmo.app.UIApp;
 import com.itmo.client.User;
-import com.itmo.collection.Dragon;
-import com.itmo.server.ServerMain;
+import com.itmo.collection.dragon.classes.Dragon;
 import com.itmo.utils.FieldsScanner;
-import com.itmo.utils.LocaleClass;
 
 public class RemoveLowerThanElementCommand extends Command {
 
@@ -28,6 +26,7 @@ public class RemoveLowerThanElementCommand extends Command {
 
     @Override
     public String execute(Application application, User user) {
+        // todo notifications
         return application.getCollection().removeLower(dr, user);
     }
 

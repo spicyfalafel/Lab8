@@ -1,7 +1,7 @@
 package com.itmo.server;
 
 import com.itmo.client.User;
-import com.itmo.collection.Dragon;
+import com.itmo.collection.dragon.classes.Dragon;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

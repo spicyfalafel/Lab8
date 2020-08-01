@@ -1,6 +1,5 @@
-package com.itmo.collection;
+package com.itmo.collection.dragon.classes;
 
-import com.itmo.client.User;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;

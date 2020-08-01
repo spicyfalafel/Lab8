@@ -1,10 +1,12 @@
 package com.itmo.commands;
 
-import com.itmo.app.Application;
+import com.itmo.collection.DragonForTable;
+import com.itmo.server.Application;
 import com.itmo.app.UIApp;
 import com.itmo.client.User;
-import com.itmo.collection.Dragon;
+import com.itmo.collection.dragon.classes.Dragon;
 import com.itmo.server.ServerMain;
+import com.itmo.server.notifications.AddNotification;
 import com.itmo.utils.FieldsScanner;
 import lombok.NoArgsConstructor;
 
@@ -39,6 +41,9 @@ public class AddElementCommand extends Command {
         dr.setOwnerName(user.getName());
         application.db.insertDragon(dr);
         application.syncWithDB();
+        application.notificationProducer.sendAddNotificationToAll(
+                new AddNotification(dr)
+        );
         return ServerMain.localeClass.getString("dragon_was_added.text");
     }
 

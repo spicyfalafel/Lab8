@@ -1,4 +1,4 @@
-import com.itmo.collection.*;
+import com.itmo.collection.dragon.classes.*;
 import com.itmo.database.DatabaseManager;
 import org.junit.jupiter.api.*;
 

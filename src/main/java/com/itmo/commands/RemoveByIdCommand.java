@@ -1,10 +1,13 @@
 package com.itmo.commands;
 
 import com.itmo.app.UIApp;
+import com.itmo.collection.dragon.classes.Dragon;
 import com.itmo.exceptions.NotYourPropertyException;
-import com.itmo.app.Application;
+import com.itmo.server.Application;
 import com.itmo.client.User;
 import com.itmo.server.ServerMain;
+import com.itmo.server.notifications.AddNotification;
+import com.itmo.server.notifications.RemoveNotification;
 
 public class RemoveByIdCommand extends Command {
 
@@ -23,7 +26,11 @@ public class RemoveByIdCommand extends Command {
     public String execute(Application application, User user) {
         try{
             long id = Long.parseLong(args[0]);
+
             if(application.getCollection().removeById(id, user)){
+                application.notificationProducer.sendRemoveNotificationToAll(
+                        new RemoveNotification(id)
+                );
                 return ServerMain.localeClass.getString("dragon_with_id.text")
                                 + args[0] +
                         ServerMain.localeClass.getString("was_removed.text");
