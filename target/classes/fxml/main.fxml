@@ -143,7 +143,7 @@
             </Tab>
             <Tab text="%graphical_representation.text">
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                    <Canvas height="724.0" layoutX="4.0" layoutY="14.0" width="1200.0" AnchorPane.bottomAnchor="0.0"
+                    <Canvas height="720.0" layoutX="4.0" layoutY="14.0" width="1200.0" AnchorPane.bottomAnchor="0.0"
                             AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
                             fx:id="xOyCanvas"/>
                 </AnchorPane>

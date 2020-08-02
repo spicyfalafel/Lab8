@@ -24,8 +24,11 @@ public class RequestExecutorThread extends Thread {
     public void run() {
         if (command != null) {
             if(command instanceof SubscribeForNotificationsCommand){
+                System.out.println("я получил команду Subscribe от " + channel);
                 application.sendCollectionToClient(channel);
+                System.out.println("я передал коллекцию по channel " + channel);
                 application.notificationProducer.subscribeForNotifications(channel);
+                System.out.println("я выхожу из requestExecutorThread");
                 return;
             }
             String res = ServerMain.localeClass.getString("not_registered.text");

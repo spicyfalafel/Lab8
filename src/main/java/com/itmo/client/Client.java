@@ -161,6 +161,7 @@ public class Client {
     public byte[] getBytes() throws IOException {
         byte[] res = new byte[BUFFER_SIZE];
         int got = socket.getInputStream().read(res);
-        return res;
+        if (got>0) return res;
+        else return null;
     }
 }

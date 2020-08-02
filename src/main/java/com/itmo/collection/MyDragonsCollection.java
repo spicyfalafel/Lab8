@@ -36,12 +36,13 @@ public class MyDragonsCollection implements Serializable {
     }
     public String clear(User user){
         Set<Dragon> set = filterOwnDragon(user);
-        for(Dragon d : set){
+        set.forEach(d -> {
             try {
                 remove(d, user);
-            } catch (NotYourPropertyException ignore) {
+            } catch (NotYourPropertyException e) {
+                e.printStackTrace();
             }
-        }
+        });
         return ServerMain.localeClass.getString("your_collection_is_cleared.text");
     }
 
@@ -96,6 +97,15 @@ public class MyDragonsCollection implements Serializable {
                 Color.BROWN, Country.RUSSIA, new Location(1,3L,5f, "Cave")));
         d.setCreationDate(Date.from(Instant.now()));
         d.setOwnerName("test");
+        return d;
+    }
+    public static Dragon generateSimpleDragonWithType(DragonType type){
+        Dragon d = generateSimpleDragon();
+        d.setType(type);
+        d.setCoordinates(new Coordinates((int) Math.round(Math.random()*600),
+                 Math.round(Math.random()*360)));
+        System.out.println("generated: ");
+        System.out.println(d.getCoordinates().getX() + ", y: " + d.getCoordinates().getY());
         return d;
     }
     /**

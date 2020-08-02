@@ -23,6 +23,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
@@ -105,43 +106,42 @@ public class MainWindowController implements Initializable {
     @FXML
     private Label commandOutput;
 
-    private ObservableList<DragonForTable> dragonsForTable;
+    public ObservableList<DragonForTable> dragonsForTable;
+    public Painter painter;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        if(dragonsForTable==null){
+            dragonsForTable = FXCollections.observableArrayList();
+        }
+
         handleCommandButtons();
         handleLanguageMenuItems();
-        drawAxis();
         handleHelpItem();
         handleOnClose();
         showUserName();
-        addDragonToTable(MyDragonsCollection.generateSimpleDragon());
-        Set<Dragon> s = new HashSet<>();
-        s.add(MyDragonsCollection.generateSimpleDragon());
-        s.add(MyDragonsCollection.generateSimpleDragon());
-        setDragonsInTable(s);
+        handleTableView();
+        handleDrawingGraph();
     }
 
+
+    public void addDragonToColl(Dragon d){
+        dragonsForTable.add(new DragonForTable(d));
+    }
 
     public void addDragonToTable(Dragon d){
         dragonsTable.getItems().add(new DragonForTable(d));
     }
 
-    public void setDragons(Set<Dragon> dragons){
+    public void setDragonsToCollection(Set<Dragon> dragons){
         dragonsForTable = FXCollections.observableList(
                 dragons.stream().map(DragonForTable::new).collect(Collectors.toList())
         );
     }
 
-    public void setDragonsInTable(Set<Dragon> dragons){
-        setDragons(dragons);
-        dragonsTable.setItems(dragonsForTable);
-    }
-
     public void handleTableView() {
-        ObservableList<DragonForTable> dragons = FXCollections.observableArrayList();
         setUpColumns();
-        //dragonsTable.setItems();
+        dragonsTable.setItems(dragonsForTable);
     }
 
     private void setUpColumns() {
@@ -250,19 +250,19 @@ public class MainWindowController implements Initializable {
 
     }
 
-    private void drawAxis() {
-        GraphicsContext gc = xOyCanvas.getGraphicsContext2D();
-        gc.setStroke(javafx.scene.paint.Color.BLACK);
-        gc.setLineWidth(2);
-        double w = xOyCanvas.getWidth();
-        double h = xOyCanvas.getHeight();
-        gc.strokeLine(w / 2, 0, w / 2, h);
-        gc.strokeLine(0, h / 2, w, h / 2);
-        Painter painter = new Painter(xOyCanvas);
-        painter.setColor(javafx.scene.paint.Color.RED);
-        painter.drawDragonOnCanvas(MyDragonsCollection.generateSimpleDragon());
-        painter.drawDragonOnCanvas(200, 200, 40);
+    private void handleDrawingGraph(){
+        painter = new Painter(xOyCanvas);
+        painter.drawAxis();
+        painter.drawDragonOnCanvas(MyDragonsCollection.generateSimpleDragon(), Color.GREEN);
+        painter.drawDragonOnCanvas(MyDragonsCollection.generateSimpleDragonWithType(DragonType.WATER),
+                Color.BLUEVIOLET);
+        painter.drawDragonOnCanvas(MyDragonsCollection.generateSimpleDragonWithType(DragonType.FIRE),
+                Color.ORANGE);
+        painter.drawDragonOnCanvas(MyDragonsCollection.generateSimpleDragonWithType(DragonType.UNDERGROUND),
+                Color.RED);
     }
+
+
 
     private void changeLanguageInUI(String TAG) {
         UIApp.localeClass.changeLocaleByTag(TAG);

@@ -2,11 +2,14 @@ package com.itmo.app;
 
 import com.itmo.app.controllers.*;
 import com.itmo.client.Client;
+import com.itmo.client.ListenerForNotifications;
+import com.itmo.client.MainUI;
 import com.itmo.utils.LocaleClass;
 import com.itmo.utils.UIHelper;
 import com.itmo.utils.UTF8Control;
 import com.itmo.utils.WindowsCreator;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,6 +22,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -26,7 +30,7 @@ import java.util.ResourceBundle;
     this class starts UI (auth window and main window)
 */
 
-public class UIApp extends Application {
+public class UIApp extends Application{
     @Setter @Getter
     private static Client client;
     @Getter
@@ -69,6 +73,9 @@ public class UIApp extends Application {
         authorizationStage = WindowsCreator.createAuthorization();
         authorizationStage.show();
         initPrimaryStage(primaryStage);
+        ListenerForNotifications notificationListener = new ListenerForNotifications(MainUI.host, MainUI.port);
+        notificationListener.setDaemon(true);
+        notificationListener.start();
     }
 
 

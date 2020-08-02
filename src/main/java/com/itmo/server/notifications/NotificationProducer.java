@@ -1,6 +1,7 @@
 package com.itmo.server.notifications;
 
 import com.itmo.utils.SerializationManager;
+import com.itmo.utils.SerializationManager2;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -31,6 +32,7 @@ public class NotificationProducer implements Serializable {
 
     public void sendAddNotification(SocketChannel socketChannel, AddNotification addNotification){
         try {
+            SerializationManager2<AddNotification> sm = new SerializationManager2<>();
             ByteBuffer byteBuffer = ByteBuffer.wrap(SerializationManager.writeObject(addNotification));
             socketChannel.write(byteBuffer);
         } catch (IOException e) {
@@ -50,6 +52,6 @@ public class NotificationProducer implements Serializable {
 
     public void subscribeForNotifications(SocketChannel socketChannel){
         subscribers.add(socketChannel);
+        System.out.println("я зарегистрировал подписчика " + socketChannel);
     }
-
 }

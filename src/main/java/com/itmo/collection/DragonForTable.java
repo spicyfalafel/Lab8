@@ -46,17 +46,17 @@ public class DragonForTable {
         this.age = new SimpleIntegerProperty(dragon.getAge());
         this.wingspan = new SimpleFloatProperty(dragon.getWingspan());
 
-        this.type = new SimpleStringProperty(dragon.getType().name());
+        this.type = new SimpleStringProperty(dragon.getType() == null ? "null" : dragon.getType().name());
         this.character = new SimpleStringProperty(dragon.getCharacter().name());
-        this.killerName = new SimpleStringProperty(dragon.getKiller().getName());
-        this.birthdayInFormat = new SimpleStringProperty(dragon.getKiller().getBirthdayInFormat());
+        this.killerName = new SimpleStringProperty(dragon.getKiller()==null? "null" : dragon.getKiller().getName());
+        this.birthdayInFormat = new SimpleStringProperty(dragon.getKiller()==null? "null" : dragon.getKiller().getBirthdayInFormat());
 
-        this.hairColor = new SimpleStringProperty(dragon.getKiller().getHairColor().name());
-        this.nationality = new SimpleStringProperty(dragon.getKiller().getNationality().name());
-        this.killerX = new SimpleIntegerProperty(dragon.getKiller().getLocation().getX());
-        this.killerY = new SimpleLongProperty(dragon.getKiller().getLocation().getY());
-        this.killerZ = new SimpleFloatProperty(dragon.getKiller().getLocation().getZ());
-        this.locationName = new SimpleStringProperty(dragon.getKiller().getLocation().getName());
+        this.hairColor = new SimpleStringProperty(dragon.getKiller()==null? "null" : dragon.getKiller().getHairColor().name());
+        this.nationality = new SimpleStringProperty(dragon.getKiller()==null? "null" : dragon.getKiller().getNationality().name());
+        this.killerX = new SimpleIntegerProperty(dragon.getKiller()==null ? 0 : dragon.getKiller().getLocation().getX());
+        this.killerY = new SimpleLongProperty(dragon.getKiller()==null? 0: dragon.getKiller().getLocation().getY());
+        this.killerZ = new SimpleFloatProperty(dragon.getKiller()==null? 0 : dragon.getKiller().getLocation().getZ());
+        this.locationName = new SimpleStringProperty(dragon.getKiller()==null? "null" : dragon.getKiller().getLocation().getName());
 
         this.creator = new SimpleStringProperty(dragon.getOwnerName());
     }

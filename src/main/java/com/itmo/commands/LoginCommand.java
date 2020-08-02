@@ -57,6 +57,7 @@ public class LoginCommand extends Command{
         application.activeUsers.removeUserByName(user.getName());
         user.setName(login);
         user.setHashPass(hashPassword);
+        user.setRandomColor();
         application.activeUsers.addUserName(user.getName());
     }
 

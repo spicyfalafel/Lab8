@@ -8,20 +8,17 @@ import com.itmo.app.controllers.AuthorizationController;
     в графическом режиме
  */
 public class MainUI {
-
+    public static String host;
+    public static int port;
     public static void main(String[] args) {
         String[] hostAndPort = checkArgs(args);
-        String host = hostAndPort[0];
-        int port = Integer.parseInt(hostAndPort[1]);
+        host = hostAndPort[0];
+        port = Integer.parseInt(hostAndPort[1]);
         Client client = new Client(host, port);
         client.connect();
         UIApp.setClient(client);
-
         UIApp ui = new UIApp();
         ui.run();
-        ListenerForNotifications notificationListener = new ListenerForNotifications(host, port);
-        notificationListener.start();
-
     }
 
     public static String[] checkArgs(String[] args){

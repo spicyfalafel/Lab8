@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Random;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,6 +19,13 @@ public class User implements Serializable {
 
 
     private double red, green, blue;
+
+    public void setRandomColor(){
+        red = (int) (Math.random() * 255);
+        green = (int) (Math.random() * 255);
+        blue = (int) (Math.random() * 255);
+    }
+
 
     public User(String name, String hashPass){
         this.name = name;

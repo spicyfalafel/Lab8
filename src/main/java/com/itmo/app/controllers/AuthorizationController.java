@@ -2,12 +2,16 @@ package com.itmo.app.controllers;
 
 import com.itmo.app.UIApp;
 import com.itmo.client.Client;
+import com.itmo.client.ListenerForNotifications;
+import com.itmo.client.MainUI;
 import com.itmo.commands.ChangeLanguageCommand;
 import com.itmo.commands.LoginCommand;
 import com.itmo.commands.RegisterCommand;
 import com.itmo.utils.LocaleClass;
 import com.itmo.utils.UIHelper;
 import com.itmo.utils.UTF8Control;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -63,7 +67,6 @@ public class AuthorizationController implements Initializable {
         buttonRegister.setOnAction(registerButtonHandler);
         StackPane.setAlignment(languageSplitMenu, Pos.TOP_RIGHT);
         initializeLanguageMenuItems();
-
     }
 
 
@@ -107,8 +110,8 @@ public class AuthorizationController implements Initializable {
         if (ans.startsWith(UIApp.localeClass.getString("hello.text"))) {
             UIApp.mainStage.show();
             UIApp.authorizationStage.close();
-        }
 
+        }
         event.consume();
     };
 
