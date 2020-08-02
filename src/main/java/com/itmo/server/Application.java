@@ -60,6 +60,11 @@ public class Application implements Serializable {
         collection.getDragons().forEach( d -> {
             AddNotification addNotification = new AddNotification(d);
             notificationProducer.sendAddNotification(channel, addNotification);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         });
     }
 }

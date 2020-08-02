@@ -47,30 +47,6 @@ public class Client {
         closeEverything();
     }
 
-    public Client(String host, int port){
-        this.host = host;
-        this.port = port;
-        user = new User("unregistered", "");
-    }
-
-    public Command getClientCommandByConsole(){
-        Command command = console.getFullCommandFromConsole();
-        command.setUser(user);
-        return command;
-    }
-
-    public void sendCommandToServer(Command command){
-        try{
-            command.setUser(user);
-            sendCom(command);
-        } catch (IOException e) {
-            if (notExit) {
-                System.out.println("Потеря соединения");
-                connect();
-            }
-        }
-    }
-
     public void connect()  {
         System.out.println("Пытаюсь установить соединение с сервером (" + host + ":" + port + ")");
         InetAddress addr;
@@ -91,6 +67,24 @@ public class Client {
                     once=false;
                     System.out.println("Сервер отключен");
                 }
+            }
+        }
+    }
+
+    public Client(String host, int port){
+        this.host = host;
+        this.port = port;
+        user = new User("unregistered", "");
+    }
+
+    public void sendCommandToServer(Command command){
+        try{
+            command.setUser(user);
+            sendCom(command);
+        } catch (IOException e) {
+            if (notExit) {
+                System.out.println("Потеря соединения");
+                connect();
             }
         }
     }
@@ -135,6 +129,19 @@ public class Client {
         return null;
     }
 
+    public byte[] getBytes() {
+        byte[] res = new byte[BUFFER_SIZE];
+        int got = 0;
+        try {
+            got = socket.getInputStream().read(res);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        if (got>0) return res;
+        else return null;
+    }
+
     public void closeEverything(){
         scanner.close();
         try {
@@ -158,10 +165,9 @@ public class Client {
         socket.getOutputStream().write(bytes);
     }
 
-    public byte[] getBytes() throws IOException {
-        byte[] res = new byte[BUFFER_SIZE];
-        int got = socket.getInputStream().read(res);
-        if (got>0) return res;
-        else return null;
+    public Command getClientCommandByConsole(){
+        Command command = console.getFullCommandFromConsole();
+        command.setUser(user);
+        return command;
     }
 }

@@ -25,7 +25,7 @@ public class ListenerForNotifications extends Thread {
                 notificationInBytes = c.getBytes();
                 if (notificationInBytes!=null){
                     System.out.println("----- получил байты, количество: " + notificationInBytes.length);
-                    AddNotification notification = SerializationManager.readObject(notificationInBytes);
+                    AddNotification notification = sm.readObject(notificationInBytes);
                     System.out.println("-------вот дракон из этого оповещения: \n" + notification.getDragon());
                     notification.updateData();
                 }else { System.out.println("----------notificationInBytes был равен null");}

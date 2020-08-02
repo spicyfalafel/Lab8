@@ -12,6 +12,8 @@ import java.util.Set;
 
 public class NotificationProducer implements Serializable {
 
+    private SerializationManager2<AddNotification> sm = new SerializationManager2<>();
+    ByteBuffer byteBuffer;
     public Set<SocketChannel> subscribers;
 
     public NotificationProducer() {
@@ -32,8 +34,7 @@ public class NotificationProducer implements Serializable {
 
     public void sendAddNotification(SocketChannel socketChannel, AddNotification addNotification){
         try {
-            SerializationManager2<AddNotification> sm = new SerializationManager2<>();
-            ByteBuffer byteBuffer = ByteBuffer.wrap(SerializationManager.writeObject(addNotification));
+            byteBuffer = ByteBuffer.wrap(sm.writeObject(addNotification));
             socketChannel.write(byteBuffer);
         } catch (IOException e) {
             e.printStackTrace();
