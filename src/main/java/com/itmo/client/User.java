@@ -21,9 +21,14 @@ public class User implements Serializable {
     private double red, green, blue;
 
     public void setRandomColor(){
-        red = (int) (Math.random() * 255);
-        green = (int) (Math.random() * 255);
-        blue = (int) (Math.random() * 255);
+        red = Math.random();
+        green = Math.random();
+        blue =  Math.random();
+    }
+    public void setColor(double[] rgb){
+        red = rgb[0];
+        green = rgb[1];
+        blue = rgb[2];
     }
 
 
@@ -36,11 +41,6 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public void setColor(double red, double green, double blue){
-        this.red = red;
-        this.green = green;
-        this.blue = blue;
-    }
 
     public Color getColor(){
         return Color.color(red, green, blue);

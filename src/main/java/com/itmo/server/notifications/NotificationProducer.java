@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class NotificationProducer implements Serializable {
 
-    private SerializationManager2<AddNotification> sm = new SerializationManager2<>();
+    private SerializationManager2<Notification> sm = new SerializationManager2<>();
     ByteBuffer byteBuffer;
     public Set<SocketChannel> subscribers;
 
@@ -53,6 +53,5 @@ public class NotificationProducer implements Serializable {
 
     public void subscribeForNotifications(SocketChannel socketChannel){
         subscribers.add(socketChannel);
-        System.out.println("я зарегистрировал подписчика " + socketChannel);
     }
 }

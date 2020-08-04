@@ -1,5 +1,6 @@
 package com.itmo.collection.dragon.classes;
 
+import com.itmo.client.User;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,6 +23,10 @@ public class Dragon implements Comparable<Dragon>, Serializable {
 
     @Getter @Setter
     private String ownerName;
+
+    @Setter @Getter
+    private User user;
+
 
     /**
      * Конструктор со всеми не автогенерируемыми полями

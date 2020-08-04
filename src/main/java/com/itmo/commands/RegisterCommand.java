@@ -8,11 +8,17 @@ import com.itmo.utils.PassEncoder;
 import com.itmo.utils.SimplePasswordGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
-@AllArgsConstructor
+
 public class RegisterCommand extends Command {
 
     public RegisterCommand() {
         setNoRightsToExecute(true);
+    }
+
+    public RegisterCommand(String login, String pass){
+        setNoRightsToExecute(true);
+        this.login = login;
+        this.pass = pass;
     }
 
     @Setter
@@ -42,7 +48,8 @@ public class RegisterCommand extends Command {
             user.setName(login);
             user.setHashPass(pass);
             application.db.insertUser(user);
-
+            user.setRandomColor();
+            application.db.setUserColor(user.getName(), user.getColor());
             return ServerMain.localeClass.getString("registration_is_completed.text")
             + ServerMain.localeClass.getString("your_login.text") + ": " + user.getName();
         }else return ServerMain.localeClass.getString("this_user_already_exists.text");

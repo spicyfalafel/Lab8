@@ -129,15 +129,6 @@ public class MainWindowController implements Initializable {
         dragonsForTable.add(new DragonForTable(d));
     }
 
-    public void addDragonToTable(Dragon d){
-        dragonsTable.getItems().add(new DragonForTable(d));
-    }
-
-    public void setDragonsToCollection(Set<Dragon> dragons){
-        dragonsForTable = FXCollections.observableList(
-                dragons.stream().map(DragonForTable::new).collect(Collectors.toList())
-        );
-    }
 
     public void handleTableView() {
         setUpColumns();
@@ -247,19 +238,11 @@ public class MainWindowController implements Initializable {
         removeButton.setOnAction(e -> {
             //todo should remove chosen element in table
         });
-
     }
 
     private void handleDrawingGraph(){
         painter = new Painter(xOyCanvas);
         painter.drawAxis();
-        painter.drawDragonOnCanvas(MyDragonsCollection.generateSimpleDragon(), Color.GREEN);
-        painter.drawDragonOnCanvas(MyDragonsCollection.generateSimpleDragonWithType(DragonType.WATER),
-                Color.BLUEVIOLET);
-        painter.drawDragonOnCanvas(MyDragonsCollection.generateSimpleDragonWithType(DragonType.FIRE),
-                Color.ORANGE);
-        painter.drawDragonOnCanvas(MyDragonsCollection.generateSimpleDragonWithType(DragonType.UNDERGROUND),
-                Color.RED);
     }
 
 

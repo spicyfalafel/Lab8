@@ -1,5 +1,6 @@
 package com.itmo.server.notifications;
 
+import com.itmo.app.UIApp;
 import com.itmo.app.controllers.MainWindowController;
 import com.itmo.collection.dragon.classes.Dragon;
 import com.itmo.utils.SerializationManager;
@@ -13,7 +14,7 @@ public class RemoveNotification implements Notification, Serializable {
 
     @Override
     public void updateData() {
-        /*mainController.getStudyGroups().remove(studyGroupForUITable);
-        mainController.getPainter().drawWithRemoving(studyGroupForUITable, mainController.getStudyGroups());*/
+        UIApp.mainWindowController.painter.drawWithRemoving(id);
+        UIApp.mainWindowController.remove(id);
     }
 }

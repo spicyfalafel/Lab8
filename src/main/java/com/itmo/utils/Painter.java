@@ -2,17 +2,32 @@ package com.itmo.utils;
 
 import com.itmo.collection.dragon.classes.Dragon;
 import com.itmo.collection.dragon.classes.DragonType;
+import com.itmo.server.notifications.Notification;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
+import java.util.concurrent.ArrayBlockingQueue;
+
 
 public class Painter {
+
+    final double HEIGHT_LESS_THAN_WIDTH_KF = 0.7;
+    final int MAX_WIDTH_OVAL = 200;
+    final int MIN_WIDTH_OVAL = 30;
+    final int MAX_HEIGHT_OVAL = (int) Math.round(MAX_WIDTH_OVAL*HEIGHT_LESS_THAN_WIDTH_KF);
+    final int MIN_HEIGHT_OVAL = (int) Math.round(MIN_WIDTH_OVAL*HEIGHT_LESS_THAN_WIDTH_KF);
 
     private Color colorOfDragon = Color.ORANGE;
     private Canvas canvas;
     private GraphicsContext gc;
+
+    private ArrayBlockingQueue<Notification> notificationsQueue = new ArrayBlockingQueue<>(1000);
+
+    public void addNotification(Notification notification){
+        notificationsQueue.add(notification);
+    }
 
     public Painter(Canvas canvas){
         this.canvas = canvas;
@@ -22,7 +37,6 @@ public class Painter {
 
 
     public void drawAxis() {
-
         gc.setStroke(javafx.scene.paint.Color.BLACK);
         gc.setLineWidth(2);
         double w = canvas.getWidth();
@@ -39,7 +53,6 @@ public class Painter {
 
         drawStepsX((int)w/15);
         drawStepsY((int)h/9);
-
     }
 
     public void drawStepsX(int step){
@@ -60,7 +73,6 @@ public class Painter {
         int currentY = 0;
         int label = ((int) h/2);
         while(currentY<w){
-
             gc.strokeLine(w/2-5, currentY, w/2+5, currentY);
             gc.fillText(
                     Integer.toString(label),
@@ -78,10 +90,12 @@ public class Painter {
         int x = dragonXToCanvasX(d.getCoordinates().getX());
         long y = dragonYToCanvasY(d.getCoordinates().getY());
         drawFire(x, y, d.getType(), d.getValue());
+        System.out.println("drawed in " + d.getCoordinates().getY() + " " + d.getCoordinates().getY());
     }
 
     // xCenter, yCenter холста отличаются от xCenter, yCenter драконьих
     public void drawDragonOnCanvas(int xCenter, long yCenter, float value, Color userColor){
+        System.out.println("drawing dragon with value "+value);
         int x = dragonXToCanvasX(xCenter);
         long y = dragonYToCanvasY(yCenter);
         drawOvalHead(x, y, value, userColor); // body
@@ -140,12 +154,23 @@ public class Painter {
     }
 
     public int valueToHeight(float value){
-        return Math.round(value*0.007f);
+        int height = Math.round(value*0.007f);
+        if(height<=MAX_HEIGHT_OVAL && height>=MIN_HEIGHT_OVAL) return height;
+        else{
+            if(height<=MIN_HEIGHT_OVAL) return MIN_HEIGHT_OVAL;
+            else return MAX_HEIGHT_OVAL;
+        }
     }
     public int valueToWidth(float value){
-        return Math.round(value*0.01f);
+        int width = Math.round(value*0.01f);
+        if(width<=MAX_WIDTH_OVAL && width>=MIN_WIDTH_OVAL) return width;
+        else{
+            if(width<=MIN_WIDTH_OVAL) return MIN_WIDTH_OVAL;
+            else return MAX_WIDTH_OVAL;
+        }
     }
     public Color getColorOfType(DragonType type){
+        if(type==null) return Color.BLACK;
         switch (type){
             case AIR:
                 return Color.LIGHTSKYBLUE;

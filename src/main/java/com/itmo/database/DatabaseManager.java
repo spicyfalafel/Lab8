@@ -1,12 +1,14 @@
 package com.itmo.database;
 
 import com.itmo.client.User;
+
 import com.itmo.collection.dragon.classes.*;
 import com.itmo.server.url.SshConnection;
 import com.itmo.server.url.UrlGetterDirectly;
 import com.itmo.utils.DateTimeAdapter;
 import com.itmo.utils.PassEncoder;
 import com.itmo.utils.SimplePasswordGenerator;
+import javafx.scene.paint.Color;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -137,6 +139,42 @@ public class DatabaseManager implements MyCRUD {
         }
     }
 
+    public double[] getColorOfDragonWithId(int id){
+        String name = getOwnerNameByDragonId(id);
+         PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(
+                    "select red, green, blue from users where login='" + name + "'"
+            );
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                double red = resultSet.getDouble("red");
+                double green = resultSet.getDouble("green");
+                double blue = resultSet.getDouble("blue");
+                return new double[]{red, green, blue};
+            }else return null;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return null;
+        }
+    }
+
+    public String getOwnerNameByDragonId(int id){
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(
+                    "select owner from dragons where id=" + id
+            );
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                return resultSet.getString("owner");
+            }else return "";
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return "";
+        }
+    }
+
 
     public Set<Dragon> getCollectionFromDatabase() throws SQLException {
         PreparedStatement statement =
@@ -168,7 +206,7 @@ public class DatabaseManager implements MyCRUD {
                  person = new Person(
                         resultSet.getString("killer_name"),
                         DateTimeAdapter.convertToLocalDateViaInstant(resultSet.getDate("birthday")),
-                        Enum.valueOf(Color.class, resultSet.getString("color")),
+                        Enum.valueOf(com.itmo.collection.dragon.classes.Color.class, resultSet.getString("color")),
                         Enum.valueOf(Country.class, resultSet.getString("country")),
                         new Location(
                                 resultSet.getInt("x"),
@@ -181,6 +219,9 @@ public class DatabaseManager implements MyCRUD {
             Dragon dragon = new Dragon(name, coordinates, date, age, wingspan, type, character, person);
             dragon.setOwnerName(ownerName);
             dragon.setId(id);
+            User user = new User(ownerName);
+            user.setColor(getColorOfDragonWithId((int)id));
+            dragon.setUser(user);
             dragons.add(dragon);
         }
         return (Collections.synchronizedSet(dragons));
@@ -206,7 +247,6 @@ public class DatabaseManager implements MyCRUD {
                         " WHERE owner=? " +
                         "and dragon_name=?" +
                         " and wingspan=?" +
-                        " and dragon_type=?::dragon_type" +
                         " and dragon_character=?::dragon_character" +
                         " and age=?" +
                         " and reg_date='" + d.getCreationDateInFormat() + "'";
@@ -216,9 +256,8 @@ public class DatabaseManager implements MyCRUD {
             statement.setString(1, d.getOwnerName());
             statement.setString(2, d.getName());
             statement.setFloat(3, d.getWingspan());
-            statement.setString(4, d.getType().name());
-            statement.setString(5, d.getCharacter().name());
-            statement.setInt(6, d.getAge());
+            statement.setString(4, d.getCharacter().name());
+            statement.setInt(5, d.getAge());
             ResultSet set = statement.executeQuery();
             if (set.next()){
                 return set.getLong("id");
@@ -279,4 +318,24 @@ public class DatabaseManager implements MyCRUD {
             return false;
         }
     }
+
+
+    public void setUserColor(String username, javafx.scene.paint.Color color) {
+        float red  = (float) color.getRed();
+        float green = (float) color.getGreen();
+        float blue = (float) color.getBlue();
+        try{
+            PreparedStatement statement = connection.prepareStatement(
+                    "update users set red=?, green=?, blue=? where login=?"
+            );
+            statement.setFloat(1, red);
+            statement.setFloat(2, green);
+            statement.setFloat(3, blue);
+            statement.setString(4, username);
+            statement.executeUpdate();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
 }

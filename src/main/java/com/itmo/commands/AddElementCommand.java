@@ -8,6 +8,7 @@ import com.itmo.collection.dragon.classes.Dragon;
 import com.itmo.server.ServerMain;
 import com.itmo.server.notifications.AddNotification;
 import com.itmo.utils.FieldsScanner;
+import javafx.scene.paint.Color;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
@@ -39,8 +40,12 @@ public class AddElementCommand extends Command {
     public String execute(Application application, User user){
         dr.setCreationDate(new Date());
         dr.setOwnerName(user.getName());
+        dr.setUser(user);
         application.db.insertDragon(dr);
         application.syncWithDB();
+        dr.setId(application.db.getIdOfDragon(dr));
+
+        dr.getUser().setColor(application.db.getColorOfDragonWithId((int) dr.getId()));
         application.notificationProducer.sendAddNotificationToAll(
                 new AddNotification(dr)
         );

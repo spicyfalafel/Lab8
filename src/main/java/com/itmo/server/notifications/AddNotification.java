@@ -17,5 +17,6 @@ public class AddNotification implements Serializable, Notification{
     public void updateData() {
         //todo
         UIApp.mainWindowController.addDragonToColl(dragon);
+        UIApp.mainWindowController.painter.drawDragonOnCanvas(dragon, dragon.getUser().getColor());
     }
 }

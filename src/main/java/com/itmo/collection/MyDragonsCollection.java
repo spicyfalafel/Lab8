@@ -43,10 +43,11 @@ public class MyDragonsCollection implements Serializable {
                 e.printStackTrace();
             }
         });
+
         return ServerMain.localeClass.getString("your_collection_is_cleared.text");
     }
 
-    private Set<Dragon> filterOwnDragon(User user) {
+    public Set<Dragon> filterOwnDragon(User user) {
         return Collections.synchronizedSet(dragons).stream()
                 .filter(d -> d.getOwnerName().equals(user.getName())).collect(Collectors.toSet());
     }

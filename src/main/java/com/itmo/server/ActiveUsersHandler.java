@@ -7,9 +7,13 @@ import java.util.HashSet;
 
 public class ActiveUsersHandler {
 
-    @Getter
-    private HashSet<String> activeUsers = new HashSet<>();
+
+    //private HashSet<String> activeUsers = new HashSet<>();
     private static ActiveUsersHandler handler=null;
+
+    private HashSet<User> users = new HashSet<>();
+
+
 
     public static ActiveUsersHandler getInstance(){
         if(handler==null) return new ActiveUsersHandler();
@@ -18,21 +22,20 @@ public class ActiveUsersHandler {
     private ActiveUsersHandler(){
     }
 
-    public void printActiveUsers(){
-        activeUsers.forEach(System.out::println);
-    }
-
 
     public boolean containsUserName(String name) {
-        return activeUsers.stream().anyMatch(user -> user.equals(name));
+        return users.stream().anyMatch(user -> user.getName().equals(name));
     }
 
     //добавляем пользователя в активные
     public void addUserName(String username) {
-        activeUsers.add(username);
+        User newbie = new User(username);
+        users.add(newbie);
+        //activeUsers.add(username);
     }
     //удаление пользователя из активных
     public void removeUserByName(String userName) {
-        activeUsers.remove(userName);
+        //activeUsers.remove(userName);
+        users.stream().filter(u -> u.getName().equals(userName)).findFirst().ifPresent(o -> users.remove(o));
     }
 }
