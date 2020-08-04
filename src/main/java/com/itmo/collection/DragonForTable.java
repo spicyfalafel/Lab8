@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.Objects;
+
 @Getter
 public class DragonForTable {
     private SimpleLongProperty id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
@@ -35,8 +37,15 @@ public class DragonForTable {
     private SimpleStringProperty locationName; //Поле не может быть null
 
     private SimpleStringProperty creator;
+    private Dragon dragon;
+
+    public DragonForTable(long id){
+        this.id = new SimpleLongProperty(id);
+    }
+
 
     public DragonForTable(Dragon dragon) {
+        this.dragon = dragon;
         this.id = new SimpleLongProperty(dragon.getId());
         this.name = new SimpleStringProperty(dragon.getName());
         this.x = new SimpleIntegerProperty(dragon.getCoordinates().getX());
@@ -59,6 +68,19 @@ public class DragonForTable {
         this.locationName = new SimpleStringProperty(dragon.getKiller()==null? "null" : dragon.getKiller().getLocation().getName());
 
         this.creator = new SimpleStringProperty(dragon.getOwnerName());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DragonForTable that = (DragonForTable) o;
+        return Objects.equals(id.getValue(), that.id.getValue());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     public long getId() {

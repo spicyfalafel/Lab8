@@ -51,6 +51,10 @@ public class Dragon implements Comparable<Dragon>, Serializable {
         creationDate = new Date();
     }
 
+    public Dragon(long id){
+        this.id = id;
+    }
+
 
     public Dragon(String name, Coordinates coordinates, Date creationDate, int age, float wingspan,
                   DragonType type, DragonCharacter character, Person killer){

@@ -1,8 +1,11 @@
 package com.itmo.utils;
 
+import com.itmo.app.UIApp;
+import com.itmo.collection.DragonForTable;
 import com.itmo.collection.dragon.classes.Dragon;
 import com.itmo.collection.dragon.classes.DragonType;
 import com.itmo.server.notifications.Notification;
+import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -15,6 +18,7 @@ public class Painter {
 
     final double HEIGHT_LESS_THAN_WIDTH_KF = 0.7;
     final int MAX_WIDTH_OVAL = 200;
+    public final double MIN_DISTANCE = 20;
     final int MIN_WIDTH_OVAL = 30;
     final int MAX_HEIGHT_OVAL = (int) Math.round(MAX_WIDTH_OVAL*HEIGHT_LESS_THAN_WIDTH_KF);
     final int MIN_HEIGHT_OVAL = (int) Math.round(MIN_WIDTH_OVAL*HEIGHT_LESS_THAN_WIDTH_KF);
@@ -90,12 +94,10 @@ public class Painter {
         int x = dragonXToCanvasX(d.getCoordinates().getX());
         long y = dragonYToCanvasY(d.getCoordinates().getY());
         drawFire(x, y, d.getType(), d.getValue());
-        System.out.println("drawed in " + d.getCoordinates().getY() + " " + d.getCoordinates().getY());
     }
 
     // xCenter, yCenter холста отличаются от xCenter, yCenter драконьих
     public void drawDragonOnCanvas(int xCenter, long yCenter, float value, Color userColor){
-        System.out.println("drawing dragon with value "+value);
         int x = dragonXToCanvasX(xCenter);
         long y = dragonYToCanvasY(yCenter);
         drawOvalHead(x, y, value, userColor); // body
@@ -200,5 +202,30 @@ public class Painter {
 
     public long dragonYToCanvasY(long yCenter){
         return ((long) canvas.getHeight())/2 -yCenter;
+    }
+
+    public void drawWithRemoving(Long id) {
+        clearGraph();
+        UIApp.mainWindowController.dragonsForTable.forEach(d -> {
+            //todo
+            // drawDragonOnCanvas(d.getDragon(), );
+
+        });
+    }
+
+    public void clearGraph(){
+        gc.clearRect(0,0, canvas.getWidth(), canvas.getHeight());
+        drawAxis();
+    }
+
+    public int calculateDistance(int dragonX, double mouseX, long dragonY, double mouseY) {
+        return (int) Math.sqrt(Math.pow(dragonX-mouseX, 2) + Math.pow(dragonY-mouseY,2));
+    }
+
+    public void drawCollection(ObservableList<DragonForTable> dragonsForTable) {
+        for (DragonForTable d :
+                dragonsForTable) {
+            drawDragonOnCanvas(d.getDragon(),d.getDragon().getUser().getColor());
+        }
     }
 }

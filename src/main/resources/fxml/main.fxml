@@ -65,7 +65,7 @@
             </VBox>
             <Button fx:id="signOutButton" layoutX="50.0" layoutY="730.0" text="%exit.text"/>
         </AnchorPane>
-        <TabPane layoutX="214.0" tabClosingPolicy="UNAVAILABLE"
+        <TabPane fx:id="tableGraphTabPane" layoutX="214.0" tabClosingPolicy="UNAVAILABLE"
                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="214.0" AnchorPane.rightAnchor="1.0"
                  AnchorPane.topAnchor="0.0">
             <padding>

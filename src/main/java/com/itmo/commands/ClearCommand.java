@@ -27,7 +27,9 @@ public class ClearCommand extends Command {
         dragons.forEach(d -> {
             application.notificationProducer.sendRemoveNotificationToAll(new RemoveNotification(d.getId()));
         });
-        return application.getCollection().clear(user);
+        String ans = application.getCollection().clear(user);
+        application.syncWithDB();
+        return ans;
     }
 
     @Override

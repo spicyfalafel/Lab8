@@ -51,6 +51,8 @@ import java.util.stream.Collectors;
 
 public class MainWindowController implements Initializable {
     @FXML
+    private TabPane tableGraphTabPane;
+    @FXML
     private MenuBar menuBar;
     @FXML
     private Menu helpMenu;
@@ -111,10 +113,6 @@ public class MainWindowController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if(dragonsForTable==null){
-            dragonsForTable = FXCollections.observableArrayList();
-        }
-
         handleCommandButtons();
         handleLanguageMenuItems();
         handleHelpItem();
@@ -131,9 +129,14 @@ public class MainWindowController implements Initializable {
 
 
     public void handleTableView() {
+        if(dragonsForTable==null){
+            dragonsForTable = FXCollections.observableArrayList();
+        }
         setUpColumns();
         dragonsTable.setItems(dragonsForTable);
     }
+
+
 
     private void setUpColumns() {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -243,9 +246,32 @@ public class MainWindowController implements Initializable {
     private void handleDrawingGraph(){
         painter = new Painter(xOyCanvas);
         painter.drawAxis();
+        xOyCanvas.setOnMouseClicked(e -> {
+            double x = e.getX();
+            double y = e.getY();
+            double minDist = painter.MIN_DISTANCE;
+            DragonForTable nearerDragon = null;
+            for (DragonForTable d : dragonsForTable) {
+                int distance = painter.calculateDistance(painter.dragonXToCanvasX(d.getX()), x,
+                        painter.dragonYToCanvasY(d.getY()), y);
+                if (distance < minDist) {
+                    minDist = distance;
+                    nearerDragon = d;
+                }
+            }
+
+            if (nearerDragon != null) {
+                int row = dragonsTable.getItems().indexOf(nearerDragon);
+                dragonsTable.getSelectionModel().select(row);
+                if (row != -1) {
+                    commandOutput.setText("Element successfully found in table");
+                    tableGraphTabPane.getSelectionModel().select(0);
+                    return;
+                }
+                commandOutput.setText("Element not found in table");
+            }
+        });
     }
-
-
 
     private void changeLanguageInUI(String TAG) {
         UIApp.localeClass.changeLocaleByTag(TAG);
