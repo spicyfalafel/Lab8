@@ -42,11 +42,12 @@ public class UIApp extends Application{
     public static AddController addController;
     public static RemoveByIdController removeByIdController;
     public static UpdateByIdController updateByIdController;
-
-    public static Stage mainStage;
-    public static Stage authorizationStage;
+    public static FilterStartsWithController filterStartsWithController;
+    public static RemoveLessThanController removeLessThanController;
 
     public static LocaleClass localeClass;
+    public static Stage mainStage;
+    public static Stage authorizationStage;
     public static ResourceBundle resourceBundle;
 
     public void run(){
@@ -63,6 +64,8 @@ public class UIApp extends Application{
         informationController = new InformationController();
         removeByIdController = new RemoveByIdController();
         updateByIdController = new UpdateByIdController();
+        filterStartsWithController = new FilterStartsWithController();
+        removeLessThanController = new RemoveLessThanController();
         localeClass = new LocaleClass();
     }
 
@@ -86,6 +89,9 @@ public class UIApp extends Application{
         primaryStage.setTitle(localeClass.getString("lab8.text"));
         WindowsCreator.setIconToStage(primaryStage);
         primaryStage.getScene().getStylesheets().add("css/main.css");
+        primaryStage.setOnShown(e ->{
+            mainWindowController.reloadMainStage();
+        });
     }
 
     @Override

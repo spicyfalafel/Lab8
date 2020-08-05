@@ -39,11 +39,11 @@ public class RemoveByIdCommand extends Command {
                         new RemoveNotification(id)
                 );
                 return ServerMain.localeClass.getString("dragon_with_id.text")
-                                + args[0] +
+                                + id + " " +
                         ServerMain.localeClass.getString("was_removed.text");
             }else{
                 return ServerMain.localeClass.getString("no_such_dragon_with_id.text")
-                        + " " + args[0];
+                        + " " + id;
             }
         }catch (NumberFormatException e){
             return ServerMain.localeClass.getString("id_must_be_more_than_zero.text");

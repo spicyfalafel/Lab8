@@ -107,7 +107,7 @@ public class MyDragonsCollection implements Serializable {
      */
     public String removeLower(Dragon dragon, User user) {
         StringBuilder builder = new StringBuilder();
-        filterOwnDragon(user).stream().filter(d -> d.getValue() < dragon.getValue())
+        getLowerThan(dragon, user)
                 .forEach(dr -> {
                     builder.append(ServerMain.localeClass.getString("deleted_dragon_with_id.text"))
                             .append(dr.getId()).append("\n");
@@ -119,6 +119,9 @@ public class MyDragonsCollection implements Serializable {
                 });
         if(builder.length()==0) return ServerMain.localeClass.getString("no_dragons_less_than_that.text");
         return builder.toString();
+    }
+    public Set<Dragon> getLowerThan(Dragon dragon, User user){
+        return filterOwnDragon(user).stream().filter(d -> d.getValue() < dragon.getValue()).collect(Collectors.toSet());
     }
     /**
      * фильтрует коллекцию, оставляет только тех, чьи имена начинаются с name
@@ -133,7 +136,7 @@ public class MyDragonsCollection implements Serializable {
     /**
      * простой метод для вывода коллекции в обратном порядке
      */
-    public String printDescending(){
+    public String getElementsInDescendingOrder(){
         StringBuilder builder = new StringBuilder();
         Collections.synchronizedSet(dragons).stream().sorted((o1, o2) -> (int) (o2.getValue()-o1.getValue()))
                 .forEach(d -> builder.append(d.getName())

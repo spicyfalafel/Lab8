@@ -85,6 +85,36 @@ public class WindowsCreator {
         stage.setResizable(false);
         return stage;
     }
+    public static Stage createFilterStartsWith() {
+        AnchorPane root = null;
+        try {
+            root = (AnchorPane) UIHelper.loadFxmlWithController(
+                    "/fxml/filter_starts_with.fxml",
+                    UIApp.filterStartsWithController,
+                    UIApp.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage stage = createBlankStage(root, UIApp.localeClass.getString("filter_starts_with.text"));
+        setIconToStage(stage);
+        stage.setResizable(false);
+        return stage;
+    }
+    public static Stage createInputValue() {
+        AnchorPane root = null;
+        try {
+            root = (AnchorPane) UIHelper.loadFxmlWithController(
+                    "/fxml/input_value.fxml",
+                    UIApp.removeLessThanController,
+                    UIApp.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage stage = createBlankStage(root, UIApp.localeClass.getString("filter_starts_with.text"));
+        setIconToStage(stage);
+        stage.setResizable(false);
+        return stage;
+    }
 
     public static Stage createError() {
         VBox root = null;
@@ -102,7 +132,7 @@ public class WindowsCreator {
         return stage;
     }
 
-    public static Stage createInfo(String information){
+    public static Stage createInfo(String information, int width, int height){
         VBox root = null;
         try {
             root = (VBox) UIHelper.loadFxmlWithController(
@@ -113,10 +143,15 @@ public class WindowsCreator {
             e.printStackTrace();
         }
         UIApp.informationController.infoLabel.setText(information);
-        Stage stage = createBlankStage(root, UIApp.localeClass.getString("information.text"));
+        Stage stage = createBlankStage(root, UIApp.localeClass.getString("information.text"), width, height);
         setIconToStage(stage);
         stage.setResizable(false);
         return stage;
+    }
+
+
+    public static Stage createInfo(String information){
+        return createInfo(information, 600, 800);
     }
 
     public static Stage createBlankStage(Parent layout, String title){

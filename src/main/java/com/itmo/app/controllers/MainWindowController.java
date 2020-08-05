@@ -3,7 +3,6 @@ package com.itmo.app.controllers;
 import com.itmo.app.UIApp;
 import com.itmo.client.MyConsole;
 import com.itmo.collection.DragonForTable;
-import com.itmo.collection.MyDragonsCollection;
 import com.itmo.collection.dragon.classes.*;
 import com.itmo.commands.*;
 import com.itmo.utils.Painter;
@@ -15,7 +14,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,18 +21,12 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.ResourceBundle;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 
 
@@ -68,7 +60,7 @@ public class MainWindowController implements Initializable {
     @FXML
     private Button addButton,
             addIfMaxButton, addIfMinButton, clearButton, filterNameButton,
-            infoButton, descendingWingspanButton, sortValueButton,
+            infoButton, ascendingWingspanButton, sortValueButton,
             removeByIdButton, removeLowerThanButton, updateByIdButton,
     executeScriptButton, signOutButton, removeButton;
 
@@ -134,6 +126,9 @@ public class MainWindowController implements Initializable {
         }
         setUpColumns();
         dragonsTable.setItems(dragonsForTable);
+        //sorting by id
+        idColumn.setSortType(TableColumn.SortType.ASCENDING);
+        dragonsTable.getSortOrder().add(idColumn);
     }
 
 
@@ -245,6 +240,23 @@ public class MainWindowController implements Initializable {
             String ans = UIApp.getClient().getAnswerFromServer();
             commandOutput.setText(ans);
         });
+
+        filterNameButton.setOnAction(e -> {
+            WindowsCreator.createFilterStartsWith().show();
+        });
+
+        ascendingWingspanButton.setOnAction(e -> {
+            wingspanColumn.setSortType(TableColumn.SortType.DESCENDING);
+            dragonsTable.getSortOrder().add(wingspanColumn);
+        });
+        sortValueButton.setOnAction( e -> {
+            UIApp.getClient().sendCommandToServer(new PrintDescendingCommand(null));
+            String ans = UIApp.getClient().getAnswerFromServer();
+            WindowsCreator.createInfo(ans, 300, 300).show();
+        });
+        removeLowerThanButton.setOnAction(e -> {
+            WindowsCreator.createInputValue().show();
+        });
     }
 
     private void handleDrawingGraph(){
@@ -280,24 +292,24 @@ public class MainWindowController implements Initializable {
     private void changeLanguageInUI(String TAG) {
         UIApp.localeClass.changeLocaleByTag(TAG);
         // TODO changeDateFormat();
+        reloadMainStage();
+        UIApp.getClient().sendCommandToServer(
+                new ChangeLanguageCommand(new String[]{TAG})
+        );
+        String ans = UIApp.getClient().getAnswerFromServer();
+        commandOutput.setText(ans);
+    }
+
+    public void reloadMainStage() {
+        Scene scene = UIApp.mainStage.getScene();
         try {
-            reloadMainStage();
-            UIApp.getClient().sendCommandToServer(
-                    new ChangeLanguageCommand(new String[]{TAG})
-            );
-            String ans = UIApp.getClient().getAnswerFromServer();
-            commandOutput.setText(ans);
+            scene.setRoot(UIHelper.loadFxmlWithController(
+                    "/fxml/main.fxml",
+                    UIApp.mainWindowController,
+                    getClass()));
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void reloadMainStage() throws IOException {
-        Scene scene = UIApp.mainStage.getScene();
-        scene.setRoot(UIHelper.loadFxmlWithController(
-                "/fxml/main.fxml",
-                UIApp.mainWindowController,
-                getClass()));
         painter.drawCollection(dragonsForTable);
     }
 }

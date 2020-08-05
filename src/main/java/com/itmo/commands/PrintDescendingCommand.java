@@ -17,7 +17,7 @@ public class PrintDescendingCommand extends Command {
 
     @Override
     public String execute(Application application, User user) {
-        return application.getCollection().printDescending();
+        return application.getCollection().getElementsInDescendingOrder();
     }
 
     @Override
