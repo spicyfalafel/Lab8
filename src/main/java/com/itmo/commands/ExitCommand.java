@@ -3,6 +3,9 @@ package com.itmo.commands;
 import com.itmo.server.Application;
 import com.itmo.app.UIApp;
 import com.itmo.client.User;
+import lombok.Setter;
+
+import java.nio.channels.SocketChannel;
 
 public class ExitCommand extends Command {
 

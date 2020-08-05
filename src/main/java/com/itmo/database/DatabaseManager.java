@@ -355,7 +355,8 @@ public class DatabaseManager implements MyCRUD {
             if (!resultSet.next()) return false;
             String salt = resultSet.getString("salt");
             String hash = passEncoder.getHash(user.getHashPass() + salt, "1@#$&^%$)3");
-            statement = connection.prepareStatement("select * from " + USERS_TABLE + " where login = ? and hashPass = ? and salt=?");
+            statement = connection.prepareStatement("select * from " + USERS_TABLE + " where login = ? " +
+                    "and hashPass = ? and salt=?");
             statement.setString(1, user.getName());
             statement.setString(2, hash);
             statement.setString(3, salt);

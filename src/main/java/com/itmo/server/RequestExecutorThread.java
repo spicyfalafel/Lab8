@@ -2,6 +2,7 @@ package com.itmo.server;
 
 import com.itmo.client.User;
 import com.itmo.commands.Command;
+import com.itmo.commands.ExitCommand;
 import com.itmo.commands.SubscribeForNotificationsCommand;
 
 import java.nio.channels.SocketChannel;
@@ -27,6 +28,8 @@ public class RequestExecutorThread extends Thread {
                 application.sendCollectionToClient(channel);
                 application.notificationProducer.subscribeForNotifications(channel);
                 return;
+            }else if(command instanceof ExitCommand){
+                application.notificationProducer.unsubscribe(channel);
             }
             String res = ServerMain.localeClass.getString("not_registered.text");
             boolean userIsRegistered = (!user.getName().equals("unregistered") &&

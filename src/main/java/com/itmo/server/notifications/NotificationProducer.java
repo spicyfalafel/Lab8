@@ -54,4 +54,8 @@ public class NotificationProducer implements Serializable {
     public void subscribeForNotifications(SocketChannel socketChannel){
         subscribers.add(socketChannel);
     }
+
+    public void unsubscribe(SocketChannel socketChannel){
+        subscribers.remove(socketChannel);
+    }
 }

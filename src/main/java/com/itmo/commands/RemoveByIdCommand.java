@@ -34,6 +34,7 @@ public class RemoveByIdCommand extends Command {
     public String execute(Application application, User user) {
         try{
             if(application.getCollection().removeById(id, user)){
+                application.db.deleteDragonById(id);
                 application.notificationProducer.sendRemoveNotificationToAll(
                         new RemoveNotification(id)
                 );
