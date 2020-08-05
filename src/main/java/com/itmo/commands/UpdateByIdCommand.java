@@ -6,6 +6,8 @@ import com.itmo.server.Application;
 import com.itmo.client.User;
 import com.itmo.collection.dragon.classes.Dragon;
 import com.itmo.server.ServerMain;
+import com.itmo.server.notifications.AddNotification;
+import com.itmo.server.notifications.RemoveNotification;
 import com.itmo.utils.FieldsScanner;
 import lombok.Setter;
 
@@ -39,7 +41,14 @@ public class UpdateByIdCommand extends Command{
             if(prev!=null){
                 application.getCollection().remove(prev, user);
                 dr.setId(id);
+                String name = user.getName();
+                dr.setOwnerName(name);
+                dr.setUser(user);
+                application.db.deleteDragonById(id);
                 application.getCollection().add(dr);
+                application.db.insertDragon(dr, id);
+                application.notificationProducer.sendRemoveNotificationToAll(new RemoveNotification(id));
+                application.notificationProducer.sendAddNotificationToAll(new AddNotification(dr));
                 return ServerMain.localeClass.getString("dragon_was_added.text");
             }else{
                 return ServerMain.localeClass.getString("dragon_with_id.text")

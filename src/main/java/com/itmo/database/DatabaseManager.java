@@ -139,24 +139,101 @@ public class DatabaseManager implements MyCRUD {
         }
     }
 
-    public double[] getColorOfDragonWithId(int id){
-        String name = getOwnerNameByDragonId(id);
-         PreparedStatement statement = null;
+    // god I'm sorry for duplicating code
+    public boolean insertDragon(Dragon d, long id){
+        try {
+            String drtype = null;
+
+            if (d.getType() != null) drtype = d.getType().name();
+            String date =d.getCreationDateInFormat();
+            String state = "INSERT INTO " + COLLECTION_TABLE +
+                    "(dragon_name," +
+                    " reg_date," +
+                    " age," +
+                    " wingspan," +
+                    " dragon_type," +
+                    " dragon_character, " +
+                    "owner, id)\n" +
+                    "VALUES (?, '" + date + "', ?, ?, ?::dragon_type, ?::dragon_character, ?, ?) ";
+            PreparedStatement dragonItself = connection.prepareStatement(state);
+
+            dragonItself.setString(1, d.getName());
+            dragonItself.setInt(2, d.getAge());
+            dragonItself.setFloat(3, d.getWingspan());
+            dragonItself.setString(4, drtype);
+            dragonItself.setString(5, d.getCharacter().name());
+            dragonItself.setString(6, d.getOwnerName());
+            dragonItself.setLong(7, id);
+            dragonItself.executeUpdate();
+
+            PreparedStatement dragonCoords = connection.prepareStatement(
+                    "INSERT INTO dragon_coordinates(dragon_id,x,y)" +
+                            "VALUES (?, ?, ?)");
+            dragonCoords.setLong(1, id);
+            dragonCoords.setInt(2, d.getCoordinates().getX());
+            dragonCoords.setLong(3, d.getCoordinates().getY());
+            dragonCoords.executeUpdate();
+
+            Person killer = d.getKiller();
+            if (killer != null) {
+                String hair = killer.getHairColor() == null ?
+                        "NULL" : killer.getHairColor().name();
+                String nati = killer.getNationality() == null ?
+                        "NULL" : killer.getNationality().name();
+                PreparedStatement dragonKiller =
+                        connection.prepareStatement(
+                                "INSERT INTO dragon_killers(dragon_id, killer_name, birthday, color, country)" +
+                                        "VALUES (?, ?,'"
+                                        +killer.getBirthdayInFormat() + "', ?::color, ?::country)"
+                        );
+                dragonKiller.setLong(1, id);
+                dragonKiller.setString(2, killer.getName());
+                dragonKiller.setString(3, hair);
+                dragonKiller.setString(4, nati);
+                dragonKiller.executeUpdate();
+
+                Location loc = killer.getLocation();
+                PreparedStatement killerLoc =
+                        connection.prepareStatement("INSERT INTO killers_locations( dragon_id, x,y,z,loc_name)\n" +
+                                "VALUES (?, ?, ?, ?, ?)");
+                killerLoc.setLong(1, id);
+                killerLoc.setInt(2, loc.getX());
+                killerLoc.setLong(3, loc.getY());
+                killerLoc.setFloat(4, loc.getZ());
+                killerLoc.setString(5, loc.getName());
+                killerLoc.executeUpdate();
+            }
+            return true;
+        }catch (SQLException e){
+            System.out.println("Ошибка при добавлении элемента в БД.");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public double[] getColorOfUser(String username) {
+        PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(
-                    "select red, green, blue from users where login='" + name + "'"
+                    "select red, green, blue from users where login='" + username + "'"
             );
             ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 double red = resultSet.getDouble("red");
                 double green = resultSet.getDouble("green");
                 double blue = resultSet.getDouble("blue");
                 return new double[]{red, green, blue};
-            }else return null;
+            } else return null;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return null;
         }
+    }
+
+
+    public double[] getColorOfDragonWithId(int id){
+        String name = getOwnerNameByDragonId(id);
+        return getColorOfUser(name);
     }
 
     public String getOwnerNameByDragonId(int id){
@@ -214,18 +291,19 @@ public class DatabaseManager implements MyCRUD {
                                 resultSet.getFloat("z"),
                                 resultSet.getString("loc_name"))
                 );
-
             }
             Dragon dragon = new Dragon(name, coordinates, date, age, wingspan, type, character, person);
             dragon.setOwnerName(ownerName);
             dragon.setId(id);
             User user = new User(ownerName);
-            user.setColor(getColorOfDragonWithId((int)id));
+            double[] c = getColorOfUser(ownerName);
+            user.setColor(c);
             dragon.setUser(user);
             dragons.add(dragon);
         }
         return (Collections.synchronizedSet(dragons));
     }
+
 
     @Override
     public boolean deleteDragonById(long id) {
@@ -243,7 +321,7 @@ public class DatabaseManager implements MyCRUD {
 
     public long getIdOfDragon(Dragon d){
         String sqlRequest =
-                "select * FROM " + COLLECTION_TABLE +
+                "select id FROM " + COLLECTION_TABLE +
                         " WHERE owner=? " +
                         "and dragon_name=?" +
                         " and wingspan=?" +
@@ -260,7 +338,7 @@ public class DatabaseManager implements MyCRUD {
             statement.setInt(5, d.getAge());
             ResultSet set = statement.executeQuery();
             if (set.next()){
-                return set.getLong("id");
+                return set.getInt("id");
             }
             return 0;
         } catch (SQLException throwables) {

@@ -11,6 +11,7 @@ public interface MyCRUD {
 
     Set<Dragon> getCollectionFromDatabase() throws SQLException;
 
+
     boolean deleteDragonById(long id);
 
 }

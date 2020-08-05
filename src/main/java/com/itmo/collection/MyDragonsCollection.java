@@ -53,16 +53,8 @@ public class MyDragonsCollection implements Serializable {
     }
 
     public String add(Dragon dragon){
-        Set<Long> setIds = Collections.synchronizedSet(dragons).stream().map(Dragon::getId).collect(Collectors.toSet());
-        //генерация id
-        for(long i = 0; i<Long.MAX_VALUE;i++){
-            if(!setIds.contains(i)){
-                dragon.setId(i);
-                this.dragons.add(dragon);
-                return ServerMain.localeClass.getString("dragon_has_been_added.text");
-            }
-        }
-        return ServerMain.localeClass.getString("dragon_was_not_added.text");
+        this.dragons.add(dragon);
+        return ServerMain.localeClass.getString("dragon_has_been_added.text");
     }
     public String addIfMax(Dragon dragon){
         if(isMax(dragon)){

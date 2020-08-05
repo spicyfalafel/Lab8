@@ -56,6 +56,8 @@ public class DbTesting {
         Assertions.assertTrue(db.insertDragon(testDragon));
     }
 
+
+    //sometimes it doesn't work don't know why
     @Order(3)
     @Test
     void getIdOfDragonWorks(){

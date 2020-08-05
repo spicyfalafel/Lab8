@@ -45,7 +45,7 @@ public class AddElementCommand extends Command {
 
         dr.setId(application.db.getIdOfDragon(dr));
 
-        dr.getUser().setColor(application.db.getColorOfDragonWithId((int) dr.getId()));
+        dr.getUser().setColor(application.db.getColorOfUser(user.getName()));
         application.notificationProducer.sendAddNotificationToAll(
                 new AddNotification(dr)
         );

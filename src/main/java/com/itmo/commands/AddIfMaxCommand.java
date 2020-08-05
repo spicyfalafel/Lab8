@@ -4,6 +4,7 @@ import com.itmo.server.Application;
 import com.itmo.app.UIApp;
 import com.itmo.client.User;
 import com.itmo.collection.dragon.classes.Dragon;
+import com.itmo.server.ServerMain;
 import com.itmo.server.notifications.AddNotification;
 import com.itmo.utils.FieldsScanner;
 import lombok.NoArgsConstructor;
@@ -38,14 +39,23 @@ public class AddIfMaxCommand extends Command {
     public String execute(Application application, User user) {
         dr.setCreationDate(new Date());
         dr.setOwnerName(user.getName());
+        dr.setUser(user);
         if(application.getCollection().isMax(dr)){
             application.db.insertDragon(dr);
             application.getCollectionFromDB();
+
+            dr.setId(application.db.getIdOfDragon(dr));
+            dr.getUser().setColor(application.db.getColorOfUser(user.getName()));
+
             application.notificationProducer.sendAddNotificationToAll(
                     new AddNotification(dr)
             );
+            return application.getCollection().add(dr);
         }
-        return application.getCollection().addIfMax(dr);
+        return ServerMain.localeClass.getString("dragon_was_not_added.text")
+                + " ("
+                + ServerMain.localeClass.getString("its_not_the_strongest.text")
+                + ")";
     }
 
     @Override

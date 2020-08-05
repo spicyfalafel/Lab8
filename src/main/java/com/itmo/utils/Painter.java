@@ -88,6 +88,7 @@ public class Painter {
 
 
     public void drawDragonOnCanvas(Dragon d, Color userColor){
+        if(d==null) return;
         drawDragonOnCanvas(d.getCoordinates().getX(), d.getCoordinates().getY(), d.getValue(), userColor);
         int x = dragonXToCanvasX(d.getCoordinates().getX());
         long y = dragonYToCanvasY(d.getCoordinates().getY());
