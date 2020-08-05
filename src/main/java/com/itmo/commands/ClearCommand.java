@@ -24,12 +24,12 @@ public class ClearCommand extends Command {
     @Override
     public String execute(Application application, User user) {
         Set<Dragon> dragons = application.getCollection().filterOwnDragon(user);
+
         dragons.forEach(d -> {
+            application.db.deleteDragonById(d.getId());
             application.notificationProducer.sendRemoveNotificationToAll(new RemoveNotification(d.getId()));
         });
-        String ans = application.getCollection().clear(user);
-        application.syncWithDB();
-        return ans;
+        return application.getCollection().clear(user);
     }
 
     @Override

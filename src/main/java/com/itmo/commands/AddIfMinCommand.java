@@ -38,7 +38,7 @@ public class AddIfMinCommand extends Command {
         dr.setOwnerName(user.getName());
         if (application.getCollection().isMin(dr)) {
             application.db.insertDragon(dr);
-            application.syncWithDB();
+            application.getCollectionFromDB();
             application.notificationProducer.sendAddNotificationToAll(
                     new AddNotification(dr)
             );

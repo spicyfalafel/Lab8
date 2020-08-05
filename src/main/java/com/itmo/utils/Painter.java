@@ -11,6 +11,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
+import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 
 
@@ -27,11 +28,8 @@ public class Painter {
     private Canvas canvas;
     private GraphicsContext gc;
 
-    private ArrayBlockingQueue<Notification> notificationsQueue = new ArrayBlockingQueue<>(1000);
+    private ArrayList<Dragon> drawedDragons = new ArrayList<>();
 
-    public void addNotification(Notification notification){
-        notificationsQueue.add(notification);
-    }
 
     public Painter(Canvas canvas){
         this.canvas = canvas;
@@ -94,6 +92,8 @@ public class Painter {
         int x = dragonXToCanvasX(d.getCoordinates().getX());
         long y = dragonYToCanvasY(d.getCoordinates().getY());
         drawFire(x, y, d.getType(), d.getValue());
+        d.getUser().setColor(new double[]{userColor.getRed(), userColor.getGreen(), userColor.getBlue()});
+        drawedDragons.add(d);
     }
 
     // xCenter, yCenter холста отличаются от xCenter, yCenter драконьих
@@ -204,14 +204,7 @@ public class Painter {
         return ((long) canvas.getHeight())/2 -yCenter;
     }
 
-    public void drawWithRemoving(Long id) {
-        clearGraph();
-        UIApp.mainWindowController.dragonsForTable.forEach(d -> {
-            //todo
-            // drawDragonOnCanvas(d.getDragon(), );
 
-        });
-    }
 
     public void clearGraph(){
         gc.clearRect(0,0, canvas.getWidth(), canvas.getHeight());
@@ -226,6 +219,12 @@ public class Painter {
         for (DragonForTable d :
                 dragonsForTable) {
             drawDragonOnCanvas(d.getDragon(),d.getDragon().getUser().getColor());
+        }
+    }
+    public void drawAgain(){
+        for (Dragon d :
+                drawedDragons) {
+            drawDragonOnCanvas(d, d.getUser().getColor());
         }
     }
 }

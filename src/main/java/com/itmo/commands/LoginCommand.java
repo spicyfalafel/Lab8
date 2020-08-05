@@ -38,7 +38,6 @@ public class LoginCommand extends Command{
 
     @Override
     public String execute(Application application, User user) {
-
         String hashPassword = new PassEncoder().getHash(pass, null);
         User u = new User(login, hashPassword);
         if(application.db.containsUser(u)){
@@ -57,7 +56,7 @@ public class LoginCommand extends Command{
         application.activeUsers.removeUserByName(user.getName());
         user.setName(login);
         user.setHashPass(hashPassword);
-        user.setRandomColor();
+        user.setColor();
         application.activeUsers.addUserName(user.getName());
     }
 

@@ -41,7 +41,7 @@ public class Application implements Serializable {
         notificationProducer = new NotificationProducer();
     }
 
-    public void syncWithDB() {
+    public void getCollectionFromDB() {
         try {
             this.collection = new MyDragonsCollection(db.getCollectionFromDatabase());
         } catch (SQLException e) {

@@ -167,6 +167,7 @@ public class MainWindowController implements Initializable {
     public void showUserName() {
         if (!UIApp.getClient().getUser().getName().equals("unregistered")) {
             currentUserText.setText(UIApp.getClient().getUser().getName());
+            colorOfUserRectangle.setFill(UIApp.getClient().getUser().getColor());
         }
     }
 
@@ -239,7 +240,10 @@ public class MainWindowController implements Initializable {
         });
 
         removeButton.setOnAction(e -> {
-            //todo should remove chosen element in table
+            long id = dragonsTable.getSelectionModel().getSelectedItem().getId();
+            UIApp.getClient().sendCommandToServer(new RemoveByIdCommand(id));
+            String ans = UIApp.getClient().getAnswerFromServer();
+            commandOutput.setText(ans);
         });
     }
 
@@ -294,5 +298,6 @@ public class MainWindowController implements Initializable {
                 "/fxml/main.fxml",
                 UIApp.mainWindowController,
                 getClass()));
+        painter.drawCollection(dragonsForTable);
     }
 }

@@ -15,7 +15,8 @@ public class RemoveNotification implements Notification, Serializable {
 
     @Override
     public void updateData() {
-        UIApp.mainWindowController.dragonsForTable.remove(new DragonForTable(id)));
+        UIApp.mainWindowController.dragonsForTable.remove(new DragonForTable(id));
+        UIApp.mainWindowController.painter.clearGraph();
         UIApp.mainWindowController.painter.drawCollection(UIApp.mainWindowController.dragonsForTable);
     }
 }

@@ -8,12 +8,20 @@ import com.itmo.client.User;
 import com.itmo.server.ServerMain;
 import com.itmo.server.notifications.AddNotification;
 import com.itmo.server.notifications.RemoveNotification;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
 
 public class RemoveByIdCommand extends Command {
 
+    long id;
+    public RemoveByIdCommand(long id){
+        this.id = id;
+    }
 
     public RemoveByIdCommand(String[] args) {
         super(args);
+        this.id = Long.parseLong(args[0]);
     }
 
     @Override
@@ -25,8 +33,6 @@ public class RemoveByIdCommand extends Command {
     @Override
     public String execute(Application application, User user) {
         try{
-            long id = Long.parseLong(args[0]);
-
             if(application.getCollection().removeById(id, user)){
                 application.notificationProducer.sendRemoveNotificationToAll(
                         new RemoveNotification(id)

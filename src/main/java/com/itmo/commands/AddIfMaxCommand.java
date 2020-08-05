@@ -40,7 +40,7 @@ public class AddIfMaxCommand extends Command {
         dr.setOwnerName(user.getName());
         if(application.getCollection().isMax(dr)){
             application.db.insertDragon(dr);
-            application.syncWithDB();
+            application.getCollectionFromDB();
             application.notificationProducer.sendAddNotificationToAll(
                     new AddNotification(dr)
             );

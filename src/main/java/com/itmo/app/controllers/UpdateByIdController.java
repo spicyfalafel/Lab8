@@ -3,6 +3,7 @@ package com.itmo.app.controllers;
 import com.itmo.app.UIApp;
 import com.itmo.commands.RemoveByIdCommand;
 import com.itmo.commands.UpdateByIdCommand;
+import com.itmo.database.DatabaseManager;
 import com.itmo.utils.WindowsCreator;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

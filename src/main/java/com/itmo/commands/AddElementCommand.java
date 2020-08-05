@@ -1,6 +1,5 @@
 package com.itmo.commands;
 
-import com.itmo.collection.DragonForTable;
 import com.itmo.server.Application;
 import com.itmo.app.UIApp;
 import com.itmo.client.User;
@@ -8,7 +7,6 @@ import com.itmo.collection.dragon.classes.Dragon;
 import com.itmo.server.ServerMain;
 import com.itmo.server.notifications.AddNotification;
 import com.itmo.utils.FieldsScanner;
-import javafx.scene.paint.Color;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
@@ -41,8 +39,10 @@ public class AddElementCommand extends Command {
         dr.setCreationDate(new Date());
         dr.setOwnerName(user.getName());
         dr.setUser(user);
+
         application.db.insertDragon(dr);
-        application.syncWithDB();
+        application.getCollectionFromDB();
+
         dr.setId(application.db.getIdOfDragon(dr));
 
         dr.getUser().setColor(application.db.getColorOfDragonWithId((int) dr.getId()));

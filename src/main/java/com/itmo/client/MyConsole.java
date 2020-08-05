@@ -62,7 +62,7 @@ public class MyConsole {
         invoker.register("help", new HelpCommand());
         invoker.register("exit", new ExitCommand(null));
         invoker.register("clear", new ClearCommand(null));
-        invoker.register("remove_by_id", new RemoveByIdCommand(null));
+        invoker.register("remove_by_id", new RemoveByIdCommand());
         invoker.register("add", new AddElementCommand());
         invoker.register("show", new ShowCommand(null));
         invoker.register("update", new UpdateByIdCommand(null));
