@@ -257,6 +257,10 @@ public class MainWindowController implements Initializable {
         removeLowerThanButton.setOnAction(e -> {
             WindowsCreator.createInputValue().show();
         });
+
+        executeScriptButton.setOnAction(e -> {
+            WindowsCreator.createExecuteStage().show();
+        });
     }
 
     private void handleDrawingGraph(){

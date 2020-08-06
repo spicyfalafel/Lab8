@@ -110,7 +110,7 @@ public class WindowsCreator {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Stage stage = createBlankStage(root, UIApp.localeClass.getString("filter_starts_with.text"));
+        Stage stage = createBlankStage(root, UIApp.localeClass.getString("remove.text"));
         setIconToStage(stage);
         stage.setResizable(false);
         return stage;
@@ -151,7 +151,24 @@ public class WindowsCreator {
 
 
     public static Stage createInfo(String information){
-        return createInfo(information, 600, 800);
+        return createInfo(information, 1000, 800);
+    }
+
+    public static Stage createExecuteStage(){
+        AnchorPane root = null;
+        try {
+            root = (AnchorPane) UIHelper.loadFxmlWithController(
+                    "/fxml/execute.fxml",
+                    UIApp.executeController,
+                    WindowsCreator.class
+            );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage stage = createBlankStage(root, UIApp.localeClass.getString("execute.text"));
+        stage.setResizable(false);
+        setIconToStage(stage);
+        return stage;
     }
 
     public static Stage createBlankStage(Parent layout, String title){

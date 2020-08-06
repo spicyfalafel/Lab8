@@ -37,7 +37,8 @@ public class FieldsScanner {
      */
     public String scanLine(String nameOfWhatYouWantToScan){
         System.out.println("Введите " + nameOfWhatYouWantToScan);
-        return sc.nextLine().trim();
+        if(sc.hasNextLine()) return sc.nextLine().trim();
+        else return "";
     }
 
     public String scanLine(){

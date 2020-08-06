@@ -44,6 +44,7 @@ public class UIApp extends Application{
     public static UpdateByIdController updateByIdController;
     public static FilterStartsWithController filterStartsWithController;
     public static RemoveLessThanController removeLessThanController;
+    public static ExecuteController executeController;
 
     public static LocaleClass localeClass;
     public static Stage mainStage;
@@ -66,6 +67,7 @@ public class UIApp extends Application{
         updateByIdController = new UpdateByIdController();
         filterStartsWithController = new FilterStartsWithController();
         removeLessThanController = new RemoveLessThanController();
+        executeController = new ExecuteController();
         localeClass = new LocaleClass();
     }
 

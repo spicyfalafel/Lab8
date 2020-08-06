@@ -3,47 +3,73 @@ package com.itmo.client;
 import com.itmo.commands.*;
 import com.itmo.exceptions.NoSuchCommandException;
 import com.itmo.exceptions.WrongArgumentsNumberException;
+import com.itmo.utils.FieldsScanner;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
 
 public class MyConsole {
     private static CommandsInvoker invoker;
-    private static final BufferedReader systemIn
+    private static BufferedReader streamToReadFrom
             = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
 
     public MyConsole(){
+        registerCommands();
+    }
+    public MyConsole(InputStream stream){
+        streamToReadFrom = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
+        FieldsScanner.getInstance().configureScanner(new Scanner(streamToReadFrom));
         registerCommands();
     }
 
     public Command getFullCommandFromConsole(){
         Command command = null;
         try {
-            command = scanCommandFromConsole();
+            command = readCommandFromConsole();
             command.clientInsertionFromConsole();
         } catch (IOException e) {
             System.out.println(e.getMessage());
+            return null;
+        }
+        return command;
+    }
+    public Command getFullCommandFromStream(){
+        Command command = null;
+        try {
+            command = readCommandFromStream();
+            if(command!=null) command.clientInsertionFromConsole();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return null;
         }
         return command;
     }
 
-    private boolean checkExitCommand(Command command){
-        return command instanceof ExitCommand;
+    public Command readCommandFromStream() throws IOException {
+        Command command = null;
+        String line;
+        while((line = streamToReadFrom.readLine()) != null) {
+            command = getCommandFromString(line);
+        }
+        return command;
     }
 
-    private Command scanCommandFromConsole() throws IOException {
+    // read one line. if it was a command return it. else repeat
+    private Command readCommandFromConsole() throws IOException {
         Command command = null;
         String line;
         do{
-            if((line = systemIn.readLine()) != null){
+            if((line = streamToReadFrom.readLine()) != null){
                 command = getCommandFromString(line);
             }
         }while(command==null);
         return command;
     }
-
+    // read a line. make sure it is registered command
     public static Command getCommandFromString(String command){
         String[] splitted = command.split(" ");
         String commandName = splitted[0];
@@ -72,7 +98,7 @@ public class MyConsole {
         invoker.register("remove_lower", new RemoveLowerThanElementCommand(null));
         invoker.register("print_field_ascending_wingspan", new PrintFieldAscendingWingspanCommand(null));
         invoker.register("print_descending", new PrintDescendingCommand(null));
-        invoker.register("execute_script", new ExecuteScriptCommand(null));
+        invoker.register("execute_script", new ExecuteScriptCommand());
         invoker.register("login", new LoginCommand());
         invoker.register("register", new RegisterCommand());
     }

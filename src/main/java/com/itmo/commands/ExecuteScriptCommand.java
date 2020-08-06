@@ -1,17 +1,47 @@
 package com.itmo.commands;
 
+import com.itmo.client.MyConsole;
 import com.itmo.server.Application;
 import com.itmo.app.UIApp;
 import com.itmo.client.User;
 import com.itmo.server.ServerMain;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 /**
  * The type Execute script command.
  */
+@NoArgsConstructor
 public class ExecuteScriptCommand extends Command {
+    private File fileToExecute;
+    @Getter
+    private String result;
+    public ExecuteScriptCommand(File file){
+        this.fileToExecute = file;
+        StringBuilder builder = new StringBuilder();
+        try {
+            MyConsole console = new MyConsole(new FileInputStream(file));
+            Command command = console.getFullCommandFromConsole();
+            while(command!=null){
+                UIApp.getClient().sendCommandToServer(command);
+                String ans = UIApp.getClient().getAnswerFromServer();
+                builder.append(ans).append("\n");
+                command = console.getFullCommandFromStream();
+            }
+            result = builder.toString();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     public ExecuteScriptCommand(String[] args) {
         super(args);
+
     }
 
     @Override
@@ -21,36 +51,7 @@ public class ExecuteScriptCommand extends Command {
 
     @Override
     public void clientInsertionFromConsole() {
-        /*try (BufferedReader reader = new BufferedReader(new FileReader(args[0]))) {
-            String line;
-            System.out.println("Запуск скрипта " + args[0]);
-            while ((line = reader.readLine()) != null) {
-            *//*    Command c = Client.getCommandFromString(line);
-                if (c != null) {
-                    FieldsScanner scanner = FieldsScanner.getInstance();
-                    scanner.configureScanner(new Scanner(reader));
-                    c.clientInsertion();
-                    scanner.configureScanner(new Scanner(System.in));
-                    byte[] serializedCommand = SerializationManager.writeObject(c);
-                    Client.sendOneByte();
-                    Client.getSocket().getOutputStream().write(serializedCommand);
-            *//*        //Client.getAns(); //TODO
-                    //sendCommandToServer(command);
-                    //String answer = getAnswerFromServer();
-                    //setUserNameAfterRegistering(answer);
-                    //checkExitCommand(command);
-                }
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("file not found");
-        } catch (IOException e) {
-            System.out.println("капут");*/
-       // } catch (ClassNotFoundException e) {
-       //     e.printStackTrace();
-     /*   }catch (StackOverflowError e){
-            System.out.println("Стэк переполнен!");
-        }
-*/
+        fileToExecute = new File(args[0]);
     }
 
     @Override
