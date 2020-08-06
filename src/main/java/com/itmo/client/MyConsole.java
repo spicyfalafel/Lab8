@@ -26,6 +26,8 @@ public class MyConsole {
         registerCommands();
     }
 
+    // reads ONE line
+    //
     public Command getFullCommandFromConsole(){
         Command command = null;
         try {
@@ -49,13 +51,17 @@ public class MyConsole {
         return command;
     }
 
+    //read one line. if this line was command then return command.
+    // else return null. if it was EOF return null
     public Command readCommandFromStream() throws IOException {
         Command command = null;
         String line;
-        while((line = streamToReadFrom.readLine()) != null) {
+        if((line = streamToReadFrom.readLine()) != null) {
             command = getCommandFromString(line);
+            return command;
+        }else{
+            return null;
         }
-        return command;
     }
 
     // read one line. if it was a command return it. else repeat

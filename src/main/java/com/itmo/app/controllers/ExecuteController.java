@@ -75,7 +75,7 @@ public class ExecuteController implements Initializable {
         files.forEach(f -> {
             ExecuteScriptCommand executeCommand = new ExecuteScriptCommand(f);
             String answerFromAllCommands = executeCommand.getResult();
-            WindowsCreator.createInfo(answerFromAllCommands, 1000, 1000);
+            WindowsCreator.createInfo(answerFromAllCommands, 1000, 1000).show();
             UIApp.getClient().sendCommandToServer(executeCommand);
             UIApp.getClient().getAnswerFromServer();
         });

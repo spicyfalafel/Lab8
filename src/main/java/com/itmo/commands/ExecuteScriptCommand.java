@@ -5,13 +5,14 @@ import com.itmo.server.Application;
 import com.itmo.app.UIApp;
 import com.itmo.client.User;
 import com.itmo.server.ServerMain;
+import com.itmo.utils.FieldsScanner;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 /**
  * The type Execute script command.
@@ -23,21 +24,39 @@ public class ExecuteScriptCommand extends Command {
     private String result;
     public ExecuteScriptCommand(File file){
         this.fileToExecute = file;
-        StringBuilder builder = new StringBuilder();
+        MyConsole mc = new MyConsole();
+        result = readCommandsFromFileExecuteAndGetAnswer(file);
+    }
+
+    public String readCommandsFromFileExecuteAndGetAnswer(File file) {
+        Scanner scannerFromFile = null;
         try {
-            MyConsole console = new MyConsole(new FileInputStream(file));
-            Command command = console.getFullCommandFromConsole();
-            while(command!=null){
-                UIApp.getClient().sendCommandToServer(command);
-                String ans = UIApp.getClient().getAnswerFromServer();
-                builder.append(ans).append("\n");
-                command = console.getFullCommandFromStream();
-            }
-            result = builder.toString();
+            scannerFromFile = new Scanner(new FileInputStream(file));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        String line;
+        StringBuilder builder = new StringBuilder();
+        FieldsScanner.getInstance().configureScanner(scannerFromFile);
+        // while not eof
+        try {
+            while(scannerFromFile.hasNextLine()){
+                line = scannerFromFile.nextLine();
+                Command command = MyConsole.getCommandFromString(line);
+                // if it was existed command
+                if(command!=null){
+                    command.clientInsertionFromConsole();
+                    UIApp.getClient().sendCommandToServer(command);
+                    builder.append(UIApp.getClient().getAnswerFromServer()).append("\n");
+                }
+            }
+        }catch (NoSuchElementException ignored){
+        }
+
+        return builder.toString();
     }
+
+
 
     public ExecuteScriptCommand(String[] args) {
         super(args);
