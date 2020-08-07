@@ -54,7 +54,7 @@ public class MainWindowController implements Initializable {
     @FXML
     private Text currentUserText;
     @FXML
-    private Rectangle colorOfUserRectangle;
+    public Rectangle colorOfUserRectangle;
     @FXML
     private Canvas xOyCanvas;
     @FXML
@@ -178,8 +178,8 @@ public class MainWindowController implements Initializable {
 
     private void handleLanguageMenuItems() {
         languageRussianItem.setOnAction(e -> changeLanguageInUI("RU"));
-        languageEstonianItem.setOnAction(e -> changeLanguageInUI("EE"));
-        languageSwedishItem.setOnAction(e -> changeLanguageInUI("SE"));
+        languageEstonianItem.setOnAction(e -> changeLanguageInUI("EST"));
+        languageSwedishItem.setOnAction(e -> changeLanguageInUI("SWE"));
         languageEspanItem.setOnAction(e -> changeLanguageInUI("SPA"));
     }
 

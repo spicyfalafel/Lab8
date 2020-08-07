@@ -5,11 +5,18 @@ import com.itmo.collection.DragonForTable;
 import com.itmo.collection.dragon.classes.Dragon;
 import com.itmo.collection.dragon.classes.DragonType;
 import com.itmo.server.notifications.Notification;
+import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -86,9 +93,42 @@ public class Painter {
     }
 
 
+    public void animate(Dragon d, Color userColor){
+        double w = canvas.getWidth();
+        double h = canvas.getHeight();
+
+        double dragonWidth = valueToWidth(d.getValue());
+        double dragonHeight = valueToHeight(d.getValue());
+
+        double drX = dragonXToCanvasX(d.getCoordinates().getX());
+        double drY = dragonYToCanvasY(d.getCoordinates().getY());
+        DoubleProperty x  = new SimpleDoubleProperty(w+dragonWidth);
+        DoubleProperty y  = new SimpleDoubleProperty();
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(3),
+                        new KeyValue(x, drX),
+                        new KeyValue(y, drY)
+                )
+        );
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                drawOval((int) x.doubleValue(), (long) y.doubleValue(), (int) dragonWidth,
+                        (int) dragonHeight, userColor);
+                drawOval((int) x.doubleValue(), (long) y.doubleValue(), (int) dragonWidth,
+                        (int) dragonHeight, Color.WHITE);
+            }
+        };
+        timer.start();
+        timeline.play();
+        clearGraph();
+    }
 
     public void drawDragonOnCanvas(Dragon d, Color userColor){
         if(d==null) return;
+        animate(d, userColor);
+
         drawDragonOnCanvas(d.getCoordinates().getX(), d.getCoordinates().getY(), d.getValue(), userColor);
         int x = dragonXToCanvasX(d.getCoordinates().getX());
         long y = dragonYToCanvasY(d.getCoordinates().getY());

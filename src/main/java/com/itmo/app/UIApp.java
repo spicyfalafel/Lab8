@@ -4,6 +4,7 @@ import com.itmo.app.controllers.*;
 import com.itmo.client.Client;
 import com.itmo.client.ListenerForNotifications;
 import com.itmo.client.MainUI;
+import com.itmo.commands.GetColorCommand;
 import com.itmo.utils.LocaleClass;
 import com.itmo.utils.UIHelper;
 import com.itmo.utils.UTF8Control;
@@ -15,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
@@ -55,7 +57,6 @@ public class UIApp extends Application{
         launch();
     }
 
-
     @Override
     public void init()  {
         authorizationController = new AuthorizationController();
@@ -73,7 +74,7 @@ public class UIApp extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        resourceBundle = ResourceBundle.getBundle("locals", Locale.forLanguageTag("SE"), new UTF8Control());
+        resourceBundle = ResourceBundle.getBundle("locals", Locale.forLanguageTag("RU"), new UTF8Control());
         mainStage = primaryStage;
         authorizationStage = WindowsCreator.createAuthorization();
         authorizationStage.show();
@@ -82,7 +83,6 @@ public class UIApp extends Application{
         notificationListener.setDaemon(true);
         notificationListener.start();
     }
-
 
     private void initPrimaryStage(Stage primaryStage) throws IOException {
         VBox root = (VBox) UIHelper
@@ -93,6 +93,15 @@ public class UIApp extends Application{
         primaryStage.getScene().getStylesheets().add("css/main.css");
         primaryStage.setOnShown(e ->{
             mainWindowController.reloadMainStage();
+
+            client.sendCommandToServer(new GetColorCommand());
+            String ans = client.getAnswerFromServer();
+            String[] split = ans.split(" ");
+            double[] rgb = new double[3];
+            for (int i = 0; i<3;i++) {
+                rgb[i] = Double.parseDouble(split[i]);
+            }
+            mainWindowController.colorOfUserRectangle.setFill(Color.color(rgb[0], rgb[1], rgb[2]));
         });
     }
 

@@ -129,11 +129,11 @@ public class AuthorizationController implements Initializable {
     };
 
     private final EventHandler<ActionEvent> changeLangToEstonian = event -> {
-        changeLanguageInUI("EE");
+        changeLanguageInUI("EST");
     };
 
     private final EventHandler<ActionEvent> changeLangToSweden = event -> {
-        changeLanguageInUI("SE");
+        changeLanguageInUI("SWE");
     };
 
     private final EventHandler<ActionEvent> changeLangToSpanish = event -> {

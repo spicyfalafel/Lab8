@@ -1,5 +1,7 @@
 package com.itmo.server;
 
+import com.itmo.app.UIApp;
+import com.itmo.client.Client;
 import com.itmo.client.User;
 import com.itmo.commands.Command;
 import com.itmo.commands.ExitCommand;

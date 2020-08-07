@@ -21,14 +21,13 @@ public class LocaleClass {
     public void changeLocale(Locale locale){
         resourceBundle = ResourceBundle
                 .getBundle("locals", locale, new UTF8Control());
-        System.out.println(resourceBundle.getLocale().toString() + "!!!!!!!");
     }
 
     public enum SupportedLanguages{
         RU,
-        EE,
-        SE,
-        SPA
+        EST,
+        SPA,
+        SWE
     }
 
 

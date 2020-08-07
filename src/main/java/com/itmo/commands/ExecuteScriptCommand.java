@@ -52,15 +52,11 @@ public class ExecuteScriptCommand extends Command {
             }
         }catch (NoSuchElementException ignored){
         }
-
         return builder.toString();
     }
 
-
-
     public ExecuteScriptCommand(String[] args) {
         super(args);
-
     }
 
     @Override
