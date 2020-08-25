@@ -3,7 +3,7 @@ package com.itmo.app.controllers;
 import com.itmo.client.Client;
 import com.itmo.collection.dragon.classes.Dragon;
 import com.itmo.client.ListenerForNotifications;
-import com.itmo.utils.Painter;
+import com.itmo.utils.Pain;
 import javafx.collections.ObservableList;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,5 +15,5 @@ public class State {
     private ObservableList<Dragon> dragonsInTable;
     private String currentLang;
     private ListenerForNotifications listener;
-    private Painter painter;
+    private Pain painter;
 }

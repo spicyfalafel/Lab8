@@ -5,7 +5,7 @@ import com.itmo.client.MyConsole;
 import com.itmo.collection.DragonForTable;
 import com.itmo.collection.dragon.classes.*;
 import com.itmo.commands.*;
-import com.itmo.utils.Painter;
+import com.itmo.utils.Pain;
 import com.itmo.utils.UIHelper;
 import com.itmo.utils.WindowsCreator;
 import javafx.collections.FXCollections;
@@ -101,7 +101,7 @@ public class MainWindowController implements Initializable {
     private Label commandOutput;
 
     public ObservableList<DragonForTable> dragonsForTable;
-    public Painter painter;
+    public Pain painter;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -113,6 +113,7 @@ public class MainWindowController implements Initializable {
         handleTableView();
         handleDrawingGraph();
     }
+
 
 
     public void addDragonToColl(Dragon d){
@@ -264,7 +265,7 @@ public class MainWindowController implements Initializable {
     }
 
     private void handleDrawingGraph(){
-        painter = new Painter(xOyCanvas);
+        painter = new Pain(xOyCanvas);
         painter.drawAxis();
         xOyCanvas.setOnMouseClicked(e -> {
             double x = e.getX();

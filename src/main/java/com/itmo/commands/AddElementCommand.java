@@ -26,7 +26,6 @@ public class AddElementCommand extends Command {
     public void clientInsertionFromConsole() {
         FieldsScanner fieldsScanner = FieldsScanner.getInstance();
         this.dr = fieldsScanner.scanDragon();
-
     }
 
     @Override

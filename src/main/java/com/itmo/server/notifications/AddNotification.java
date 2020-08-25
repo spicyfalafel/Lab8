@@ -18,8 +18,6 @@ public class AddNotification implements Serializable, Notification{
     public void updateData() {
         UIApp.mainWindowController.addDragonToColl(dragon);
         User u = dragon.getUser();
-        if(u==null) System.out.println("в драконе addnotification не было пользователя вообще ");
-        else if(u.getColor()==null) System.out.println("В драконе не было только цвета");
         UIApp.mainWindowController.painter.drawDragonOnCanvas(dragon, u.getColor());
     }
 }

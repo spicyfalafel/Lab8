@@ -1,5 +1,6 @@
 package com.itmo.client;
 
+import com.itmo.app.UIApp;
 import com.itmo.commands.SubscribeForNotificationsCommand;
 import com.itmo.server.notifications.AddNotification;
 import com.itmo.server.notifications.Notification;
@@ -20,6 +21,7 @@ public class ListenerForNotifications extends Thread {
         byte[] notificationInBytes;
         c.sendCommandToServer(new SubscribeForNotificationsCommand());
         SerializationManager2<Notification> sm = new SerializationManager2<>();
+        //UIApp.mainWindowController.painter.run();
         while(true){
             try {
                 notificationInBytes = c.getBytes();
