@@ -101,7 +101,7 @@
                             <archive>
                                 <manifest>
                                     <addClasspath>true</addClasspath>
-                                    <mainClass>com.itmo.client.MainConsole</mainClass>
+                                    <mainClass>com.itmo.client.MainUI</mainClass>
                                 </manifest>
                             </archive>
                         </configuration>

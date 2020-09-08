@@ -14,11 +14,12 @@ C:\Users\svyat\IdeaProjects\Lab8\src\main\java\com\itmo\server\url\UrlGetter.jav
 C:\Users\svyat\IdeaProjects\Lab8\src\main\java\com\itmo\commands\SubscribeForNotificationsCommand.java
 C:\Users\svyat\IdeaProjects\Lab8\src\main\java\com\itmo\collection\DragonForTable.java
 C:\Users\svyat\IdeaProjects\Lab8\src\main\java\com\itmo\server\ServerWithThreads.java
+C:\Users\svyat\IdeaProjects\Lab8\src\main\java\com\itmo\utils\Pain.java
 C:\Users\svyat\IdeaProjects\Lab8\src\main\java\com\itmo\commands\SignOutCommand.java
 C:\Users\svyat\IdeaProjects\Lab8\src\main\java\com\itmo\collection\dragon\classes\DragonCharacter.java
+C:\Users\svyat\IdeaProjects\Lab8\src\main\java\com\itmo\commands\GetColorCommand.java
 C:\Users\svyat\IdeaProjects\Lab8\src\main\java\com\itmo\app\controllers\AddController.java
 C:\Users\svyat\IdeaProjects\Lab8\src\main\java\com\itmo\client\MainUI.java
-C:\Users\svyat\IdeaProjects\Lab8\src\main\java\com\itmo\utils\Painter.java
 C:\Users\svyat\IdeaProjects\Lab8\src\main\java\com\itmo\app\controllers\InformationController.java
 C:\Users\svyat\IdeaProjects\Lab8\src\main\java\com\itmo\commands\RemoveLowerThanElementCommand.java
 C:\Users\svyat\IdeaProjects\Lab8\src\main\java\com\itmo\utils\FileUtil.java
@@ -65,7 +66,6 @@ C:\Users\svyat\IdeaProjects\Lab8\src\main\java\com\itmo\server\RequestExecutorTh
 C:\Users\svyat\IdeaProjects\Lab8\src\main\java\com\itmo\commands\ExitCommand.java
 C:\Users\svyat\IdeaProjects\Lab8\src\main\java\com\itmo\commands\LoginCommand.java
 C:\Users\svyat\IdeaProjects\Lab8\src\main\java\com\itmo\exceptions\WrongArgumentsNumberException.java
-C:\Users\svyat\IdeaProjects\Lab8\src\main\java\com\itmo\app\TableHandler.java
 C:\Users\svyat\IdeaProjects\Lab8\src\main\java\com\itmo\database\DatabaseManager.java
 C:\Users\svyat\IdeaProjects\Lab8\src\main\java\com\itmo\utils\ObservableResourceFactory.java
 C:\Users\svyat\IdeaProjects\Lab8\src\main\java\com\itmo\exceptions\NoSuchDragonException.java

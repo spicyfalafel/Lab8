@@ -18,7 +18,7 @@ public class MainUI {
         client.connect();
         UIApp.setClient(client);
         UIApp ui = new UIApp();
-        ui.run();
+        ui.run(args);
     }
 
     public static String[] checkArgs(String[] args){

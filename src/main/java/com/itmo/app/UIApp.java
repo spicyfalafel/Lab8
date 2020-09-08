@@ -53,9 +53,10 @@ public class UIApp extends Application{
     public static Stage authorizationStage;
     public static ResourceBundle resourceBundle;
 
-    public void run(){
+    public void run(String[] args){
         launch();
     }
+
 
     @Override
     public void init()  {
