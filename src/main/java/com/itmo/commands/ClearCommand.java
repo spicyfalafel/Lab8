@@ -26,8 +26,9 @@ public class ClearCommand extends Command {
         Set<Dragon> dragons = application.getCollection().filterOwnDragon(user);
 
         dragons.forEach(d -> {
-            application.db.deleteDragonById(d.getId());
-            application.notificationProducer.sendRemoveNotificationToAll(new RemoveNotification(d.getId()));
+            new RemoveByIdCommand(d.getId()).execute(application, user);
+            /*application.db.deleteDragonById(d.getId());
+            application.notificationProducer.sendRemoveNotificationToAll(new RemoveNotification(d.getId()));*/
         });
         return application.getCollection().clear(user);
     }

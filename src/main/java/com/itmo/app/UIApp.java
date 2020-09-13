@@ -10,21 +10,14 @@ import com.itmo.utils.UIHelper;
 import com.itmo.utils.UTF8Control;
 import com.itmo.utils.WindowsCreator;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-import javafx.stage.WindowEvent;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.Locale;
 import java.util.ResourceBundle;
 

@@ -248,7 +248,6 @@ public class Pain {
         if(removed){
             removeAnimation(dd.get());
         }
-
     }
 
 
